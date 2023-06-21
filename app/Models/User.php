@@ -25,6 +25,8 @@ use Laravel\Sanctum\HasApiTokens;
  * @property string                           $mobile
  * @property Carbon|null                      $birth_date
  * @property Carbon|null                      $banned_at
+ * @property string|null                      $last_login_ip
+ * @property Carbon|null                      $last_login_at
  * @property string                           $label
  * @property string                           $locale
  * @property string|null                      $remember_token
@@ -47,8 +49,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'banned_at'         => 'datetime',
+        'last_login_at'     => 'datetime',
         'birth_date'        => 'date',
-        'password'          => 'hashed',
+//        'password'          => 'hashed',
         'role'              => RolesEnum::class,
     ];
 

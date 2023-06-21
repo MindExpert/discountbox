@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
             'first_name'        => 'Admin',
             'last_name'         => 'User',
             'nickname'          => 'admin_user',
-            'email'             => 'management@example.com',
+            'email'             => 'admin@example.com',
             'mobile'            => '+390 57 123 4567',
             'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'email_verified_at' => now(),

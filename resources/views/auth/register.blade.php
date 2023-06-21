@@ -31,12 +31,25 @@
                                     @csrf
 
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">{{ __('Name') }}</label>
-                                        <input id="name" type="text"
-                                               class="form-control @error('name') is-invalid @enderror"
-                                               name="name"
-                                               value="{{ old('name') }}"
-                                               placeholder="@lang('Enter your name')"
+                                        <label for="nickname" class="form-label">@lang('user.fields.nickname')</label>
+                                        <input id="nickname" type="text"
+                                               class="form-control @error('nickname') is-invalid @enderror"
+                                               name="nickname"
+                                               value="{{ old('nickname') }}"
+                                               placeholder="@lang('user.fields.nickname')"
+                                        />
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>
+                                        <input id="first_name" type="text"
+                                               class="form-control @error('first_name') is-invalid @enderror"
+                                               name="first_name"
+                                               value="{{ old('first_name') }}"
+                                               placeholder="@lang('user.fields.first_name')"
                                         />
                                         @error('name')
                                             <span class="invalid-feedback" role="alert">{{ $message }}</span>
@@ -44,12 +57,51 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                        <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>
+                                        <input id="last_name" type="text"
+                                               class="form-control @error('last_name') is-invalid @enderror"
+                                               name="last_name"
+                                               value="{{ old('last_name') }}"
+                                               placeholder="@lang('user.fields.last_name')"
+                                        />
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>
+                                        <input id="mobile" type="tel"
+                                               class="form-control @error('mobile') is-invalid @enderror"
+                                               name="mobile"
+                                               value="{{ old('mobile') }}"
+                                               placeholder="@lang('user.fields.mobile')"
+                                        />
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
+                                        <input id="birth_date" type="date"
+                                               class="form-control date @error('birth_date') is-invalid @enderror"
+                                               name="birth_date"
+                                               value="{{ old('birth_date') }}"
+                                               placeholder="@lang('user.fields.birth_date')"
+                                        />
+                                        @error('name')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">@lang('user.fields.email')</label>
                                         <input id="email" type="email"
                                                class="form-control @error('email') is-invalid @enderror" name="email"
                                                value="{{ old('email') }}"
                                                autocomplete="email"
-                                               placeholder="@lang('Enter your email address')"
+                                               placeholder="@lang('user.fields.email')"
                                                required
                                                autofocus
                                         />

@@ -81,7 +81,7 @@ class UsersController extends Controller
         return view('management.users.create');
     }
 
-    public function store(UserStoreRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         $this->authorize('create', User::class);
 
@@ -101,7 +101,6 @@ class UsersController extends Controller
             $user->touch();
 
             FlashNotification::success(__('general.success'), __('user.responses.created'));
-
             return ActionJsonResponse::make(true, route('management.users.show', ['user' => $user->id]))->response();
         } catch (Exception $exception) {
             report($exception);

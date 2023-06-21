@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\RolesEnum;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Support\FlashNotification;
 use App\Support\RedirectsUser;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -52,9 +56,14 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nickname'   => ['nullable', 'string', 'max:191', 'unique:users,nickname'],
+            'first_name' => ['required', 'string', 'max:191'],
+            'last_name'  => ['required', 'string', 'max:191'],
+            'birth_date' => ['nullable', 'date'],
+            'mobile'     => ['nullable', 'string', 'max:191'],
+            'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password'   => ['required', 'string', 'min:8', 'confirmed'],
+            'country_id' => ['nullable', 'numeric'],
         ]);
     }
 
@@ -67,9 +76,37 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'nickname'    => $data['nickname'],
+            'first_name'  => $data['first_name'],
+            'last_name'   => $data['last_name'],
+            'birth_date'  => $data['birth_date'],
+            'mobile'      => $data['mobile'],
+            'email'       => $data['email'],
+            'password'    => Hash::make($data['password']),
+            //'country_id'  => $data['country_id'],
+            'role'        => RolesEnum::USER,
         ]);
+    }
+
+    protected function registered(Request $request, $user)
+    {
+        $hour = Carbon::now()->format('H');
+
+        if ($hour < 12) {
+            FlashNotification::info(__('auth.welcome'), __('auth.good_morning', ['name' => auth()->user()->name]));
+        } elseif ($hour < 18) {
+            FlashNotification::info(__('auth.welcome'), __('auth.good_afternoon', ['name' => auth()->user()->name]));
+        } else {
+            FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->name]));
+        }
+
+        // Log the user in after registration
+        auth()->login($user);
+
+        if ($user->role === RolesEnum::ADMIN) {
+            return redirect()->route('management.dashboard');
+        }
+
+        return redirect()->route('homepage');
     }
 }
