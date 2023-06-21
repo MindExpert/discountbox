@@ -14,13 +14,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('full_name')->nullable();
+            $table->string('nickname')->nullable()->unique();
             $table->enum('role', RolesEnum::values())->default(RolesEnum::default()->value);
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('mobile')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->timestamp('banned_at')->nullable();
+            $table->string('locale')->default(config('app.locale'));
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -1,1 +1,30 @@
-var swiper=new Swiper(".timelineSlider",{slidesPerView:1,spaceBetween:0,navigation:{nextEl:".swiper-button-next",prevEl:".swiper-button-prev"},autoplay:{delay:2500,disableOnInteraction:!1},breakpoints:{640:{slidesPerView:2,spaceBetween:20},768:{slidesPerView:3,spaceBetween:40},1024:{slidesPerView:4,spaceBetween:50},1200:{slidesPerView:5,spaceBetween:50}}});
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!*********************************************!*\
+  !*** ./resources/js/pages/timeline.init.js ***!
+  \*********************************************/
+/*
+Template Name: Skote - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: Timeline Init Js File
+*/
+$('#timeline-carousel').owlCarousel({
+  items: 1,
+  loop: false,
+  margin: 0,
+  nav: true,
+  navText: ["<i class='mdi mdi-chevron-left'></i>", "<i class='mdi mdi-chevron-right'></i>"],
+  dots: false,
+  responsive: {
+    576: {
+      items: 2
+    },
+    768: {
+      items: 4
+    }
+  }
+});
+/******/ })()
+;

@@ -1,1 +1,21 @@
-document.addEventListener("DOMContentLoaded",function(){var e=new Date("Jan 1, 2023").getTime(),d=setInterval(function(){var t=(new Date).getTime(),t=e-t,n='<div class="countdownlist-item"><div class="count-title">Days</div><div class="count-num">'+Math.floor(t/864e5)+'</div></div><div class="countdownlist-item"><div class="count-title">Hours</div><div class="count-num">'+Math.floor(t%864e5/36e5)+'</div></div><div class="countdownlist-item"><div class="count-title">Minutes</div><div class="count-num">'+Math.floor(t%36e5/6e4)+'</div></div><div class="countdownlist-item"><div class="count-title">Seconds</div><div class="count-num">'+Math.floor(t%6e4/1e3)+"</div></div>";document.getElementById("countdown")&&(document.getElementById("countdown").innerHTML=n),t<0&&(clearInterval(d),document.getElementById("countdown").innerHTML='<div class="countdown-endtxt">The countdown has ended!</div>')},1e3)});
+/******/ (function() { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!************************************************!*\
+  !*** ./resources/js/pages/coming-soon.init.js ***!
+  \************************************************/
+/*
+Template Name: Skote - Admin & Dashboard Template
+Author: Themesbrand
+Website: https://themesbrand.com/
+Contact: themesbrand@gmail.com
+File: coming soon Init Js File
+*/
+$('[data-countdown]').each(function () {
+  var $this = $(this),
+      finalDate = $(this).data('countdown');
+  $this.countdown(finalDate, function (event) {
+    $(this).html(event.strftime('' + '<div class="coming-box">%D <span>Days</span></div> ' + '<div class="coming-box">%H <span>Hours</span></div> ' + '<div class="coming-box">%M <span>Minutes</span></div> ' + '<div class="coming-box">%S <span>Seconds</span></div> '));
+  });
+});
+/******/ })()
+;

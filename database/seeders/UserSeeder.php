@@ -17,8 +17,11 @@ class UserSeeder extends Seeder
         // 1
         User::query()->create([
             'role'              => RolesEnum::ADMIN->value,
-            'name'              => 'Admin User',
-            'email'             => 'admin@example.com',
+            'first_name'        => 'Admin',
+            'last_name'         => 'User',
+            'nickname'          => 'admin_user',
+            'email'             => 'management@example.com',
+            'mobile'            => '+390 57 123 4567',
             'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'email_verified_at' => now(),
         ]);
@@ -26,8 +29,11 @@ class UserSeeder extends Seeder
         // 2
         User::query()->create([
             'role'              => RolesEnum::USER->value,
-            'name'              => 'User Operator',
+            'first_name'        => 'User',
+            'last_name'         => 'Operator',
+            'nickname'          => 'user_operator',
             'email'             => 'user@example.com',
+            'mobile' => '+380 66 123 4567',
             'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'email_verified_at' => now(),
         ]);
