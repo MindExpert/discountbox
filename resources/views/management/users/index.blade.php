@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header border-info border-3 d-inline-flex flex-column flex-md-row align-items-center justify-content-between">
                     <h4 class="card-title">@lang('user.plural')</h4>
-                    <div class="btn-group" role="group" aria-label="">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="">
                         <a href="javascript:void(0);" id="datatable-reset-filter" class="btn btn-outline-warning tippy-btn mr-1" title="@lang('general.actions.clear_filter')">
                             <i class="fa fa-broom"></i> @lang('general.actions.clear_filter')
                         </a>

@@ -74,10 +74,11 @@
     <script src="{{ asset('assets/libs/tippy/tippy.all.min.js') }}"></script>
     <!-- Flatpickr JS -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    @yield('scripts')
     <!-- App js -->
     <script src="{{ asset('assets/js/app.min.js')}}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
+    @yield('scripts')
+
     @yield('after-scripts')
 
     @stack('partial-scripts')

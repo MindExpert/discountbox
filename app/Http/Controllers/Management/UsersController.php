@@ -81,7 +81,7 @@ class UsersController extends Controller
         return view('management.users.create');
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(UserStoreRequest $request): JsonResponse
     {
         $this->authorize('create', User::class);
 
@@ -91,10 +91,12 @@ class UsersController extends Controller
                 'role'            => $request->input('role'),
                 'first_name'      => $request->input('first_name'),
                 'last_name'       => $request->input('last_name'),
+                'nickname'        => $request->input('nickname'),
                 'email'           => $request->input('email'),
                 'password'        => Hash::make($request->input('password')),
                 'mobile'          => $request->input('mobile'),
                 'locale'          => $request->input('locale'),
+                'birth_date'      => $request->input('birth_date'),
             ]);
 
 
@@ -130,12 +132,14 @@ class UsersController extends Controller
 
         try {
             $user->update([
-                'role'       => $request->input('role'),
-                'first_name' => $request->input('first_name'),
-                'last_name'  => $request->input('last_name'),
-                'email'      => $request->input('email'),
-                'mobile'     => $request->input('mobile'),
-                'locale'     => $request->input('locale'),
+                'role'            => $request->input('role'),
+                'first_name'      => $request->input('first_name'),
+                'last_name'       => $request->input('last_name'),
+                'nickname'        => $request->input('nickname'),
+                'email'           => $request->input('email'),
+                'mobile'          => $request->input('mobile'),
+                'locale'          => $request->input('locale'),
+                'birth_date'      => $request->input('birth_date'),
             ]);
 
             if ($request->filled('password')) {
@@ -147,15 +151,14 @@ class UsersController extends Controller
             $user->touch();
 
             FlashNotification::success(__('general.success'), __('user.responses.updated'));
-
             return ActionJsonResponse::make(true, route('management.users.show', ['user' => $user->id]))->response();
         } catch (Exception $exception) {
             report($exception);
 
             FlashNotification::error(__('general.error'), __('user.responses.not_updated'));
+            return ActionJsonResponse::make(false, route('management.users.index'))->response();
         }
 
-        return ActionJsonResponse::make(false, route('management.users.index'))->response();
     }
 
     public function destroy(User $user): RedirectResponse

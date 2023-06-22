@@ -18,8 +18,8 @@
                 <form class="ajax-form" method="POST" action="{{ route('management.users.store') }}">
                     @csrf
                     <div class="card-body">
-                        <!-- FIRST_NAME & LAST_NAME -->
                         <div class="row">
+                            <!-- FIRST_NAME -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>
@@ -28,6 +28,7 @@
                                 </div>
                             </div>
 
+                            <!-- LAST_NAME -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>
@@ -35,10 +36,17 @@
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- EMAIL & MOBILE -->
-                        <div class="row">
+                            <!-- NICKNAME -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="nickname" class="form-label">@lang('user.fields.nickname')</label>
+                                    <input type="text" class="form-control" name="nickname" id="nickname" placeholder="@lang('user.fields.nickname')">
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
+                            <!-- EMAIL -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="email" class="form-label">@lang('user.fields.email')</label>
@@ -46,6 +54,8 @@
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
+
+                            <!-- MOBILE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>
@@ -53,16 +63,14 @@
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- ROLE & COMPANIES -->
-                        <div class="row">
+                            <!-- ROLE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="role_id">@lang('user.fields.role')</label>
-                                    <select class="form-control select2" name="role_id" id="role_id"
+                                    <label for="role" class="form-label">@lang('user.fields.role')</label>
+                                    <select class="form-control select2" name="role" id="role"
                                             data-allow-clear="true"
-                                            data-placeholder="@lang('user.fields.select_role')">
+                                            data-placeholder="@lang('user.fields.select_role')" style="width: 100%">
                                         <option value="">@lang('user.fields.select_role')</option>
                                         @foreach(\App\Enums\RolesEnum::cases() as $type)
                                             <option value="{{ $type->value }}">{{ $type->label() }}</option>
@@ -71,13 +79,15 @@
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
+
+                            <!-- LOCALE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="locale">@lang('user.fields.locale')</label>
+                                    <label for="locale" class="form-label">@lang('user.fields.locale')</label>
                                     <select name="locale" id="locale"
                                             class="form-control select2"
                                             data-allow-clear="true"
-                                            data-placeholder="@lang('user.fields.select_locale')">
+                                            data-placeholder="@lang('user.fields.select_locale')" style="width: 100%">
                                         <option value="">@lang('user.fields.locale')</option>
                                         @foreach(config('app.locales') as $locale)
                                             <option value="{{ $locale }}">
@@ -88,6 +98,7 @@
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="border-bottom border-2 border-light m-2"></div>
 

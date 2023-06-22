@@ -5,7 +5,6 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
-    let $body       = $("body");
     let $float_nr   = $(".float-nr");
     let $integer_nr = $(".integer-nr");
     let $select2    = $(".select2");
@@ -72,12 +71,13 @@ $(document).ready(function () {
 
     $ajax_form.attr('novalidate', 'novalidate');
 
-    $body.on('submit', 'form.ajax-form', function (event) {
+    $('body').on('submit', 'form.ajax-form', function (event) {
         event.preventDefault();
+
         formAjax($(this));
     });
 
-    $body.on('click', '.action-button', function (event) {
+    $('body').on('click', '.action-button', function (event) {
         event.preventDefault();
 
         let $this = $(this),
