@@ -95,7 +95,7 @@ class UsersController extends Controller
                 'email'           => $request->input('email'),
                 'password'        => Hash::make($request->input('password')),
                 'mobile'          => $request->input('mobile'),
-                'locale'          => $request->input('locale'),
+                //'locale'          => $request->input('locale'),
                 'birth_date'      => $request->input('birth_date'),
             ]);
 
@@ -138,7 +138,7 @@ class UsersController extends Controller
                 'nickname'        => $request->input('nickname'),
                 'email'           => $request->input('email'),
                 'mobile'          => $request->input('mobile'),
-                'locale'          => $request->input('locale'),
+                //'locale'          => $request->input('locale'),
                 'birth_date'      => $request->input('birth_date'),
             ]);
 

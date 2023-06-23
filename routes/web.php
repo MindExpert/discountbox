@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Auth::routes();
+
+/** INVOKABLE Controller*/
+Route::put('/languages/update', LanguageController::class)->name('languages.update');
 
 Route::get('/', function () {
     return view('welcome');

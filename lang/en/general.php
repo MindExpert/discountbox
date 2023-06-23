@@ -130,7 +130,7 @@ return [
         'en'     => 'English',
         'sq'     => 'Albanian',
         'it'     => 'Italian',
-        'inputs' => [
+        'short' => [
             'en' => '(EN)',
             'sq' => '(AL)',
             'it' => '(IT)',

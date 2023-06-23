@@ -11,7 +11,7 @@ class UserStoreRequest extends FormRequest
 {
     public function rules(): array
     {
-        $locales = implode(',', config('app.locales'));
+        //$locales = implode(',', config('app.locales'));
 
         return [
             'role'            => ['required', new Enum(RolesEnum::class)],
@@ -21,7 +21,7 @@ class UserStoreRequest extends FormRequest
             'email'           => ['required', 'email', 'max:255', Rule::unique('users', 'email')->whereNull('deleted_at')],
             'password'        => ['required', 'confirmed', 'min:8'],
             'mobile'          => ['nullable', 'max:25'],
-            'locale'          => ['nullable', 'string', "in:{$locales}"],
+            //'locale'          => ['nullable', 'string', "in:{$locales}"],
             'birth_date'      => ['nullable', 'date'],
         ];
     }
@@ -36,7 +36,7 @@ class UserStoreRequest extends FormRequest
             'email'          => __('user.fields.email'),
             'password'       => __('user.fields.password'),
             'mobile'         => __('user.fields.mobile'),
-            'locale'         => __('user.fields.locale'),
+            //'locale'         => __('user.fields.locale'),
             'birth_date'     => __('user.fields.birth_date'),
         ];
     }

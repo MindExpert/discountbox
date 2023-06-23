@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamp('banned_at')->nullable();
             $table->ipAddress('last_login_ip')->nullable();
             $table->timestamp('last_login_at')->nullable();
-            $table->string('locale')->default(config('app.locale'));
+            $table->string('locale')->nullable()->default(config('app.locale'));
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -29,25 +29,30 @@
 
         <div class="d-flex">
             <div class="dropdown d-inline-block">
+                @php($sessionLocale = session()->get('locale'))
                 <button type="button" class="btn header-item waves-effect"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @switch(Session::get('lang'))
+                    @switch($sessionLocale)
                         @case('it')
-                            <img src="{{ URL::asset('/assets/images/flags/italy.jpg')}}" alt="Header Language" height="16">
+                            <img src="{{ asset('/assets/images/flags/it.jpg')}}" alt="Header Language" height="16">
                             @break
                         @default
-                            <img src="{{ URL::asset('/assets/images/flags/us.jpg')}}" alt="Header Language" height="16">
+                            <img src="{{ asset('/assets/images/flags/en.jpg')}}" alt="Header Language" height="16">
                     @endswitch
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
+                    @foreach(config('app.locales') as $locale)
+                        <form class="inline" action="{{ route('languages.update') }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <input type="hidden" name="locale" value="{{ $locale }}">
+                            <!-- item-->
+                            <button type="submit" class="dropdown-item notify-item language" data-lang="eng">
+                                <img src="{{ asset ("/assets/images/flags/$locale.jpg") }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">@lang("general.locales.{$locale}")</span>
+                            </button>
+                        </form>
+                    @endforeach
                     <!-- item-->
-                    <a href="{{ url('index/en') }}" class="dropdown-item notify-item language" data-lang="eng">
-                        <img src="{{ asset ('/assets/images/flags/us.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">English</span>
-                    </a>
-                    <!-- item-->
-                    <a href="{{ url('index/it') }}" class="dropdown-item notify-item language" data-lang="it">
-                        <img src="{{ asset ('/assets/images/flags/italy.jpg') }}" alt="user-image" class="me-1" height="12"> <span class="align-middle">Italian</span>
-                    </a>
                 </div>
             </div>
 

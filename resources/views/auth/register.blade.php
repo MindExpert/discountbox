@@ -29,7 +29,7 @@
                             <div class="mt-0">
                                 <form method="POST" action="{{ route('register') }}">
                                     @csrf
-
+                                    <!-- NICKNAME -->
                                     <div class="mb-3">
                                         <label for="nickname" class="form-label">@lang('user.fields.nickname')</label>
                                         <input id="nickname" type="text"
@@ -43,6 +43,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- FIRST_NAME -->
                                     <div class="mb-3">
                                         <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>
                                         <input id="first_name" type="text"
@@ -56,6 +57,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- LAST_NAME -->
                                     <div class="mb-3">
                                         <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>
                                         <input id="last_name" type="text"
@@ -69,6 +71,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- MOBILE -->
                                     <div class="mb-3">
                                         <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>
                                         <input id="mobile" type="tel"
@@ -82,6 +85,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- BIRTH_DATE -->
                                     <div class="mb-3">
                                         <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
                                         <input id="birth_date" type="date"
@@ -95,6 +99,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- EMAIL -->
                                     <div class="mb-3">
                                         <label for="email" class="form-label">@lang('user.fields.email')</label>
                                         <input id="email" type="email"
@@ -110,6 +115,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- PASSWORD -->
                                     <div class="mb-3">
                                         <label class="form-label" for="password">{{ __('Password') }}</label>
                                         <input id="password"
@@ -125,6 +131,7 @@
                                         @enderror
                                     </div>
 
+                                    <!-- PASSWORD CONFIRM -->
                                     <div class="mb-3">
                                         <label class="form-label" for="password-confirm">{{ __('Confirm Password') }}</label>
                                         <input id="password-confirm"

@@ -22,7 +22,7 @@ class UserUpdateRequest extends FormRequest
             'email'           => ['required', 'email', 'max:255', Rule::unique('users', 'email')->whereNull('deleted_at')->ignore($this->user->id)],
             'password'        => ['nullable', 'confirmed', 'min:8'],
             'mobile'          => ['nullable', 'max:25'],
-            'locale'          => ['required', 'string', "in:{$locales}"],
+            //'locale'          => ['required', 'string', "in:{$locales}"],
             'birth_date'      => ['nullable', 'date'],
         ];
     }
@@ -37,7 +37,7 @@ class UserUpdateRequest extends FormRequest
             'email'          => __('user.fields.email'),
             'password'       => __('user.fields.password'),
             'mobile'         => __('user.fields.mobile'),
-            'locale'         => __('user.fields.locale'),
+            //'locale'         => __('user.fields.locale'),
             'birth_date'     => __('user.fields.birth_date'),
         ];
     }

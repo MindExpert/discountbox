@@ -80,23 +80,23 @@
                                 </div>
                             </div>
 
-                            <!-- LOCALE -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-3">
-                                    <label for="locale" class="form-label">@lang('user.fields.locale')</label>
-                                    <select name="locale" id="locale"
-                                            class="form-control select2"
-                                            data-allow-clear="true"
-                                            data-placeholder="@lang('user.fields.select_locale')" style="width: 100%">
-                                        <option value="">@lang('user.fields.locale')</option>
-                                        @foreach(config('app.locales') as $locale)
-                                            <option value="{{ $locale }}">
-                                                @lang("general.locales.{$locale}")
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            {{--<!-- LOCALE -->--}}
+                            {{--<div class="col-md-6">--}}
+                            {{--    <div class="form-group mb-3">--}}
+                            {{--        <label for="locale" class="form-label">@lang('user.fields.locale')</label>--}}
+                            {{--        <select name="locale" id="locale"--}}
+                            {{--                class="form-control select2"--}}
+                            {{--                data-allow-clear="true"--}}
+                            {{--                data-placeholder="@lang('user.fields.select_locale')" style="width: 100%">--}}
+                            {{--            <option value="">@lang('user.fields.locale')</option>--}}
+                            {{--            @foreach(config('app.locales') as $locale)--}}
+                            {{--                <option value="{{ $locale }}">--}}
+                            {{--                    @lang("general.locales.{$locale}")--}}
+                            {{--                </option>--}}
+                            {{--            @endforeach--}}
+                            {{--        </select>--}}
+                            {{--    </div>--}}
+                            {{--</div>--}}
                         </div>
 
 

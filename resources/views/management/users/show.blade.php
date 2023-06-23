@@ -66,10 +66,10 @@
                                     <th class="label">@lang('user.fields.email')</th>
                                     <td class="value"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                                 </tr>
-                                <tr>
-                                    <th class="label">@lang('user.fields.locale')</th>
-                                    <td class="value">@lang("general.locales.{$user->locale}")</td>
-                                </tr>
+                                {{--<tr>--}}
+                                {{--    <th class="label">@lang('user.fields.locale')</th>--}}
+                                {{--    <td class="value">@lang("general.locales.{$user->locale}")</td>--}}
+                                {{--</tr>--}}
                                 <tr>
                                     <th class="label">@lang('user.fields.created_at')</th>
                                     <td class="value">{{ $user->created_at?->format('d/m/Y H:i:s') }}</td>
