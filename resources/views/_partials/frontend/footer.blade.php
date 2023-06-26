@@ -1,106 +1,83 @@
+<!-- ======= Footer ======= -->
+<footer id="footer">
 
-<footer class="custom-footer bg-dark py-5 position-relative">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-4 mt-4">
-                <div>
-                    <div>
-                        <img src="{{ asset('assets/images/logo_asta_light.png') }}" alt="logo light" height="17">
-                    </div>
-                    <div class="mt-4 fs-13">
-                        <p>Scontabox lorem ipsum dolor</p>
-                        <p class="ff-secondary">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-7 ms-lg-auto">
-                <div class="row">
-                    <div class="col-sm-4 mt-4">
-                        <h5 class="text-white mb-0">Company</h5>
-                        <div class="text-muted mt-3">
-                            <ul class="list-unstyled ff-secondary footer-list fs-14">
-                                <li><a href="pages-profile.html">About Us</a></li>
-                                <li><a href="pages-gallery.html">Gallery</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <h5 class="text-white mb-0">Apps Pages</h5>
-                        <div class="text-muted mt-3">
-                            <ul class="list-unstyled ff-secondary footer-list fs-14">
-                                <li><a href="pages-pricing.html">Calendar</a></li>
-                                <li><a href="apps-crm-deals.html">Deals</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 mt-4">
-                        <h5 class="text-white mb-0">Support</h5>
-                        <div class="text-muted mt-3">
-                            <ul class="list-unstyled ff-secondary footer-list fs-14">
-                                <li><a href="pages-faqs.html">FAQ</a></li>
-                                <li><a href="pages-faqs.html">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="row text-center text-sm-start align-items-center mt-5">
-            <div class="col-sm-6">
-                <div>
-                    <p class="copy-rights mb-0">
-                        <script> document.write(new Date().getFullYear()) </script> © {{ config('app.name') }}
-                    </p>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="text-sm-end mt-3 mt-sm-0">
-                    <ul class="list-inline mb-0 footer-social-link">
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="avatar-xs d-block">
-                                <div class="avatar-title rounded-circle">
-                                    <i class="ri-facebook-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="avatar-xs d-block">
-                                <div class="avatar-title rounded-circle">
-                                    <i class="ri-github-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="avatar-xs d-block">
-                                <div class="avatar-title rounded-circle">
-                                    <i class="ri-linkedin-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="avatar-xs d-block">
-                                <div class="avatar-title rounded-circle">
-                                    <i class="ri-google-fill"></i>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="javascript: void(0);" class="avatar-xs d-block">
-                                <div class="avatar-title rounded-circle">
-                                    <i class="ri-dribbble-line"></i>
-                                </div>
-                            </a>
-                        </li>
-                    </ul>
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <h4>Join Our Newsletter</h4>
+                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit" value="Subscribe">
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-</footer>
-<!-- end footer -->
+
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h3>Appland</h3>
+                    <p>
+                        A108 Adam Street <br>
+                        New York, NY 535022<br>
+                        United States <br><br>
+                        <strong>Phone:</strong> +1 5589 55488 55<br>
+                        <strong>Email:</strong> info@example.com<br>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Useful Links</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Services</h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Our Social Networks</h4>
+                    <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
+                    <div class="social-links mt-3">
+                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-4">
+        <div class="copyright">
+            &copy; Copyright <strong><span>Appland</span></strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!-- All the links in the footer should remain intact. -->
+            <!-- You can delete the links only if you purchased the pro version. -->
+            <!-- Licensing information: https://bootstrapmade.com/license/ -->
+            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/ -->
+            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        </div>
+    </div>
+</footer><!-- End Footer -->

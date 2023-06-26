@@ -1,59 +1,46 @@
 @extends('_layouts.guest')
 
 @section('content')
-    <!-- HERO START -->
-    <section class="section hero-section bg-light pb-0" id="hero">
-        <div class="bg-overlay bg-overlay-pattern"></div>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
         <div class="container">
-            <div class="row justify-content-between align-items-center">
-                <div class="col-lg-5">
+            <div class="row">
+                <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1" data-aos="fade-up">
                     <div>
-                        <h1 class="display-6 fw-semibold text-capitalize mb-3 lh-base">ScontaTU</h1>
-                        <p class="lead text-muted lh-base mb-4">
-                            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </p>
+                        <h1>App landing page template</h1>
+                        <h2>Lorem ipsum dolor sit amet, tota senserit percipitur ius ut, usu et fastidii forensibus voluptatibus. His ei nihil feugait</h2>
+                        <a href="#" class="download-btn"><i class="bx bxl-play-store"></i> Google Play</a>
+                        <a href="#" class="download-btn"><i class="bx bxl-apple"></i> App Store</a>
                     </div>
                 </div>
-                <!--end col-->
-                <div class="col-lg-6">
-                    <div class="position-relative home-img text-center mt-5 mt-lg-0">
-                        <img src="{{ asset('assets/images/hero-section-img.png') }}" alt="" class="img-fluid">
-                    </div>
+                <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img" data-aos="fade-up">
+                    <img src="{{ asset('frontend/assets/img/hero-img.png') }}" class="img-fluid" alt="">
                 </div>
             </div>
-            <!-- end row -->
         </div>
-        <!-- end container -->
-    </section>
+    </section><!-- End Hero -->
 
-    <!-- SUBSCRIBE -->
-    <section class="py-5 position-relative">
-        <div class="bg-overlay bg-overlay-pattern opacity-50"></div>
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
         <div class="container">
-            <div class="row align-items-center">
-                <!-- end col -->
-                <div class="col-10 offset-1">
-                    <!-- Start footer -->
-                    <div class="d-flex flex-column align-items-center pt-5">
-                        <div class="pb-3">
-                            <img src="{{ asset('assets/images/logo_asta_dark.png') }}" alt="logo light" height="20">
-                        </div>
 
-                        <p class="fw-bold">Subscribe to our newsletter.</p>
-
-                        <div class="input-group mb-3" style="max-width: 560px">
-                            <input type="text" class="form-control"
-                                   placeholder="Recipient's username"
-                                   aria-label="Recipient's username"
-                                   aria-describedby="button-addon2">
-                            <button class="btn btn-success waves-effect" type="button">Subscribe</button>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col -->
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Inner Page</h2>
+                <ol>
+                    <li><a href="index.html">Home</a></li>
+                    <li>Inner Page</li>
+                </ol>
             </div>
-            <!-- end row -->
+
         </div>
-        <!-- end container -->
+    </section><!-- End Breadcrumbs Section -->
+
+    <section class="inner-page">
+        <div class="container">
+            <p>
+                Example inner page template
+            </p>
+        </div>
     </section>
 @endsection

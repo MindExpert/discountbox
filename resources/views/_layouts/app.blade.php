@@ -27,8 +27,10 @@
     <!-- Toast Css -->
     <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- custom Css-->
-    <link href="{{ asset('assets/css/custom.css') }}" id="app-style" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="{{ asset('assets/css/media-library-pro.css') }}" rel="stylesheet" type="text/css" />
+    <livewire:styles />
+    <link href="{{ asset('assets/css/custom.css') }}" id="app-style" rel="stylesheet" type="text/css"/>
     @yield('after-styles')
     <!-- Used to push from partial elements -->
     @stack('partial-styles')
@@ -76,7 +78,11 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- App js -->
     <script src="{{ asset('assets/js/app.min.js')}}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-main.js') }}"></script>
+
+    <livewire:scripts />
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
     @yield('scripts')
 
     @yield('after-scripts')

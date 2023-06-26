@@ -1,41 +1,58 @@
-<nav class="navbar navbar-expand-lg navbar-landing fixed-top is-sticky">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="{{ asset('assets/images/logo_asta_dark.png') }}" class="card-logo card-logo-dark" alt="logo dark" height="17">
-            <img src="{{ asset('assets/images/logo_asta_light.png') }}" class="card-logo card-logo-light" alt="logo light" height="17">
-        </a>
-        <button class="navbar-toggler py-0 fs-20 text-body" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="mdi mdi-menu"></i>
-        </button>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-between">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto mt-2 mt-lg-0" id="navbar-example">
-                <li class="nav-item">
-                    <a class="nav-link fs-14 active" href="#hero">Home</a>
+        <div class="logo">
+            <h1><a href="{{ url('/') }}">Appland</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+        </div>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="#features">App Features</a></li>
+                <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
+                <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
+                <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
+                <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="#">Drop Down 1</a></li>
+                        <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                            <ul>
+                                <li><a href="#">Deep Drop Down 1</a></li>
+                                <li><a href="#">Deep Drop Down 2</a></li>
+                                <li><a href="#">Deep Drop Down 3</a></li>
+                                <li><a href="#">Deep Drop Down 4</a></li>
+                                <li><a href="#">Deep Drop Down 5</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Drop Down 2</a></li>
+                        <li><a href="#">Drop Down 3</a></li>
+                        <li><a href="#">Drop Down 4</a></li>
+                    </ul>
                 </li>
-            </ul>
-
-            @if (Route::has('login'))
-                <div class="">
+                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                @if (Route::has('login'))
                     @auth
-                        <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">
-                            <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
-                            <span class="align-middle">Logout</span>
-                        </a>
+                        <li>
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">Logout</a>
+                        </li>
                         @if(auth()->user()->role === \App\Enums\RolesEnum::ADMIN)
-                            <a href="{{ route('management.dashboard') }}" class="btn btn-link fw-medium text-decoration-none text-dark">Dashboard</a>
+                            <li><a href="{{ route('management.dashboard') }}" class="nav-link">Dashboard</a></li>
                         @else
-                            <a href="{{ url('/dashboard') }}" class="btn btn-link fw-medium text-decoration-none text-dark">Dashboard</a>
+                            <li><a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a></li>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-light">Log in</a>
+                        <li><a href="{{ route('login') }}" class="signup">Log in</a></li>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-primary">Register</a>
+                            <li><a href="{{ route('register') }}" class="getstarted">Register</a></li>
                         @endif
                     @endauth
-                </div>
             @endif
-        </div>
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
     </div>
-</nav>
-<!-- end navbar -->
+</header><!-- End Header -->

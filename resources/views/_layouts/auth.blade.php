@@ -51,7 +51,7 @@
     @yield('scripts')
     <!-- App js -->
     <script src="{{ asset('assets/js/app.min.js')}}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
+    <script src="{{ asset('assets/js/ajax-main.js') }}"></script>
     @yield('after-scripts')
 
     @stack('partial-scripts')
