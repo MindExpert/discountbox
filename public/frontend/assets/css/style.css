@@ -78,12 +78,23 @@ h6 {
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
+/*#main {*/
+/*    margin-top: 73px;*/
+/*}*/
+
+/*@media screen and (max-width: 992px) {*/
+/*    #main {*/
+/*        margin-top: 58px;*/
+/*    }*/
+/*}*/
+
 #header {
   transition: all 0.5s;
   z-index: 997;
-  transition: all 0.5s;
   padding: 15px 0;
   background: rgba(255, 255, 255, 0.95);
+  /*ADDED BY ME*/
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
 #header.header-transparent {
@@ -157,10 +168,17 @@ h6 {
 }
 
 .navbar a:hover,
-.navbar .active,
-.navbar .active:focus,
 .navbar li:hover>a {
-  color: #5777ba;
+    /*font-size: 14px;*/
+    /*font-weight: bold;*/
+    color: #00BDD6FF;
+}
+
+
+.navbar .active,
+.navbar .active:focus{
+    font-weight: bold;
+    color: #00BDD6FF;
 }
 
 .navbar .getstarted,
@@ -168,7 +186,7 @@ h6 {
   background: #5777ba;
   color: #fff;
   padding: 8px 14px;
-  margin-left: 30px;
+  margin-left: 15px;
   line-height: 1;
   border-radius: 50px;
 }
@@ -184,7 +202,7 @@ h6 {
     background: #00bcd4;
     color: #fdfdfd;
     padding: 8px 14px;
-    margin-left: 5px;
+    margin-left: 15px;
     line-height: 1;
     border-radius: 50px;
 }
@@ -192,6 +210,10 @@ h6 {
 .navbar .signup:focus:hover {
     background: #748ec6;
     color: #fff;
+}
+
+.navbar-mobile .signup, .navbar-mobile .signup:focus {
+    margin: 15px;
 }
 
 .navbar .dropdown ul {
@@ -375,6 +397,7 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
+  /*height: calc(100vh - 73px);*/
   position: relative;
   overflow: hidden;
   padding: 140px 0 100px 0;
@@ -407,18 +430,76 @@ h6 {
   font-size: 20px;
 }
 
-#hero .download-btn {
-  font-family: "Raleway", sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  display: inline-block;
-  padding: 8px 24px 10px 46px;
-  border-radius: 3px;
-  transition: 0.5s;
-  color: #fff;
-  background: #47536e;
-  position: relative;
+.download-btn {
+    font-family: "Raleway", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    display: inline-block;
+    padding: 8px 24px 8px 24px;
+    border-radius: 4px;
+    transition: 0.5s;
+    color: #FFFFFFFF;
+    background: #00BDD6FF;
+    position: relative;
+    line-height: 28px;
+    opacity: 1;
+    border: none;
+    box-shadow: 0 4px 9px #00bdd6, 0 0 2px #00bdd6;
 }
+
+/* Hover */
+.download-btn:hover {
+    color: #FFFFFFFF;
+    background: #00A9C0FF;
+}
+/* Pressed */
+.download-btn:hover:active {
+    color: #FFFFFFFF;
+    background: #0095A9FF;
+}
+/* Disabled */
+.download-btn:disabled {
+    opacity: 0.4;
+}
+/* Button 1410 */
+.hero-button {
+  width: 192px;
+  height: 52px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 28px;
+  color: #FFFFFFFF;
+  background: #00BDD6FF;
+  opacity: 1;
+  border: none;
+  border-radius: 4px;
+  box-shadow: 0px 4px 9px #00bdd6, 0px 0px 2px #00bdd6;
+}
+/* Hover */
+.hero-button:hover {
+    color: #FFFFFFFF;
+    background: #00A9C0FF;
+}
+/* Pressed */
+.hero-button:hover:active {
+    color: #FFFFFFFF;
+    background: #0095A9FF;
+}
+/* Disabled */
+.hero-button:disabled {
+    opacity: 0.4;
+}
+
+/* Text 9334 */
+.hero-header {
+    font-size: 48px;
+    line-height: 68px;
+    color: #00BDD6FF;
+}
+
 
 #hero .download-btn:hover {
   background: #5777ba;
