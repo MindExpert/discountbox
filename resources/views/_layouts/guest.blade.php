@@ -26,9 +26,9 @@
 
 @include('_partials.frontend.navigation')
 
+@includeWhen((isset($hasHero) && $hasHero == true), '_partials.frontend.hero-section')
 <!-- Begin page -->
 <main id="main">
-    @includeWhen((isset($hasHero) && $hasHero == true), '_partials.frontend.hero-section')
 
     @yield('content')
 </main>
