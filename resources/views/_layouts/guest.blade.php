@@ -18,6 +18,7 @@
     <link href="{{ asset('frontend/assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('frontend/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <!-- Template Main CSS File -->
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
@@ -29,10 +30,11 @@
 @includeWhen((isset($hasHero) && $hasHero == true), '_partials.frontend.hero-section')
 <!-- Begin page -->
 <main id="main">
+    @includeWhen((isset($hasBreadcrumb) && $hasBreadcrumb == true), '_partials.frontend.breadcrumb')
 
     @yield('content')
 </main>
-
+@include('_partials.frontend.preloader')
 @include('_partials.frontend.footer')
 
 @include('_partials.frontend.back-to-top')
@@ -47,8 +49,9 @@
 <script src="{{ asset('frontend/assets/vendor/aos/aos.js') }}"></script>
 <script src="{{ asset('frontend/assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/vendor/glightbox/js/glightbox.min.js') }}"></script>
+<script src="{{ asset('frontend/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
 <script src="{{ asset('frontend/assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
-<script src="{{ asset('frontend/assets/vendor/php-email-form/validate.js') }}"></script>
+<script src="{{ asset('frontend/assets/vendor/waypoints/noframework.waypoints.js') }}"></script>
 <!-- Select2 JS-->
 <script src="{{asset('assets/libs/select2/select2.min.js')}}"></script>
 <!-- Toast JS -->

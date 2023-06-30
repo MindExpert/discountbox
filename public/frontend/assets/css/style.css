@@ -34,6 +34,44 @@ h6 {
 }
 
 /*--------------------------------------------------------------
+# Preloader
+--------------------------------------------------------------*/
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: #37517e;
+}
+
+#preloader:before {
+    content: "";
+    position: fixed;
+    top: calc(50% - 30px);
+    left: calc(50% - 30px);
+    border: 6px solid #37517e;
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: animate-preloader 1s linear infinite;
+}
+
+@keyframes animate-preloader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
 .back-to-top {
@@ -87,6 +125,7 @@ h6 {
 /*        margin-top: 58px;*/
 /*    }*/
 /*}*/
+
 
 #header {
   transition: all 0.5s;
@@ -397,7 +436,7 @@ h6 {
 --------------------------------------------------------------*/
 #hero {
   width: 100%;
-  /*height: calc(100vh - 73px);*/
+  /*height: calc(100vh - 72px);*/
   position: relative;
   overflow: hidden;
   padding: 140px 0 100px 0;
@@ -461,37 +500,6 @@ h6 {
 .download-btn:disabled {
     opacity: 0.4;
 }
-/* Button 1410 */
-.hero-button {
-  width: 192px;
-  height: 52px;
-  padding: 0 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 28px;
-  color: #FFFFFFFF;
-  background: #00BDD6FF;
-  opacity: 1;
-  border: none;
-  border-radius: 4px;
-  box-shadow: 0px 4px 9px #00bdd6, 0px 0px 2px #00bdd6;
-}
-/* Hover */
-.hero-button:hover {
-    color: #FFFFFFFF;
-    background: #00A9C0FF;
-}
-/* Pressed */
-.hero-button:hover:active {
-    color: #FFFFFFFF;
-    background: #0095A9FF;
-}
-/* Disabled */
-.hero-button:disabled {
-    opacity: 0.4;
-}
 
 /* Text 9334 */
 .hero-header {
@@ -499,7 +507,6 @@ h6 {
     line-height: 68px;
     color: #00BDD6FF;
 }
-
 
 #hero .download-btn:hover {
   background: #5777ba;
@@ -509,16 +516,24 @@ h6 {
   font-size: 20px;
   position: absolute;
   left: 18px;
-  top: 8.5px;
+  top: 9px;
 }
 
 #hero .download-btn+.download-btn {
   margin-left: 20px;
 }
 
+#hero img.animated {
+    animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+
 @media (max-width: 991px) {
   #hero {
     text-align: center;
+  }
+
+  #hero .animated {
+     animation: none !important;
   }
 
   #hero .download-btn+.download-btn {
@@ -555,6 +570,16 @@ h6 {
   #hero .hero-img img {
     width: 80%;
   }
+}
+
+@keyframes up-down {
+    0% {
+        transform: translateY(10px);
+    }
+
+    100% {
+        transform: translateY(-10px);
+    }
 }
 
 /*--------------------------------------------------------------
@@ -594,6 +619,7 @@ section {
   padding: 15px 0;
   background-color: #f6f8fb;
   min-height: 40px;
+  margin-top: 72px; /*BY ME*/
 }
 
 .breadcrumbs h2 {
@@ -1181,11 +1207,10 @@ section {
 # Footer
 --------------------------------------------------------------*/
 #footer {
-  background: #fff;
+  background: #eff2f8;
   padding: 0 0 30px 0;
   color: #47536e;
   font-size: 14px;
-  background: #eff2f8;
 }
 
 #footer .footer-newsletter {
@@ -1234,6 +1259,13 @@ section {
   transition: 0.3s;
   border-radius: 50px;
   box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+#footer .footer-newsletter form input[type=email]:focus {
+    outline: none;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    /*border-color: #5777ba;*/
+    border-radius: 15px;
 }
 
 #footer .footer-newsletter form input[type=submit]:hover {
