@@ -74,6 +74,12 @@ class User extends Authenticatable
         return new UserQueryBuilder($query);
     }
 
+    public function getLabelAttribute(): string
+    {
+        return $this->full_name;
+    }
+
+
     public function preferredLocale()
     {
         return in_array($this->locale, config('app.locales')) ? $this->locale : config('app.locale');

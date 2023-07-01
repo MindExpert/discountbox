@@ -9,7 +9,7 @@ class UserQueryBuilder extends Builder
 {
     public function search(?string $keyword = null, int|array|null $id = null): UserQueryBuilder
     {
-        $query = $this->orderBy('name');
+        $query = $this->orderBy('first_name')->orderBy('last_name');
 
         if (! empty($id)) {
             if (is_array($id)) {

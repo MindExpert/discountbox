@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Management\CouponsController;
 use App\Http\Controllers\Management\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 | Make something great!
 |
 */
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+Route::get('/dashboard')
+    ->uses([HomeController::class, 'index'])
+    ->name('dashboard');
 
 
 Route::prefix('/users')
@@ -51,5 +55,41 @@ Route::prefix('/users')
 
         Route::delete('/{user}')
             ->uses([UsersController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+Route::prefix('/coupons')
+    ->as('coupons.')
+    ->group(function () {
+        Route::get('/')
+            ->uses([CouponsController::class, 'index'])
+            ->name('index');
+
+        Route::get('/search')
+            ->uses([CouponsController::class, 'search'])
+            ->name('search')
+            ->middleware(['expects_json']);
+
+        Route::get('/create')
+            ->uses([CouponsController::class, 'create'])
+            ->name('create');
+
+        Route::post('/')
+            ->uses([CouponsController::class, 'store'])
+            ->name('store');
+
+        Route::get('/{coupon}')
+            ->uses([CouponsController::class, 'show'])
+            ->name('show');
+
+        //Route::get('/{coupon}/edit')
+        //    ->uses([CouponsController::class, 'edit'])
+        //    ->name('edit');
+        //Route::put('/{coupon}')
+        //    ->uses([CouponsController::class, 'update'])
+        //    ->name('update');
+
+        Route::delete('/{coupon}')
+            ->uses([CouponsController::class, 'destroy'])
             ->name('destroy');
     });

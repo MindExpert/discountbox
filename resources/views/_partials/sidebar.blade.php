@@ -21,6 +21,13 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="{{ route('management.coupons.index') }}" class="waves-effect">
+                        <i class="bx bxs-discount"></i>
+                        <span>@lang('sidebar.menu.coupons')</span>
+                    </a>
+                </li>
+
                 <li class="menu-title">@lang('management.apps')</li>
 
                 <li>

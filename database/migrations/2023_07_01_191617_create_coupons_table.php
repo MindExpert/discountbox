@@ -21,7 +21,6 @@ return new class extends Migration
             $table->timestamp('valid_from')->nullable();
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('applied_at')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

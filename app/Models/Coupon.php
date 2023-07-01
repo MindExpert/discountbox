@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
  * @property DiscountTypeEnum          $type
  * @property float                     $discount
  * @property Carbon                    $valid_from
- * @property Carbon                    $expired_at
+ * @property Carbon                    $expires_at
  * @property Carbon|null               $applied_at
  * @property Carbon|null               $created_at
  * @property Carbon|null               $updated_at
@@ -37,7 +37,7 @@ class Coupon extends Model
 
     protected $casts = [
         'valid_from' => 'datetime',
-        'expired_at' => 'datetime',
+        'expires_at' => 'datetime',
         'applied_at' => 'datetime',
         'type'       => DiscountTypeEnum::class,
     ];
@@ -82,12 +82,12 @@ class Coupon extends Model
 
     public function hasExpired(): bool
     {
-        return $this->expired_at !== null && $this->expired_at->isPast();
+        return $this->expires_at !== null && $this->expires_at->isPast();
     }
 
     public function isValid(): bool
     {
-        return $this->expired_at === null || $this->expired_at->isFuture();
+        return $this->expires_at === null || $this->expires_at->isFuture();
     }
 
     public function isApplied(): bool

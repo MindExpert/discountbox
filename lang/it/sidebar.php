@@ -9,5 +9,6 @@ return [
         'dashboard'                        => 'Panelo',
         'search'                           => 'Cerca',
         'users'                            => 'Utenti',
+        'coupons'                          => 'Buoni',
     ],
 ];

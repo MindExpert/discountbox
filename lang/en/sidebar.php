@@ -10,5 +10,6 @@ return [
         'search'                           => 'Search',
         'users'                            => 'Users',
         'roles'                            => 'Roles',
+        'coupons'                          => 'Coupons',
     ],
 ];
