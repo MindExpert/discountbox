@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Coupon;
+use App\Models\DiscountBox;
+use App\Models\Media;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
@@ -29,7 +34,12 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         Relation::morphMap([
-            //
+            Coupon::$morph_key          => Coupon::class,
+            DiscountBox::$morph_key     => DiscountBox::class,
+            Media::$morph_key           => Media::class,
+            Product::$morph_key         => Product::class,
+            User::$morph_key            => User::class,
+
         ]);
     }
 }

@@ -9,6 +9,8 @@ use stdClass;
 
 class Media extends BaseMedia
 {
+    public static string $morph_key = 'media';
+
     private static array $generalFormats = [
         [
             'mime_type' => 'application/pdf',
