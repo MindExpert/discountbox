@@ -103,7 +103,7 @@
                                     <label class="fw-bold fs-6 mb-2" for="featured_image">
                                         @lang('product.fields.featured_image')
                                     </label>
-                                    <x-media-library-attachment
+                                    <x-media-library-collection
                                         name="featured_image"
                                         :model="$product"
                                         collection="featured_image"
@@ -119,7 +119,7 @@
                                     <label class="fw-bold fs-6 mb-2" for="gallery_images">
                                         @lang('product.fields.gallery_images')
                                     </label>
-                                    <x-media-library-attachment
+                                    <x-media-library-collection
                                         name="gallery_images"
                                         :model="$product"
                                         collection="gallery_images"
