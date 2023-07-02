@@ -137,6 +137,8 @@ class ProductsController extends Controller
     {
         $this->authorize('update', $product);
 
+        $product->load(['media']);
+
         return view('management.products.edit', compact('product'));
     }
 

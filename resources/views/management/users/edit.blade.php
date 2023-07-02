@@ -1,12 +1,13 @@
 @extends('_layouts.app', [
-    'title'           => __('user.actions.create_model'),
+    'title'           => __('user.actions.edit_model'),
     'container_class' => 'container-fluid',
 ])
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
     <li class="breadcrumb-item"><a href="{{ route('management.users.index') }}">@lang('user.plural')</a></li>
-    <li class="breadcrumb-item active">@lang('user.actions.create')</li>
+    <li class="breadcrumb-item"><a href="{{ route('management.users.show', ['user' => $user->id]) }}">{{ $user->label }}</a></li>
+    <li class="breadcrumb-item active">@lang('user.actions.edit')</li>
 @endsection
 
 @section('content')

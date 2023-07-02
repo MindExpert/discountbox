@@ -1,30 +1,38 @@
 @extends('_layouts.app', [
-    'title'           => __('product.actions.create_model'),
+    'title'           => __('product.actions.edit_model'),
     'container_class' => 'container-fluid',
 ])
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
     <li class="breadcrumb-item"><a href="{{ route('management.products.index') }}">@lang('product.plural')</a></li>
-    <li class="breadcrumb-item active">@lang('product.actions.create')</li>
+    <li class="breadcrumb-item"><a href="{{ route('management.products.show', ['product' => $product->id]) }}">{{ $product->label }}</a></li>
+    <li class="breadcrumb-item active">@lang('product.actions.edit')</li>
 @endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header border-info border-3">
-                    <h4 class="card-title">@lang('product.actions.create_model')</h4>
+                    <h4 class="card-title">@lang('product.actions.edit_model')</h4>
                 </div>
-                <form class="ajax-form" method="POST" action="{{ route('management.products.store') }}">
+                <form class="ajax-form" method="POST" action="{{ route('management.products.update', ['product' => $product]) }}" novalidate>
                     @csrf
+                    @method('PUT')
                     <div class="card-body">
                         <div class="row">
-
                             <!-- NAME -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="name" class="form-label">@lang('product.fields.name')</label>
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="@lang('product.fields.name')"/>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="name"
+                                           id="name"
+                                           placeholder="@lang('product.fields.name')"
+                                           value="{{ $product->name }}"
+                                    />
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -33,7 +41,12 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="url" class="form-label">@lang('product.fields.url')</label>
-                                    <input type="url" class="form-control" name="url" id="url" placeholder="@lang('product.fields.url')"/>
+                                    <input type="url" class="form-control"
+                                           name="url"
+                                           id="url"
+                                           placeholder="@lang('product.fields.url')"
+                                            value="{{ $product->url }}"
+                                    />
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -42,7 +55,12 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="description" class="form-label">@lang('product.fields.description')</label>
-                                    <textarea class="form-control" name="description" id="description" placeholder="@lang('product.fields.description')" rows="5"></textarea>
+                                    <textarea class="form-control"
+                                              name="description"
+                                              id="description"
+                                              placeholder="@lang('product.fields.description')"
+                                              rows="5"
+                                    >{!! $product->description !!}</textarea>
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -51,7 +69,12 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="review" class="form-label">@lang('product.fields.review')</label>
-                                    <textarea class="form-control" name="review" id="review" placeholder="@lang('product.fields.review')" rows="5"></textarea>
+                                    <textarea class="form-control"
+                                              name="review"
+                                              id="review"
+                                              placeholder="@lang('product.fields.review')"
+                                              rows="5"
+                                    >{!! $product->review !!}</textarea>
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
@@ -59,7 +82,7 @@
                             <!-- HIGHLIGHTED -->
                             <div class="col-md-6">
                                 <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="highlighted" name="highlighted" value="1">
+                                    <input class="form-check-input" type="checkbox" id="highlighted" name="highlighted" value="1" @checked($product->highlighted) />
                                     <label class="form-check-label" for="highlighted">@lang('product.fields.highlighted')</label>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -68,7 +91,7 @@
                             <!-- SHOW_ON_HOME -->
                             <div class="col-md-6">
                                 <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="show_on_home" name="show_on_home" value="1">
+                                    <input class="form-check-input" type="checkbox" id="show_on_home" name="show_on_home" value="1" @checked($product->show_on_home) />
                                     <label class="form-check-label" for="show_on_home">@lang('product.fields.show_on_home')</label>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -82,6 +105,8 @@
                                     </label>
                                     <x-media-library-attachment
                                         name="featured_image"
+                                        :model="$product"
+                                        collection="featured_image"
                                         max-items="1"
                                         rules="mimes:jpg,jpeg,png,svg,gif|max:3072"
                                     />
@@ -95,8 +120,10 @@
                                         @lang('product.fields.gallery_images')
                                     </label>
                                     <x-media-library-attachment
-                                        multiple
                                         name="gallery_images"
+                                        :model="$product"
+                                        collection="gallery_images"
+                                        multiple
                                         max-items="10"
                                         rules="mimes:jpg,jpeg,png,svg,gif|max:3072"
                                     />
@@ -124,7 +151,7 @@
                     <div class="card-footer bg-success bg-opacity-10">
                         <div class="col-md-12 text-end">
                             <button type="submit" class="btn btn-outline-primary mr-1 submit-btn">
-                                @lang('product.actions.create_model')<i class="fa fa-spinner fa-spin d-none"></i>
+                                @lang('product.actions.edit_model')<i class="fa fa-spinner fa-spin d-none"></i>
                             </button>
                             <a href="{{route('management.coupons.index')}}" class="btn btn-secondary waves-effect"> <i class="fa fa-arrow-left"></i>
                                 @lang('general.actions.back')

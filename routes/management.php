@@ -95,7 +95,6 @@ Route::prefix('/coupons')
             ->name('destroy');
     });
 
-
 Route::prefix('/products')
     ->as('products.')
     ->group(function () {

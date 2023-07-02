@@ -28,12 +28,12 @@ class ProductUpdateRequest extends FormRequest
                     ->maxItemSizeInKb(2048)
                     ->attribute('featured_image', ['required'])
             ],
-            'gallery' => [
+            'gallery_images' => [
                 'nullable',
                 $this
                     ->validateMultipleMedia()
                     ->maxItemSizeInKb(10240)
-                    ->attribute('gallery', ['required'])
+                    ->attribute('gallery_images', ['required'])
             ],
         ];
     }
@@ -49,7 +49,7 @@ class ProductUpdateRequest extends FormRequest
             'highlighted'     => __('product.fields.highlighted'),
             'show_on_home'    => __('product.fields.show_on_home'),
             'featured_image'  => __('product.fields.featured_image'),
-            'gallery'         => __('product.fields.gallery_images'),
+            'gallery_images'  => __('product.fields.gallery_images'),
         ];
     }
 }
