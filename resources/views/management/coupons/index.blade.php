@@ -25,7 +25,7 @@
                             <i class="fa fa-filter"></i> @lang('general.actions.filter')
                         </a>
                         @can('create', \App\Models\Coupon::class)
-                            <a href="{{route('management.coupons.create')}}" class="btn btn-outline-primary tippy-btn" title="@lang('User.actions.create')">
+                            <a href="{{route('management.coupons.create')}}" class="btn btn-outline-primary tippy-btn" title="@lang('coupon.actions.create')">
                                 <i class="fa fa-plus"></i> @lang('coupon.actions.create')
                             </a>
                         @endcan
@@ -88,8 +88,8 @@
                 deferRender: true,
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'code', name: 'full_name'},
-                    {data: 'type', name: 'role'},
+                    {data: 'code', name: 'code'},
+                    {data: 'type', name: 'type', class: 'text-center'}, // to
                     // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},
                     {data: 'discount', name: 'discount'},
                     {data: 'valid_from', name: 'valid_from'},

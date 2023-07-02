@@ -50,7 +50,11 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="discount" class="form-label">@lang('coupon.fields.discount')</label>
-                                    <input type="text" class="form-control" name="discount" id="discount" placeholder="@lang('coupon.fields.discount')"/>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="discount" id="discount" placeholder="@lang('coupon.fields.discount')"/>
+                                        <div class="input-group-text discount-type"></div>
+                                        <span class="invalid-feedback"></span>
+                                    </div>
                                     <small class="text-muted">@lang('coupon.fields.discount_info')</small>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -108,7 +112,10 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            $('#user_id').select2({
+            let $type        = $('#type');
+                $userSelect = $('#user_id');
+
+            $userSelect.select2({
                 placeholder: "@lang('user.actions.search')",
                 allowClear: true,
                 ajax: {
@@ -132,6 +139,20 @@
                     },
                     cache: false,
                 }
+            });
+
+            $type.on('select2:select', function () {
+                let type = $(this).val();
+                if (type === '{{ \App\Enums\DiscountTypeEnum::PERCENTAGE->value }}') {
+                    $('.discount-type').text('%');
+                } else {
+                    $('.discount-type').text('€');
+                }
+            });
+
+            // on clear type, clear discount text field
+            $type.on('select2:clear', function () {
+                $('.discount-type').text('');
             });
         });
     </script>
