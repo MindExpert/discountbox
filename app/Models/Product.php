@@ -8,11 +8,18 @@ use App\Support\Helper;
 use App\Support\SerialGenerator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Spatie\Image\Exceptions\InvalidManipulation;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property int          $id
+ * @property int          $user_id # The user who created the product
  * @property string       $serial
  * @property string       $name
  * @property string|null  $description
@@ -26,12 +33,14 @@ use Illuminate\Support\Str;
  * @property Carbon|null  $created_at
  * @property Carbon|null  $updated_at
  * @property Carbon|null  $deleted_at
+ * @property User         $user
  *
  * @mixin ProductQueryBuilder
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
     use SoftDeletes;
+    use InteractsWithMedia;
 
     public static string $morph_key = 'product';
 
@@ -67,6 +76,46 @@ class Product extends Model
     public function newEloquentBuilder($query): ProductQueryBuilder
     {
         return new ProductQueryBuilder($query);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('main_image')->useDisk('public')->singleFile();
+        $this->addMediaCollection('gallery')->useDisk('public');
+    }
+
+    /**
+     * @throws InvalidManipulation
+     */
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(276)
+            ->height(240)
+            ->fit(Manipulations::FIT_CROP, 276, 240)
+            ->performOnCollections('main_image');
+
+        $this->addMediaConversion('image')
+            ->width(582)
+            ->height(432)
+            ->fit(Manipulations::FIT_CROP, 582, 432)
+            ->performOnCollections('main_image');
+
+        $this->addMediaConversion('gallery')
+            ->width(640)
+            ->height(500)
+            ->fit(Manipulations::FIT_CROP, 640, 500)
+            ->performOnCollections('gallery');
+
+        $this->addMediaConversion('preview')
+            ->width(150)
+            ->height(150)
+            ->fit(Manipulations::FIT_CROP, 150, 150);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     public function getLabelAttribute(): string

@@ -1,0 +1,244 @@
+{
+    "emptyTable": "Nuk ka të dhëna të disponueshme në tabelë",
+    "info": "Po shfaqen _START_ në _END_ nga _TOTAL_ rekorde",
+    "infoEmpty": "Po shfaqen 0 në 0 nga 0 rekorde",
+    "lengthMenu": "Shfaq _MENU_ rekorde",
+    "infoFiltered": "(filtruar nga _MAX_ rekorde në total)",
+    "infoThousands": ",",
+    "loadingRecords": "Po ngarkohet...",
+    "processing": "Në përpunim...",
+    "search": "Kërko:",
+    "zeroRecords": "Nuk u gjet asnjë rekord që përputhet",
+    "thousands": ",",
+    "decimal": ".",
+    "paginate": {
+        "first": "I pari",
+        "last": "I Fundit",
+        "next": "Tjetra",
+        "previous": "E mëparshme"
+    },
+    "aria": {
+        "sortAscending": ": aktivizoni për të renditur kolonën në rritje",
+        "sortDescending": ": aktivizoni për të renditur kolonën në zbritje"
+    },
+    "autoFill": {
+        "cancel": "Anulo",
+        "fill": "Mbushni të gjitha qelizat me <i>%d<\/i>",
+        "fillHorizontal": "Mbushni qelizat horizontalisht",
+        "fillVertical": "Mbushni qelizat vertikalisht"
+    },
+    "buttons": {
+        "collection": "Koleksion <span class='ui-button-icon-primary ui-icon ui-icon-triangle-1-s'\/>",
+        "colvis": "Shikueshmëria e kolonës",
+        "colvisRestore": "Rikthe Shikueshmërin",
+        "copy": "Kopjo",
+        "copyKeys": "Shtypni ctrl ose u2318 + C për të kopjuar të dhënat e tabelës në kujtesën e sistemit tuaj.<br><br>Për të anuluar, klikoni këtë mesazh ose shtypni escape.",
+        "copySuccess": {
+            "1": "U kopjua 1 rresht në clipboard",
+            "_": "U kopjuan %d rreshta në clipboard"
+        },
+        "copyTitle": "Kopjo në clipboard",
+        "csv": "CSV",
+        "excel": "Excel",
+        "pageLength": {
+            "-1": "Shfaq të gjitha rreshtat",
+            "_": "Shfaq %d rreshta"
+        },
+        "pdf": "PDF",
+        "print": "Printo",
+        "createState": "Krijo Gjëndje",
+        "updateState": "Përditëso",
+        "stateRestore": "Gjëndja %d",
+        "savedStates": "Gjëndjet e Ruajtura",
+        "removeAllStates": "Hiq të gjitha Gjëndjet",
+        "removeState": "Hiq",
+        "renameState": "Riemërto"
+    },
+    "searchBuilder": {
+        "add": "Shto kusht",
+        "button": {
+            "0": "Search Builder",
+            "_": "Search Builder (%d)"
+        },
+        "clearAll": "Clear All",
+        "condition": "Condition",
+        "conditions": {
+            "date": {
+                "after": "After",
+                "before": "Before",
+                "between": "Between",
+                "empty": "Empty",
+                "equals": "Equals",
+                "not": "Not",
+                "notBetween": "Not Between",
+                "notEmpty": "Not Empty"
+            },
+            "number": {
+                "between": "Between",
+                "empty": "Empty",
+                "equals": "Equals",
+                "gt": "Greater Than",
+                "gte": "Greater Than Equal To",
+                "lt": "Less Than",
+                "lte": "Less Than Equal To",
+                "not": "Not",
+                "notBetween": "Not Between",
+                "notEmpty": "Not Empty"
+            },
+            "string": {
+                "contains": "Contains",
+                "empty": "Empty",
+                "endsWith": "Ends With",
+                "equals": "Equals",
+                "not": "Not",
+                "notEmpty": "Not Empty",
+                "startsWith": "Starts With",
+                "notContains": "Does Not Contain",
+                "notStarts": "Does Not Start With",
+                "notEnds": "Does Not End With"
+            },
+            "array": {
+                "without": "Without",
+                "notEmpty": "Not Empty",
+                "not": "Not",
+                "contains": "Contains",
+                "empty": "Empty",
+                "equals": "Equals"
+            }
+        },
+        "data": "Data",
+        "deleteTitle": "Delete filtering rule",
+        "leftTitle": "Outdent Criteria",
+        "logicAnd": "And",
+        "logicOr": "Or",
+        "rightTitle": "Indent Criteria",
+        "title": {
+            "0": "Search Builder",
+            "_": "Search Builder (%d)"
+        },
+        "value": "Value"
+    },
+    "searchPanes": {
+        "clearMessage": "Clear All",
+        "collapse": {
+            "0": "SearchPanes",
+            "_": "SearchPanes (%d)"
+        },
+        "count": "{total}",
+        "countFiltered": "{shown} ({total})",
+        "emptyPanes": "No SearchPanes",
+        "loadMessage": "Loading SearchPanes",
+        "title": "Filters Active - %d",
+        "showMessage": "Show All",
+        "collapseMessage": "Collapse All"
+    },
+    "select": {
+        "cells": {
+            "1": "1 cell selected",
+            "_": "%d cells selected"
+        },
+        "columns": {
+            "1": "1 column selected",
+            "_": "%d columns selected"
+        },
+        "rows": {
+            "1": "1 row selected",
+            "_": "%d rows selected"
+        }
+    },
+    "datetime": {
+        "hours": "Ora",
+        "minutes": "Minuta",
+        "next": "Tjetra",
+        "previous": "E mëparshme",
+        "seconds": "E dyta",
+        "unknown": "-",
+        "amPm": [
+            "am",
+            "pm"
+        ],
+        "weekdays": [
+            "E Diel",
+            "Hën",
+            "Mar",
+            "Mër",
+            "Enj",
+            "Pre",
+            "Sht"
+        ],
+        "months": [
+            "Janar",
+            "Shkurt",
+            "Mars",
+            "Prill",
+            "Maj",
+            "Qershor",
+            "Korrik",
+            "Gusht",
+            "Shtator",
+            "Tetor",
+            "Nëntor",
+            "Dhjetor"
+        ]
+    },
+    "editor": {
+        "close": "Mbylle",
+        "create": {
+            "button": "I ri",
+            "title": "Krijo rekord të ri",
+            "submit": "Krijo"
+        },
+        "edit": {
+            "button": "Ndrysho",
+            "title": "Ndrysho rekord",
+            "submit": "Përditëso"
+        },
+        "remove": {
+            "button": "Fshije",
+            "title": "Fshije rekord",
+            "submit": "Fshije",
+            "confirm": {
+                "_": "Jeni të sigurt që dëshironi të fshini %d rreshta?",
+                "1": "Jeni të sigurt që dëshironi të fshini 1 rresht?"
+            }
+        },
+        "error": {
+            "system": "Ka ndodhur një gabim i sistemit (<a target=\"\\\" rel=\"nofollow\" href=\"\\\">Më shumë informacion<\/a>)."
+        },
+        "multi": {
+            "title": "Vlerat e shumëfishta",
+            "info": "Artikujt e zgjedhur përmbajnë vlera të ndryshme për këtë të dhënë. Për të modifikuar dhe vendosur të gjithë artikujt për këtë të dhënë në të njëjtën vlerë, klikoni ose prekni këtu, përndryshe ato do të ruajnë vlerat e tyre individuale.",
+            "restore": "Prish Ndryshimet",
+            "noMulti": "Kjo vlerë mund të modifikohet individualisht, por jo pjesë e një grupi. "
+        }
+    },
+    "stateRestore": {
+        "creationModal": {
+            "toggleLabel": "Includes:",
+            "title": "Create New State",
+            "select": "Select",
+            "searchBuilder": "SearchBuilder",
+            "search": "Search",
+            "scroller": "Scroll Position",
+            "paging": "Paging",
+            "order": "Sorting",
+            "name": "Name:",
+            "columns": {
+                "visible": "Column Visibility",
+                "search": "Column Search"
+            },
+            "button": "Create"
+        },
+        "renameTitle": "Rename State",
+        "renameLabel": "New Name for %s:",
+        "renameButton": "Rename",
+        "removeTitle": "Remove State",
+        "removeSubmit": "Remove",
+        "removeJoiner": " and ",
+        "removeError": "Failed to remove state.",
+        "removeConfirm": "Are you sure you want to remove %s?",
+        "emptyStates": "No saved states",
+        "emptyError": "Name cannot be empty.",
+        "duplicateError": "A state with this name already exists."
+    }
+}

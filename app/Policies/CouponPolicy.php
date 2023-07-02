@@ -29,6 +29,14 @@ class CouponPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     */
+    public function search(User $auth): bool
+    {
+        return $auth->isAdministrator();
+    }
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update(User $auth, Coupon $coupon): bool

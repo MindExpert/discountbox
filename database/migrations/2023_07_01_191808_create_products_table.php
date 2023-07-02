@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable();
             $table->string('serial')->index()->unique();
             $table->string('name')->index();
             $table->text('description')->nullable();
@@ -25,6 +26,8 @@ return new class extends Migration
             $table->timestamp('concluded_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

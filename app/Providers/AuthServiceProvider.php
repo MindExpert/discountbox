@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
+use App\Models\Coupon;
+use App\Models\Product;
+use App\Models\User;
+use App\Policies\CouponPolicy;
+use App\Policies\ProductPolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +19,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        Coupon::class   => CouponPolicy::class,
+        Product::class  => ProductPolicy::class,
+        User::class     => UserPolicy::class,
     ];
 
     /**
@@ -21,6 +29,10 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
+
+        //Gate::define('access', function (?User $user) {
+        //    return $user?->can('viewAny', User::class);
+        //});
     }
 }

@@ -83,6 +83,8 @@
     <livewire:scripts />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
+    @include('_partials.disable-dt-error')
+
     @yield('scripts')
 
     @yield('after-scripts')
