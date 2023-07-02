@@ -18,6 +18,7 @@ class CouponStoreRequest extends FormRequest
             'discount'        => ['required', 'numeric', 'gte:0', Rule::when($this->input('type') == DiscountTypeEnum::PERCENTAGE->value, ['min:0', 'max:100'])],
             'valid_from'      => ['required', 'date', 'after_or_equal:today'],
             'expires_at'      => ['required', 'date', 'after_or_equal:valid_from'],
+            'assignee_id'     => ['nullable', 'numeric', Rule::exists('users', 'id')->whereNull('deleted_at')],
         ];
     }
 
@@ -29,7 +30,7 @@ class CouponStoreRequest extends FormRequest
             'discount'     => __('coupon.fields.discount'),
             'valid_from'   => __('coupon.fields.valid_from'),
             'expires_at'   => __('coupon.fields.expires_at'),
-
+            'assignee_id'  => __('coupon.fields.assignee_id'),
         ];
     }
 }

@@ -78,14 +78,14 @@
                                 </div>
                             </div>
 
-                            <!-- USER_ID -->
+                            <!-- ASSIGNEE_ID -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="user_id" class="form-label">@lang('coupon.fields.user_id')</label>
-                                    <select class="form-control select2" name="user_id" id="user_id"
+                                    <label for="assignee_id" class="form-label">@lang('coupon.fields.assignee_id')</label>
+                                    <select class="form-control select2" name="assignee_id" id="assignee_id"
                                             data-allow-clear="true"
-                                            data-placeholder="@lang('coupon.fields.select_user')" style="width: 100%">
-                                        <option value="">@lang('coupon.fields.select_user')</option>
+                                            data-placeholder="@lang('coupon.fields.select_assignee')" style="width: 100%">
+                                        <option value="">@lang('coupon.fields.select_assignee')</option>
                                     </select>
                                     <small class="text-muted">@lang('coupon.fields.user_info')</small>
                                     <span class="invalid-feedback"></span>
@@ -112,8 +112,8 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
-            let $type        = $('#type');
-                $userSelect = $('#user_id');
+            let $type       = $('#type'),
+                $userSelect = $('#assignee_id');
 
             $userSelect.select2({
                 placeholder: "@lang('user.actions.search')",

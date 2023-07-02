@@ -7,6 +7,7 @@ return [
     'fields'    => [
         'id'              => 'ID',
         'user_id'         => 'Utente',
+        'assignee_id'     => 'Assegnatario',
         'code'            => 'Codice',
         'type'            => 'Tipo di sconto',
         'discount'        => 'Sconto',
@@ -22,7 +23,7 @@ return [
         'updated_at'      => 'Aggiornato il',
         'deleted_at'      => 'Eliminato il',
         'select_type'     => 'Seleziona il tipo di sconto',
-        'select_user'     => 'Seleziona utente',
+        'select_assignee' => 'Seleziona Assegnatario',
         'code_info'       => 'Lascia vuoto questo campo per generare automaticamente il codice!',
         'discount_info'   => 'Sconto in % se il tipo di sconto è % o in valore se il tipo di sconto è valore!',
         'user_info'       => 'Lascia vuoto questo campo per applicare il coupon a tutti gli utenti!',

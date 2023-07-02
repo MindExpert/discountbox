@@ -80,8 +80,8 @@ class Product extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('main_image')->useDisk('public')->singleFile();
-        $this->addMediaCollection('gallery')->useDisk('public');
+        $this->addMediaCollection('featured_image')->singleFile();
+        $this->addMediaCollection('gallery_images');
     }
 
     /**
@@ -93,19 +93,19 @@ class Product extends Model implements HasMedia
             ->width(276)
             ->height(240)
             ->fit(Manipulations::FIT_CROP, 276, 240)
-            ->performOnCollections('main_image');
+            ->performOnCollections('featured_image');
 
         $this->addMediaConversion('image')
             ->width(582)
             ->height(432)
             ->fit(Manipulations::FIT_CROP, 582, 432)
-            ->performOnCollections('main_image');
+            ->performOnCollections('featured_image');
 
-        $this->addMediaConversion('gallery')
+        $this->addMediaConversion('gallery_images')
             ->width(640)
             ->height(500)
             ->fit(Manipulations::FIT_CROP, 640, 500)
-            ->performOnCollections('gallery');
+            ->performOnCollections('gallery_images');
 
         $this->addMediaConversion('preview')
             ->width(150)

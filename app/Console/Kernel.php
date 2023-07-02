@@ -2,11 +2,18 @@
 
 namespace App\Console;
 
+use App\Console\Commands\AppFreshCommand;
+use App\Console\Commands\DeployCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
+    protected $commands = [
+        AppFreshCommand::class,
+        DeployCommand::class,
+    ];
+
     /**
      * Define the application's command schedule.
      */

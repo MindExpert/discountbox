@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CouponsController;
+use App\Http\Controllers\Management\ProductsController;
 use App\Http\Controllers\Management\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -91,5 +92,43 @@ Route::prefix('/coupons')
 
         Route::delete('/{coupon}')
             ->uses([CouponsController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+
+Route::prefix('/products')
+    ->as('products.')
+    ->group(function () {
+        Route::get('/')
+            ->uses([ProductsController::class, 'index'])
+            ->name('index');
+
+        Route::get('/search')
+            ->uses([ProductsController::class, 'search'])
+            ->name('search')
+            ->middleware(['expects_json']);
+
+        Route::get('/create')
+            ->uses([ProductsController::class, 'create'])
+            ->name('create');
+
+        Route::post('/')
+            ->uses([ProductsController::class, 'store'])
+            ->name('store');
+
+        Route::get('/{product}')
+            ->uses([ProductsController::class, 'show'])
+            ->name('show');
+
+        Route::get('/{product}/edit')
+            ->uses([ProductsController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/{product}')
+            ->uses([ProductsController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/{product}')
+            ->uses([ProductsController::class, 'destroy'])
             ->name('destroy');
     });

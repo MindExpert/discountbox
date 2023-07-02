@@ -14,7 +14,8 @@ return new class extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')->comment('Creator of Coupon');
+            $table->foreignId('assignee_id')->nullable();
             $table->string('code')->unique();
             $table->enum('type', DiscountTypeEnum::values())->default(DiscountTypeEnum::default()->value);
             $table->float('discount')->default(0);
@@ -22,6 +23,9 @@ return new class extends Migration
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('applied_at')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('assignee_id')->references('id')->on('users');
         });
     }
 

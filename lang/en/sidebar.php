@@ -2,14 +2,14 @@
 
 return [
     'menu' => [
-        'home'                             => 'Home',
-        'main'                             => 'Main',
-        'access'                           => 'Access',
-        'administration'                   => 'Administration',
-        'dashboard'                        => 'Dashboard',
-        'search'                           => 'Search',
-        'users'                            => 'Users',
-        'roles'                            => 'Roles',
-        'coupons'                          => 'Coupons',
+        'home'             => 'Home',
+        'main'             => 'Main',
+        'access'           => 'Access',
+        'administration'   => 'Administration',
+        'dashboard'        => 'Dashboard',
+        'search'           => 'Search',
+        'users'            => 'Users',
+        'coupons'          => 'Coupons',
+        'products'         => 'Products',
     ],
 ];

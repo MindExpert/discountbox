@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('serial')->index()->unique();
             $table->string('name')->index();
             $table->text('description')->nullable();
-            $table->text('preview')->nullable();
+            $table->text('review')->nullable();
             $table->text('url')->nullable();
             $table->string('status')->default(StatusEnum::default()->value);
             $table->boolean('highlighted')->default(false);

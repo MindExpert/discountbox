@@ -14,19 +14,30 @@
                         <span>@lang('sidebar.menu.dashboard')</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('management.users.index') }}" class="waves-effect">
-                        <i class="bx bx-user"></i>
-                        <span>@lang('sidebar.menu.users')</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="{{ route('management.coupons.index') }}" class="waves-effect">
-                        <i class="bx bxs-discount"></i>
-                        <span>@lang('sidebar.menu.coupons')</span>
-                    </a>
-                </li>
+                @can('viewAny', App\Models\User::class)
+                    <li>
+                        <a href="{{ route('management.users.index') }}" class="waves-effect">
+                            <i class="bx bx-user"></i>
+                            <span>@lang('sidebar.menu.users')</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('viewAny', App\Models\Coupon::class)
+                    <li>
+                        <a href="{{ route('management.coupons.index') }}" class="waves-effect">
+                            <i class="bx bxs-discount"></i>
+                            <span>@lang('sidebar.menu.coupons')</span>
+                        </a>
+                    </li>
+                @endcan
+                @can('viewAny', App\Models\Product::class)
+                    <li>
+                        <a href="{{ route('management.products.index') }}" class="waves-effect">
+                            <i class="bx bx-package"></i>
+                            <span>@lang('sidebar.menu.products')</span>
+                        </a>
+                    </li>
+                @endcan
 
                 <li class="menu-title">@lang('management.apps')</li>
 

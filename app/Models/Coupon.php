@@ -14,7 +14,8 @@ use Illuminate\Support\Str;
 
 /**
  * @property int                       $id
- * @property int|null                  $user_id #TO WHICH USER THIS COUPON IS GIVEN
+ * @property int                       $user_id     #CREATOR
+ * @property int|null                  $assignee_id #TO WHICH USER THIS COUPON IS GIVEN
  * @property string                    $code
  * @property DiscountTypeEnum          $type
  * @property float                     $discount
@@ -23,7 +24,8 @@ use Illuminate\Support\Str;
  * @property Carbon|null               $applied_at
  * @property Carbon|null               $created_at
  * @property Carbon|null               $updated_at
- * @property User|null                 $user
+ * @property User                      $user
+ * @property User|null                 $assignee
  * @property DiscountBox|null          $discount_box
  * @property Collection|DiscountBox[]  $discount_boxes
  *
@@ -63,6 +65,11 @@ class Coupon extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function assignee(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'assignee_id', 'id');
     }
 
     public function discount_boxes(): HasMany
