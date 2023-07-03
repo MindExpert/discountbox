@@ -12,6 +12,7 @@ use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -72,6 +73,36 @@ class DiscountBoxesController extends Controller
                 $request->get('id')
             )->get()->append(['label'])
         );
+    }
+
+    /**
+     * Used to populate dynamically the modal with data
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws AuthorizationException
+     */
+    public function image(Request $request): JsonResponse
+    {
+        /** @var DiscountBox $discountBox */
+        $discountBox = DiscountBox::query()
+            ->with('media')
+            ->where('id', $request->input('model_id'))
+            ->firstOrFail();
+
+        $this->authorize('view', $discountBox);
+
+        $redirectTo = $request->get('redirect_to');
+
+        $modalDetails = view('management.discount-boxes._partials.cover-image-modal', compact('discountBox', 'redirectTo'))->render();
+
+        return response()->json([
+            'data' => [
+                'model_id' => $discountBox->id,
+                'details'  => $modalDetails,
+            ],
+        ]);
     }
 
     public function create(): View

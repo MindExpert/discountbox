@@ -30,10 +30,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 //* @property string|null          $discount_type # Got it from COUPON RELATIONSHIP
 //* @property float|null           $discount
  * @property Carbon|null          $expires_at
- * @property StatusEnum           $status
  * @property integer              $credits
+ * @property StatusEnum           $status
  * @property bool                 $highlighted
- * @property bool                 $show_on_home # Same as HOME_DISCOUNTBOX
+ * @property bool                 $show_on_home # Same as HOME_DISCOUNT-BOX
  * @property string               $label
  * @property Carbon|null          $created_at
  * @property Carbon|null          $updated_at

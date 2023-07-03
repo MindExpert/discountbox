@@ -13,6 +13,7 @@ use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -74,6 +75,36 @@ class ProductsController extends Controller
                 $request->get('id')
             )->get()->append(['label'])
         );
+    }
+
+    /**
+     * Used to populate dynamically the modal with data
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws AuthorizationException
+     */
+    public function image(Request $request): JsonResponse
+    {
+        /** @var Product|null $product */
+        $product = Product::query()
+            ->with('media')
+            ->where('id', $request->input('model_id'))
+            ->firstOrFail();
+
+        $this->authorize('view', $product);
+
+        $redirectTo = $request->get('redirect_to');
+
+        $modalDetails = view('management.products._partials.product-image-modal', compact('product', 'redirectTo'))->render();
+
+        return response()->json([
+            'data' => [
+                'model_id' => $product->id,
+                'details'  => $modalDetails,
+            ],
+        ]);
     }
 
     public function create(): View
@@ -194,4 +225,5 @@ class ProductsController extends Controller
 
         return redirect()->route('management.products.index');
     }
+
 }

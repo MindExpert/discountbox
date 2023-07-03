@@ -108,6 +108,10 @@ Route::prefix('/products')
             ->name('search')
             ->middleware(['expects_json']);
 
+        Route::get('/image')
+            ->uses([ProductsController::class, 'image'])
+            ->name('image');
+
         Route::get('/create')
             ->uses([ProductsController::class, 'create'])
             ->name('create');
@@ -148,6 +152,10 @@ Route::prefix('/discount-boxes')
         Route::get('/create')
             ->uses([DiscountBoxesController::class, 'create'])
             ->name('create');
+
+        Route::get('/image')
+            ->uses([DiscountBoxesController::class, 'image'])
+            ->name('image');
 
         Route::post('/')
             ->uses([DiscountBoxesController::class, 'store'])
