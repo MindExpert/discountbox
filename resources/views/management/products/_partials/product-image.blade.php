@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div style="text-align: center">
                     @if($product->getFirstMediaUrl('featured_image'))
-                        <img src="{{ $product->getFirstMediaUrl('featured_image') }}" alt="" class="w-100" loading="lazy">
+                        <img src="{{ $product->getFirstMediaUrl('featured_image', 'image') }}" alt="" class="w-100" loading="lazy">
                     @else
                         <img src="{{ asset('assets/images/users/profile.png') }}" alt="" class="w-100" loading="lazy">
                     @endif

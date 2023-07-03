@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('discount_boxes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id');
             $table->foreignId('coupon_id')->nullable();
             $table->string('serial')->index()->unique();
             $table->string('name')->index();
@@ -21,11 +22,15 @@ return new class extends Migration
             $table->unsignedInteger('discount')->default(0);
             $table->unsignedInteger('total')->default(0);
             $table->timestamp('expires_at')->nullable();
+            $table->unsignedInteger('credits');
             $table->string('status')->default(StatusEnum::default()->value);
             $table->boolean('highlighted')->default(false);
             $table->boolean('show_on_home')->default(false);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('coupon_id')->references('id')->on('coupons');
         });
     }
 

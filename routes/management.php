@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CouponsController;
+use App\Http\Controllers\Management\DiscountBoxesController;
 use App\Http\Controllers\Management\ProductsController;
 use App\Http\Controllers\Management\UsersController;
 use Illuminate\Support\Facades\Route;
@@ -129,5 +130,42 @@ Route::prefix('/products')
 
         Route::delete('/{product}')
             ->uses([ProductsController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+Route::prefix('/discount-boxes')
+    ->as('discount-boxes.')
+    ->group(function () {
+        Route::get('/')
+            ->uses([DiscountBoxesController::class, 'index'])
+            ->name('index');
+
+        Route::get('/search')
+            ->uses([DiscountBoxesController::class, 'search'])
+            ->name('search')
+            ->middleware(['expects_json']);
+
+        Route::get('/create')
+            ->uses([DiscountBoxesController::class, 'create'])
+            ->name('create');
+
+        Route::post('/')
+            ->uses([DiscountBoxesController::class, 'store'])
+            ->name('store');
+
+        Route::get('/{discountBox}')
+            ->uses([DiscountBoxesController::class, 'show'])
+            ->name('show');
+
+        Route::get('/{discountBox}/edit')
+            ->uses([DiscountBoxesController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/{discountBox}')
+            ->uses([DiscountBoxesController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/{discountBox}')
+            ->uses([DiscountBoxesController::class, 'destroy'])
             ->name('destroy');
     });

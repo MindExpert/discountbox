@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Models\Coupon;
+use App\Models\DiscountBox;
 use App\Models\Product;
 use App\Models\User;
 use App\Policies\CouponPolicy;
+use App\Policies\DiscountBoxPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -19,9 +21,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Coupon::class   => CouponPolicy::class,
-        Product::class  => ProductPolicy::class,
-        User::class     => UserPolicy::class,
+        Coupon::class       => CouponPolicy::class,
+        DiscountBox::class  => DiscountBoxPolicy::class,
+        Product::class      => ProductPolicy::class,
+        User::class         => UserPolicy::class,
     ];
 
     /**

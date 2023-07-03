@@ -12,7 +12,7 @@
 {{--        >--}}
 {{--    </a>--}}
     <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#view-product-image-modal-{{$product->id}}">
-        <img src="{{ $product->getFirstMediaUrl('featured_image') }}" alt="" style="object-fit: cover; height: 24px; width: 24px" class="rounded-circle" loading="lazy">
+        <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" alt="" style="object-fit: cover; height: 24px; width: 24px" class="rounded-circle" loading="lazy">
     </a>
 @else
     <img src="{{ asset('frontend/assets/img/placeholderx1.png') }}"

@@ -17,7 +17,12 @@
                 <div class="card-header border-info border-3">
                     <h4 class="card-title">@lang('product.actions.edit_model')</h4>
                 </div>
-                <form class="ajax-form" method="POST" action="{{ route('management.products.update', ['product' => $product]) }}" novalidate>
+                <form class="ajax-form"
+                      method="POST"
+                      action="{{ route('management.products.update', ['product' => $product]) }}"
+                      enctype="multipart/form-data"
+                      onkeydown="return event.key !== 'Enter';"
+                      novalidate>
                     @csrf
                     @method('PUT')
                     <div class="card-body">
