@@ -8,7 +8,10 @@ class CouponQueryBuilder extends Builder
 {
     public function search(?string $keyword = null, int|array|null $id = null): CouponQueryBuilder
     {
-        $query = $this->orderBy('code');
+        $query = $this
+            ->whereNull('applied_at')
+            ->where('expires_at', '>', now())
+            ->orderBy('code');
 
         if (! empty($id)) {
             if (is_array($id)) {
