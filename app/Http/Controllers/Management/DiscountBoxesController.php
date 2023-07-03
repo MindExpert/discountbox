@@ -31,7 +31,7 @@ class DiscountBoxesController extends Controller
 
                 $datatableQuery = DiscountBox::query()
                     ->with(['media'])
-                    ->select(['discount-boxes.*']);
+                    ->select(['discount_boxes.*']);
 
                 return DataTables::eloquent($datatableQuery)
                     ->addColumn('permissions', function (DiscountBox $discountBox) {

@@ -1,4 +1,4 @@
-@if($product->show_on_home)
+@if($discountBox->show_on_home)
     <span class="badge rounded-pill bg-success text-center">
         @lang('general.yes')
     </span>

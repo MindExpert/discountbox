@@ -38,7 +38,14 @@
                         </a>
                     </li>
                 @endcan
-
+                @can('viewAny', App\Models\DiscountBox::class)
+                    <li>
+                        <a href="{{ route('management.discount-boxes.index') }}" class="waves-effect">
+                            <i class="bx bx-box"></i>
+                            <span>@lang('sidebar.menu.discount_box')</span>
+                        </a>
+                    </li>
+                @endcan
                 <li class="menu-title">@lang('management.apps')</li>
 
                 <li>

@@ -1,4 +1,4 @@
-@if($product->highlighted)
+@if($discountBox->highlighted)
     <span class="badge rounded-pill bg-success text-center">
         @lang('general.yes')
     </span>

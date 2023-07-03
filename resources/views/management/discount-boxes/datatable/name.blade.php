@@ -1,5 +1,5 @@
-@can('view', $product)
-    <a href="{{ route('management.products.show', ['product' => $product->id]) }}" class="btn-link">{{ $product->name }}</a>
+@can('view', $discountBox)
+    <a href="{{ route('management.discount-boxes.show', ['discountBox' => $discountBox->id]) }}" class="btn-link">{{ $discountBox->name }}</a>
 @else
-    {{ $product->name }}
+    {{ $discountBox->name }}
 @endcan

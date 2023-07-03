@@ -1,5 +1,5 @@
 @extends('_layouts.app', [
-    'title' => __('product.plural'),
+    'title' => __('discount_box.plural'),
 ])
 @section('before-styles')
     <!-- DataTables -->
@@ -8,7 +8,7 @@
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
-    <li class="breadcrumb-item active">@lang('product.plural')</li>
+    <li class="breadcrumb-item active">@lang('discount_box.plural')</li>
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header border-info border-3 d-inline-flex flex-column flex-md-row align-items-center justify-content-between">
-                    <h4 class="card-title">@lang('product.plural')</h4>
+                    <h4 class="card-title">@lang('discount_box.plural')</h4>
                     <div class="btn-group btn-group-sm" role="group" aria-label="">
                         <a href="javascript:void(0);" id="datatable-reset-filter" class="btn btn-outline-warning tippy-btn mr-1" title="@lang('general.actions.clear_filter')">
                             <i class="fa fa-broom"></i> @lang('general.actions.clear_filter')
@@ -24,9 +24,9 @@
                         <a href="javascript:void(0);" id="datatable-filter" class="btn btn-outline-success tippy-btn mr-1" title="@lang('general.filter')">
                             <i class="fa fa-filter"></i> @lang('general.actions.filter')
                         </a>
-                        @can('create', \App\Models\Product::class)
-                            <a href="{{route('management.products.create')}}" class="btn btn-outline-primary tippy-btn" title="@lang('product.actions.create')">
-                                <i class="fa fa-plus"></i> @lang('product.actions.create')
+                        @can('create', \App\Models\DiscountBox::class)
+                            <a href="{{route('management.discount-boxes.create')}}" class="btn btn-outline-primary tippy-btn" title="@lang('discount_box.actions.create')">
+                                <i class="fa fa-plus"></i> @lang('discount_box.actions.create')
                             </a>
                         @endcan
                     </div>
@@ -36,13 +36,17 @@
                         <table id="ajax-datatable" class="table table-sm table-bordered table-nowrap w-100" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
                             <tr role="row"  class="bg-light">
-                                <th scope="col">@lang('product.fields.id')</th>
-                                <th scope="col">@lang('product.fields.image')</th>
-                                <th scope="col">@lang('product.fields.serial')</th>
-                                <th scope="col">@lang('product.fields.name')</th>
-                                <th scope="col">@lang('product.fields.status')</th>
-                                <th scope="col">@lang('product.fields.highlighted')</th>
-                                <th scope="col">@lang('product.fields.show_on_home')</th>
+                                <th scope="col">@lang('discount_box.fields.id')</th>
+                                <th scope="col">@lang('discount_box.fields.image')</th>
+                                <th scope="col">@lang('discount_box.fields.serial')</th>
+                                <th scope="col">@lang('discount_box.fields.name')</th>
+                                <th scope="col">@lang('discount_box.fields.price')</th>
+                                <th scope="col">@lang('discount_box.fields.discount')</th>
+                                <th scope="col">@lang('discount_box.fields.total')</th>
+                                <th scope="col">@lang('discount_box.fields.credit')</th>
+                                <th scope="col">@lang('discount_box.fields.status')</th>
+                                <th scope="col">@lang('discount_box.fields.highlighted')</th>
+                                <th scope="col">@lang('discount_box.fields.show_on_home')</th>
                                 <th scope="col">@lang('general.actions.plural')</th>
                             </tr>
                             <tr role="row" style="display: none;">
@@ -50,6 +54,10 @@
                                 <th></th>
                                 <th><input type="text" class="form-control search-input" name="serial" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="price" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="discount" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="total" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="status" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="highlighted" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="show_on_home" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
@@ -84,15 +92,18 @@
                 orderCellsTop: true,
                 stateSave: true,
                 order: [[0, 'asc']],
-                ajax: '{{ route('management.products.index') }}',
+                ajax: '{{ route('management.discount-boxes.index') }}',
                 deferRender: true,
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'image', name: 'image', orderable: false, searchable: false},
                     {data: 'serial', name: 'serial'},
                     {data: 'name', name: 'name'},
+                    {data: 'price', name: 'price'},
+                    {data: 'discount', name: 'price'},
+                    {data: 'total', name: 'total'},
+                    {data: 'credit', name: 'credit'},
                     {data: 'status', name: 'status'},
-                    // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},
                     {data: 'highlighted', name: 'highlighted'},
                     {data: 'show_on_home', name: 'show_on_home'},
                     {data: 'actions', name: 'actions', orderable: false, searchable: false}

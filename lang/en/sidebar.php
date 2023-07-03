@@ -11,5 +11,6 @@ return [
         'users'            => 'Users',
         'coupons'          => 'Coupons',
         'products'         => 'Products',
+        'discount_box'     => 'Discount Box',
     ],
 ];

@@ -1,1 +1,1 @@
-<span class="badge rounded-pill bg-{{ $product->status->color() }}">{{ $product->status->label() }}</span>
+<span class="badge rounded-pill bg-{{ $discountBox->status->color() }}">{{ $discountBox->status->label() }}</span>
