@@ -62,6 +62,19 @@ class Coupon extends Model
         return new CouponQueryBuilder($query);
     }
 
+    public function getLabelAttribute(): string
+    {
+        $value = null;
+
+        if ($this->type === DiscountTypeEnum::PERCENTAGE) {
+            $value = "{$this->discount}%";
+        } elseif ($this->type === DiscountTypeEnum::VALUE) {
+            $value = "{$this->discount}€";
+        }
+
+        return "{$this->code} ($value)";
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

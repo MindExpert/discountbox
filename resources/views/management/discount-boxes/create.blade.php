@@ -1,21 +1,21 @@
 @extends('_layouts.app', [
-    'title'           => __('product.actions.create_model'),
+    'title'           => __('discount_box.actions.create_model'),
     'container_class' => 'container-fluid',
 ])
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('management.products.index') }}">@lang('product.plural')</a></li>
-    <li class="breadcrumb-item active">@lang('product.actions.create')</li>
+    <li class="breadcrumb-item"><a href="{{ route('management.discount-boxes.index') }}">@lang('discount_box.plural')</a></li>
+    <li class="breadcrumb-item active">@lang('discount_box.actions.create')</li>
 @endsection
 @section('content')
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header border-info border-3">
-                    <h4 class="card-title">@lang('product.actions.create_model')</h4>
+                    <h4 class="card-title">@lang('discount_box.actions.create_model')</h4>
                 </div>
-                <form class="ajax-form" method="POST" action="{{ route('management.products.store') }}">
+                <form class="ajax-form" method="POST" action="{{ route('management.discount-boxes.store') }}">
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -32,7 +32,7 @@
                             <!-- PRICE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="price" class="form-label">@lang('discount_box.fields.url')</label>
+                                    <label for="price" class="form-label">@lang('discount_box.fields.price')</label>
                                     <input type="number" class="form-control" name="price" id="price" placeholder="@lang('discount_box.fields.price')"/>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -149,10 +149,10 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            let $couponSelect  = $('#coupon_id');
+            let $couponSelect  = $('#coupon_id'),
+                $productSelect = $('#products');
 
             $couponSelect.select2({
                 placeholder: "@lang('coupon.actions.search')",
@@ -168,10 +168,10 @@
                     },
                     processResults: function (data, params) {
                         return {
-                            results: $.map(data, function (user) {
+                            results: $.map(data, function (response) {
                                 return {
-                                    id: user.id,
-                                    text: user.label,
+                                    id: response.id,
+                                    text: response.label,
                                 };
                             })
                         };
@@ -180,8 +180,56 @@
                 }
             });
 
-            initTinymce('#description');
+            $productSelect.select2({
+                placeholder: "@lang('product.actions.search')",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('management.products.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            keyword: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: $.map(data, function (response) {
+                                return {
+                                    id: response.id,
+                                    text: response.label,
+                                    serial: response.serial,
+                                    name: response.name,
+                                    thumbnail: response.thumbnail
+                                };
+                            })
+                        };
+                    },
+                    cache: false,
+                },
+                templateResult: function (data) {
+                    if (! data.id) {
+                        return data.text;
+                    }
 
+                    let $container = $(`
+                        <div class="py-0">
+                            <div class="d-flex">
+                                <div class="flex-shrink-0 align-self-center me-3">
+                                    <img src="${data.thumbnail}" alt="" class="avatar-xs rounded-circle" loading="lazy">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h5 class="font-size-15 mb-1">${data.serial}</h5>
+                                    <p class="text-muted mb-0">${data.name}</p>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    return $container;
+                },
+            });
+
+            initTinymce('#description');
 
             function initTinymce(selector) {
                 tinymce.init({
@@ -197,4 +245,5 @@
             }
         });
     </script>
+    <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
 @endsection

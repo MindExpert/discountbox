@@ -30,6 +30,7 @@ return [
         'select_products' => 'Select Products',
         'image'           => 'Image',
         'cover_image'     => 'Cover Image',
+        'coupon_info'     => 'Select a Coupon to be applied to this Discount Box',
     ],
     'actions'   => [
         'search'              => 'Search for a Discount Box...',

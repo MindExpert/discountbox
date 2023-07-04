@@ -73,7 +73,7 @@ class ProductsController extends Controller
             Product::search(
                 $request->get('keyword'),
                 $request->get('id')
-            )->get()->append(['label'])
+            )->get()->append(['label', 'thumbnail'])
         );
     }
 

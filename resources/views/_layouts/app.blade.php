@@ -36,7 +36,7 @@
     @stack('partial-styles')
 </head>
 {{--<body data-sidebar="dark" data-topbar="dark">--}}
-<body data-sidebar="light" data-topbar="dark">
+<body data-sidebar="dark" data-topbar="light">
     <!-- Begin page -->
     <div id="layout-wrapper">
         @include('_partials.topbar')
