@@ -17,7 +17,7 @@ return [
         'total'           => 'Total',
         'expires_at'      => 'Expires at',
         'status'          => 'Status',
-        'credit'          => 'Credit',
+        'credits'         => 'Credits',
         'highlighted'     => 'Highlighted',
         'show_on_home'    => 'Show on Home',
         'created_at'      => 'Created at',

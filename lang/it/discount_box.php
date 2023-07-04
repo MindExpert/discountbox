@@ -17,7 +17,7 @@ return [
         'total'           => 'Totale',
         'expires_at'      => 'Scade il',
         'status'          => 'Stato',
-        'credit'          => 'Credito',
+        'credits'         => 'Crediti',
         'highlighted'     => 'In evidenza',
         'show_on_home'    => 'Mostra in home',
         'created_at'      => 'Creato il',

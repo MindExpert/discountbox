@@ -7,9 +7,11 @@ use App\Models\QueryBuilders\DiscountBoxQueryBuilder;
 use App\Support\Helper;
 use App\Support\SerialGenerator;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Image\Exceptions\InvalidManipulation;
@@ -40,6 +42,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon|null          $deleted_at
  * @property User                 $user
  * @property Coupon|null          $coupon
+ * @property Collection|Product[] $products
  *
  * @mixin DiscountBoxQueryBuilder
  */
@@ -116,6 +119,11 @@ class DiscountBox extends Model implements HasMedia
     {
         return $this->belongsTo(Coupon::class, 'coupon_id', 'id');
     }
+
+//    public function products(): HasMany
+//    {
+//        return $this->hasMany(Product::class, 'product_id', 'id');
+//    }
 
     public function getLabelAttribute(): string
     {

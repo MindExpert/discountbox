@@ -80,8 +80,8 @@
                             <!-- CREDIT -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="credit" class="form-label">@lang('discount_box.fields.credit')</label>
-                                    <input type="number" class="form-control" name="credit" id="credit" placeholder="@lang('discount_box.fields.credit')"/>
+                                    <label for="credits" class="form-label">@lang('discount_box.fields.credits')</label>
+                                    <input type="number" class="form-control" name="credits" id="credits" placeholder="@lang('discount_box.fields.credits')"/>
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
