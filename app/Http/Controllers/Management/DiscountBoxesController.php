@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Management;
 
 use App\Enums\DiscountTypeEnum;
+use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Management\DiscountBoxStoreRequest;
 use App\Http\Requests\Management\DiscountBoxUpdateRequest;
-use App\Http\Requests\Management\ProductStoreRequest;
-use App\Http\Requests\Management\ProductUpdateRequest;
 use App\Models\Coupon;
 use App\Models\DiscountBox;
-use App\Models\Product;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
@@ -33,7 +32,7 @@ class DiscountBoxesController extends Controller
             try {
 
                 $datatableQuery = DiscountBox::query()
-                    ->with(['media'])
+                    ->with(['coupon', 'media'])
                     ->select(['discount_boxes.*']);
 
                 return DataTables::eloquent($datatableQuery)
@@ -49,12 +48,27 @@ class DiscountBoxesController extends Controller
                         ];
                     })
                     ->addColumn('image', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.image', compact('discountBox'))->render())
-                    ->editColumn('name', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.name', compact('discountBox')))
-                    ->editColumn('status', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.status', compact('discountBox')))
-                    ->editColumn('highlighted', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.highlighted', compact('discountBox')))
-                    ->editColumn('show_on_home', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.show_on_home', compact('discountBox')))
-                    ->addColumn('actions', 'management.products.datatable.actions')
-                    ->rawColumns(['actions', 'image', 'name', 'status', 'highlighted', 'show_on_home'])
+                    ->editColumn('name', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.name', compact('discountBox'))->render())
+                    ->editColumn('status', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.status', compact('discountBox'))->render())
+                    ->editColumn('highlighted', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.highlighted', compact('discountBox'))->render())
+                    ->editColumn('show_on_home', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.show_on_home', compact('discountBox'))->render())
+                    ->editColumn('coupon_id', fn(DiscountBox $discountBox) => view('management.discount-boxes.datatable.coupon', compact('discountBox'))->render())
+                    ->filterColumn('coupon_id', function (Builder $query, $keyword) {
+                        if ($keyword) {
+                            if (is_numeric($keyword)) {
+                                return $query->where('discount_boxes.coupon_id', $keyword);
+                            } else {
+                                return $query->whereIn('discount_boxes.coupon_id', function ($subQuery) use ($keyword) {
+                                    return $subQuery->select('id')
+                                        ->from('coupons')
+                                        ->whereRaw("CONVERT(coupons.code using 'utf8mb4') like ?", ["%$keyword%"]);
+                                });
+                            }
+                        }
+                        return $query;
+                    })
+                    ->addColumn('actions', 'management.discount-boxes.datatable.actions')
+                    ->rawColumns(['actions', 'image', 'name', 'status', 'highlighted', 'show_on_home', 'coupon_id'])
                     ->make(true);
             } catch (Exception $e) {
                 report($e);
@@ -115,7 +129,7 @@ class DiscountBoxesController extends Controller
         return view('management.discount-boxes.create');
     }
 
-    public function store(ProductStoreRequest $request): JsonResponse
+    public function store(DiscountBoxStoreRequest $request): JsonResponse
     {
         $this->authorize('create', DiscountBox::class);
 
@@ -124,12 +138,12 @@ class DiscountBoxesController extends Controller
 
             /** @var Coupon $coupon */
             $coupon = Coupon::query()
-                ->where('code', $request->input('coupon_id'))
+                ->where('id', $request->input('coupon_id'))
                 ->first();
 
             if ($coupon === null) {
                 FlashNotification::error(__('general.error'), __('discount_box.responses.not_created'));
-                return ActionJsonResponse::make(false, route('management.discount-boxes.index'))->response();
+                throw new Exception(__('discount_box.responses.coupon_invalid'));
             }
             $price = $request->input('price');
             $discount = 0;
@@ -145,14 +159,14 @@ class DiscountBoxesController extends Controller
             /** @var DiscountBox $discountBox */
             $discountBox = DiscountBox::query()->create([
                 'user_id'       => user()->id,
-                'coupon_id'     => $request->input('coupon_id'),
+                'coupon_id'     => $coupon->id,
                 'name'          => $request->input('name'),
-                'status'        => $request->input('status'),
+                'status'        => $request->input('status') ?? StatusEnum::IN_PROGRESS->value,
                 'credits'       => $request->input('credits'),
                 'price'         => $price,
                 'discount'      => $discount, #TODO: To be calculate based on the coupon, if is present
                 'total'         => $total,
-                'expires_at'    => $request->boolean('expires_at'),
+                'expires_at'    => $request->input('expires_at'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
             ]);
@@ -163,11 +177,9 @@ class DiscountBoxesController extends Controller
                     ->toMediaCollection('cover_image');
             }
 
-            #TODO: add products to discount box with pivot table
             # ADD Products to Discount Box
-            //$products = (array) $request->input('products');
-            //$discountBox->products()->sync($products);
-
+            $products = (array) $request->input('products');
+            $discountBox->products()->sync(array_values(array_unique($products)));
 
             DB::commit();
 
@@ -257,7 +269,6 @@ class DiscountBoxesController extends Controller
             FlashNotification::error(__('general.error'), __('discount_box.responses.not_updated'));
             return ActionJsonResponse::make(false, route('management.discount-boxes.index'))->response();
         }
-
     }
 
     public function destroy(DiscountBox $discountBox): RedirectResponse

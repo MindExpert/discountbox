@@ -7,8 +7,10 @@ use App\Models\QueryBuilders\ProductQueryBuilder;
 use App\Support\Helper;
 use App\Support\SerialGenerator;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Image\Exceptions\InvalidManipulation;
@@ -34,6 +36,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon|null  $updated_at
  * @property Carbon|null  $deleted_at
  * @property User         $user
+ * @property Collection|DiscountBox[] $discount_boxes
  *
  * @mixin ProductQueryBuilder
  */
@@ -116,6 +119,13 @@ class Product extends Model implements HasMedia
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function discount_boxes(): BelongsToMany
+    {
+        return $this->belongsToMany(DiscountBox::class, 'discount_box_product', 'product_id', 'discount_box_id')
+            ->withTimestamps()
+            ->using(DiscountBoxProduct::class);
     }
 
     public function getLabelAttribute(): string

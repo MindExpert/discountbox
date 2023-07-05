@@ -15,7 +15,7 @@
                 <div class="card-header border-info border-3">
                     <h4 class="card-title">@lang('discount_box.actions.create_model')</h4>
                 </div>
-                <form class="ajax-form" method="POST" action="{{ route('management.discount-boxes.store') }}">
+                <form class="ajax-form" method="POST" action="{{ route('management.discount-boxes.store') }}" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="card-body">
                         <div class="row">
@@ -158,7 +158,7 @@
                 placeholder: "@lang('coupon.actions.search')",
                 allowClear: true,
                 ajax: {
-                    url: "{{ route('management.coupons.search') }}",
+                    url: "{{ route('management.coupons.search', ['only_active' => true]) }}",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {

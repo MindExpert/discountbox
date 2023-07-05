@@ -63,6 +63,7 @@
             </div>
         </div>
     </div>
+    @include('management.products._partials.product-image-script')
 @endsection
 
 @section('scripts')

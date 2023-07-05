@@ -15,7 +15,7 @@
                 <div class="card-header border-info border-3">
                     <h4 class="card-title">@lang('product.actions.create_model')</h4>
                 </div>
-                <form class="ajax-form" method="POST" action="{{ route('management.products.store') }}">
+                <form class="ajax-form" method="POST" action="{{ route('management.products.store') }}" enctype="multipart/form-data" novalidate>
                     @csrf
                     <div class="card-body">
                         <div class="row">

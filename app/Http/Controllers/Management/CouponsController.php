@@ -69,7 +69,8 @@ class CouponsController extends Controller
         return response()->json(
             Coupon::search(
                 $request->get('keyword'),
-                $request->get('id')
+                $request->get('id'),
+                $request->get('only_active'),
             )->get()->append(['label'])
         );
     }

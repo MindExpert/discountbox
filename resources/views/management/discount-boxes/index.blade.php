@@ -41,9 +41,10 @@
                                 <th scope="col">@lang('discount_box.fields.serial')</th>
                                 <th scope="col">@lang('discount_box.fields.name')</th>
                                 <th scope="col">@lang('discount_box.fields.price')</th>
+                                <th scope="col">@lang('discount_box.fields.coupon_id')</th>
                                 <th scope="col">@lang('discount_box.fields.discount')</th>
                                 <th scope="col">@lang('discount_box.fields.total')</th>
-                                <th scope="col">@lang('discount_box.fields.credit')</th>
+                                <th scope="col">@lang('discount_box.fields.credits')</th>
                                 <th scope="col">@lang('discount_box.fields.status')</th>
                                 <th scope="col">@lang('discount_box.fields.highlighted')</th>
                                 <th scope="col">@lang('discount_box.fields.show_on_home')</th>
@@ -55,6 +56,13 @@
                                 <th><input type="text" class="form-control search-input" name="serial" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="price" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th>
+                                    <select class="form-control search-input select2" name="coupon_id" id="coupon_id"
+                                            aria-label="@lang('discount_box.fields.coupon_id')"
+                                            data-placeholder="@lang('discount_box.fields.coupon_id')"
+                                            data-allow-clear="true"
+                                    ></select>
+                                </th>
                                 <th><input type="text" class="form-control search-input" name="discount" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="total" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
@@ -84,6 +92,8 @@
             let $resetFilterBtn = $('#datatable-reset-filter');
             let hasFilters = false;
 
+            let $couponSelect  = $('#coupon_id');
+
             let dt = $datatable.DataTable({
                 responsive: false,
                 searchDelay: 500,
@@ -100,9 +110,10 @@
                     {data: 'serial', name: 'serial'},
                     {data: 'name', name: 'name'},
                     {data: 'price', name: 'price'},
+                    {data: 'coupon_id', name: 'coupon_id'},
                     {data: 'discount', name: 'price'},
                     {data: 'total', name: 'total'},
-                    {data: 'credit', name: 'credit'},
+                    {data: 'credits', name: 'credits'},
                     {data: 'status', name: 'status'},
                     {data: 'highlighted', name: 'highlighted'},
                     {data: 'show_on_home', name: 'show_on_home'},
@@ -156,7 +167,9 @@
                     if (columnSearchValue) {
                         let $field = $(`.search-input[name="${columnName}"]`);
 
-                        if($field.hasClass('select2-hidden-accessible')) {
+                        if ($field.attr('id') === 'coupon_id') {
+                            fillSelect2Element(columnSearchValue, "{{ route('management.coupons.search') }}", $couponSelect);
+                        } else if($field.hasClass('select2-hidden-accessible')) {
                             $field.val(columnSearchValue).trigger('change.select2');
                         } else {
                             $field.val(columnSearchValue);
@@ -170,6 +183,32 @@
             if (hasFilters) {
                 $datatable.find('thead tr:eq(1)').show();
             }
+
+            $couponSelect.select2({
+                placeholder: "@lang('coupon.actions.search')",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('management.coupons.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            keyword: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: $.map(data, function (response) {
+                                return {
+                                    id: response.id,
+                                    text: response.label,
+                                };
+                            })
+                        };
+                    },
+                    cache: false,
+                }
+            });
         });
     </script>
 @endsection

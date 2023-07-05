@@ -1,4 +1,5 @@
-<div class="modal fade" tabindex="-1" id="view-product-image-modal-{{$product->id}}" data-bs-backdrop="static" data-bs-keyboard="false">
+{{--<div class="modal fade" tabindex="-1" id="view-product-image-modal-{{$product->id}}" data-bs-backdrop="static" data-bs-keyboard="false">--}}
+<div class="modal fade" tabindex="-1" id="view-product-image-modal" data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-m">
         <div class="modal-content">
             <div class="modal-header">

@@ -11,7 +11,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-header border-info border-3 d-inline-flex flex-column flex-md-row align-items-center justify-content-between">
                     <h4 class="card-title">@lang('product.actions.view_model')</h4>
@@ -68,6 +68,20 @@
                                 @lang('general.actions.back')
                             </a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">@lang('product.fields.featured_image')</h4>
+                    <div class="">
+                        @if($product->getFirstMediaUrl('featured_image'))
+                            <img src="{{ $product->getFirstMediaUrl('featured_image') }}" class="img-fluid" alt="Responsive image">
+                        @else
+                            <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="img-fluid" alt="Responsive image">
+                        @endif
                     </div>
                 </div>
             </div>

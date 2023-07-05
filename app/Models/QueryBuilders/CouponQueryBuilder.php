@@ -6,11 +6,16 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CouponQueryBuilder extends Builder
 {
-    public function search(?string $keyword = null, int|array|null $id = null): CouponQueryBuilder
+    public function search(?string $keyword = null, int|array|null $id = null, ?bool $onlyActive  = null): CouponQueryBuilder
     {
         $query = $this
-            ->whereNull('applied_at')
-            ->where('expires_at', '>', now())
+            ->when($onlyActive, function (CouponQueryBuilder $query) {
+                return $query->where(function (Builder $query) {
+                    return $query
+                        ->whereNull('applied_at')
+                        ->where('expires_at', '>', now());
+                });
+            })
             ->orderBy('code');
 
         if (! empty($id)) {

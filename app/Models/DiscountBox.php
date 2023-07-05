@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
@@ -96,13 +97,15 @@ class DiscountBox extends Model implements HasMedia
             ->width(276)
             ->height(240)
             ->fit(Manipulations::FIT_CROP, 276, 240)
-            ->performOnCollections('cover_image');
+            ->performOnCollections('cover_image')
+            ->keepOriginalImageFormat();
 
         $this->addMediaConversion('image')
             ->width(582)
             ->height(432)
             ->fit(Manipulations::FIT_CROP, 582, 432)
-            ->performOnCollections('cover_image');
+            ->performOnCollections('cover_image')
+            ->keepOriginalImageFormat();
 
         $this->addMediaConversion('preview')
             ->width(150)
@@ -120,10 +123,12 @@ class DiscountBox extends Model implements HasMedia
         return $this->belongsTo(Coupon::class, 'coupon_id', 'id');
     }
 
-//    public function products(): HasMany
-//    {
-//        return $this->hasMany(Product::class, 'product_id', 'id');
-//    }
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'discount_box_product', 'discount_box_id', 'product_id')
+            ->withTimestamps()
+            ->using(DiscountBoxProduct::class);
+    }
 
     public function getLabelAttribute(): string
     {

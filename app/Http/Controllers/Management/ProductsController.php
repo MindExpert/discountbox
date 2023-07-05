@@ -48,7 +48,15 @@ class ProductsController extends Controller
                         ];
                     })
                     ->addColumn('image', fn(Product $product) => view('management.products.datatable.image', compact('product'))->render())
-                    ->editColumn('name', fn(Product $product) => view('management.products.datatable.name', compact('product')))
+                    ->editColumn('name', function(Product $product) {
+                        if (! empty($product->description)) {
+                            $html = nl2br($product->description);
+                        } else {
+                            $html = __('general.no_data');
+                        }
+                        return view('management.products.datatable.name', compact('product', 'html'));
+                        //return view('management.products.datatable.name', compact('product'))->render();
+                    })
                     ->editColumn('status', fn(Product $product) => view('management.products.datatable.status', compact('product')))
                     ->editColumn('highlighted', fn(Product $product) => view('management.products.datatable.highlighted', compact('product')))
                     ->editColumn('show_on_home', fn(Product $product) => view('management.products.datatable.show_on_home', compact('product')))

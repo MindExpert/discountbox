@@ -21,9 +21,7 @@ class DiscountBoxStoreRequest extends FormRequest
             'coupon_id'       => [
                 'required',
                 'numeric',
-                Rule::exists('coupons', 'id')
-                    ->whereNull('deleted_at')
-                    ->whereNull('applied_at')
+                Rule::exists('coupons', 'id')->whereNull('applied_at')
             ],
             'credits'         => ['required', 'numeric', 'gte:0', 'max:9999999'],
             'highlighted'     => ['nullable', 'boolean'],
@@ -39,8 +37,7 @@ class DiscountBoxStoreRequest extends FormRequest
             'products.*' => [
                 'required',
                 'numeric',
-                Rule::exists('products', 'id')
-                    ->whereNull('deleted_at')
+                Rule::exists('products', 'id')->whereNull('deleted_at')
             ],
         ];
     }
