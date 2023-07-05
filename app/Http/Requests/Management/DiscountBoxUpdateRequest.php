@@ -21,9 +21,7 @@ class DiscountBoxUpdateRequest extends FormRequest
             'coupon_id'       => [
                 'required',
                 'numeric',
-                Rule::exists('coupons', 'id')
-                    ->whereNull('deleted_at')
-                    ->whereNull('applied_at')
+                Rule::exists('coupons', 'id')->whereNull('applied_at')
             ],
             'credits'         => ['required', 'numeric', 'gte:0', 'max:9999999'],
             'highlighted'     => ['nullable', 'boolean'],
@@ -35,12 +33,11 @@ class DiscountBoxUpdateRequest extends FormRequest
                     ->maxItemSizeInKb(2048)
                     ->attribute('cover_image', ['required'])
             ],
-            'products' => ['nullable', 'array'],
+            'products' => ['required', 'array'],
             'products.*' => [
                 'required',
                 'numeric',
-                Rule::exists('products', 'id')
-                    ->whereNull('deleted_at')
+                Rule::exists('products', 'id')->whereNull('deleted_at')
             ],
         ];
     }

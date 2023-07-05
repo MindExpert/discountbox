@@ -117,7 +117,7 @@ class Coupon extends Model
 
     public function hasBeenApplied(): bool
     {
-        return $this->subscriptions()->exists() || $this->isApplied();
+        return $this->discount_boxes()->exists() || $this->isApplied();
     }
 
     public function canBeApplied(): bool

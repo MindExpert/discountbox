@@ -10,11 +10,21 @@ class CouponQueryBuilder extends Builder
     {
         $query = $this
             ->when($onlyActive, function (CouponQueryBuilder $query) {
-                return $query->where(function (Builder $query) {
-                    return $query
-                        ->whereNull('applied_at')
-                        ->where('expires_at', '>', now());
-                });
+                #todo: add where is not applied to another discountBox
+                return $query
+                    ->where(function (CouponQueryBuilder $query) {
+                        return $query
+                            ->where(function (Builder $query) {
+                                return $query
+                                    ->whereNull('applied_at')
+                                    ->whereNull('expires_at');
+                            })
+                            ->orWhere(function (Builder $query) {
+                                return $query
+                                    ->whereNull('applied_at')
+                                    ->where('expires_at', '>', now());
+                            });
+                    });
             })
             ->orderBy('code');
 

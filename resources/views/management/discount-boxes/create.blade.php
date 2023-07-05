@@ -89,7 +89,7 @@
                             <!-- HIGHLIGHTED -->
                             <div class="col-md-6">
                                 <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="highlighted" name="highlighted" value="1">
+                                    <input class="form-check-input" type="checkbox" id="highlighted" name="highlighted" value="1"/>
                                     <label class="form-check-label" for="highlighted">@lang('discount_box.fields.highlighted')</label>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -98,7 +98,7 @@
                             <!-- SHOW_ON_HOME -->
                             <div class="col-md-6">
                                 <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="show_on_home" name="show_on_home" value="1">
+                                    <input class="form-check-input" type="checkbox" id="show_on_home" name="show_on_home" value="1"/>
                                     <label class="form-check-label" for="show_on_home">@lang('discount_box.fields.show_on_home')</label>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -149,6 +149,7 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             let $couponSelect  = $('#coupon_id'),
@@ -245,5 +246,4 @@
             }
         });
     </script>
-    <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
 @endsection

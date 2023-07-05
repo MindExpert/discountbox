@@ -141,10 +141,11 @@ class DiscountBoxesController extends Controller
                 ->where('id', $request->input('coupon_id'))
                 ->first();
 
-            if ($coupon === null) {
-                FlashNotification::error(__('general.error'), __('discount_box.responses.not_created'));
+            if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
+                FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
                 throw new Exception(__('discount_box.responses.coupon_invalid'));
             }
+
             $price = $request->input('price');
             $discount = 0;
 
@@ -205,7 +206,7 @@ class DiscountBoxesController extends Controller
     {
         $this->authorize('update', $discountBox);
 
-        $discountBox->load(['media']);
+        $discountBox->load(['media', 'coupon', 'products']);
 
         return view('management.discount-boxes.edit', compact('discountBox'));
     }
@@ -219,13 +220,14 @@ class DiscountBoxesController extends Controller
 
             /** @var Coupon $coupon */
             $coupon = Coupon::query()
-                ->where('code', $request->input('coupon_id'))
+                ->where('id', $request->input('coupon_id'))
                 ->first();
 
-            if ($coupon === null) {
-                FlashNotification::error(__('general.error'), __('discount_box.responses.not_created'));
-                return ActionJsonResponse::make(false, route('management.discount-boxes.index'))->response();
+            if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
+                FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
+                throw new Exception(__('discount_box.responses.coupon_invalid'));
             }
+
             $price    = $request->input('price');
             $discount = 0;
 
@@ -245,7 +247,7 @@ class DiscountBoxesController extends Controller
                 'price'         => $price,
                 'discount'      => $discount, #TODO: To be calculate based on the coupon, if is present
                 'total'         => $total,
-                'expires_at'    => $request->boolean('expires_at'),
+                'expires_at'    => $request->input('expires_at'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
             ]);
@@ -254,10 +256,9 @@ class DiscountBoxesController extends Controller
             $discountBox->syncFromMediaLibraryRequest($request->input('cover_image'))
                 ->toMediaCollection('cover_image');
 
-            #TODO: add products to discount box with pivot table
-            # ADD Products to Discount Box
-            //$products = (array) $request->input('products');
-            //$discountBox->products()->sync($products);
+            # SYNC Products to Discount Box
+            $products = (array) $request->input('products');
+            $discountBox->products()->sync(array_values(array_unique($products)));
 
             DB::commit();
 

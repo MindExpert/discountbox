@@ -33,7 +33,7 @@ class DiscountBoxStoreRequest extends FormRequest
                     ->maxItemSizeInKb(2048)
                     ->attribute('cover_image', ['required'])
             ],
-            'products' => ['nullable', 'array'],
+            'products' => ['required', 'array'],
             'products.*' => [
                 'required',
                 'numeric',

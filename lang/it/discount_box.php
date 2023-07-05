@@ -53,5 +53,6 @@ return [
         'not_updated'         => 'Sconta Box non è stato aggiornato!',
         'deleted'             => 'Sconta Box è stato eliminato con successo!',
         'not_deleted'         => 'Sconta Box non è stato eliminato!',
+        'coupon_invalid'      => 'Il Buono è invalido! Controlla se il buono non è scaduto o se non è già stato utilizzato!',
     ],
 ];

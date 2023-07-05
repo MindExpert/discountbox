@@ -54,5 +54,6 @@ return [
         'not_updated'         => 'Discount Box could not be updated!',
         'deleted'             => 'Discount Box is successfully deleted!',
         'not_deleted'         => 'Discount Box could not be deleted!',
+        'coupon_invalid'      => 'Coupon is invalid! Check if coupon has not expired or if it is not already used!',
     ],
 ];
