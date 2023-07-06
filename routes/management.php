@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CouponsController;
+use App\Http\Controllers\Management\DashboardController;
 use App\Http\Controllers\Management\DiscountBoxesController;
 use App\Http\Controllers\Management\ProductsController;
 use App\Http\Controllers\Management\UsersController;
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 | Make something great!
 |
 */
-Route::get('/dashboard')
-    ->uses([HomeController::class, 'index'])
-    ->name('dashboard');
+Route::get('/dashboard')->uses([DashboardController::class, 'index'])->name('dashboard');
 
 
 Route::prefix('/users')

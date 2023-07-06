@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PrivateStorageController;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
+/** INVOKABLE Controller*/
+Route::put('/languages/update', LanguageController::class)->name('languages.update');
+
 /** PRIVATE STORAGE ROUTES */
 Route::prefix('/storage/local/{media}')->as('storage.local.')->middleware(['signed'])->group(function () {
     Route::get('/{fileName}')
@@ -28,10 +32,6 @@ Route::prefix('/storage/local/{media}')->as('storage.local.')->middleware(['sign
         ->name('conversions.show');
 });
 
-
-/** INVOKABLE Controller*/
-Route::put('/languages/update', LanguageController::class)->name('languages.update');
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('homepage');
+Route::get('/')
+    ->uses([HomeController::class, 'index'])
+    ->name('homepage');

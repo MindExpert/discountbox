@@ -1,1 +1,1 @@
-<span class="badge rounded-pill bg-{{ $user->role->color() }} float-end">{{ $user->role->label() }}</span>
+<span class="badge rounded-pill bg-{{ $user->role->color() }}">{{ $user->role->label() }}</span>

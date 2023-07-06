@@ -9,4 +9,5 @@
 
 @section('content')
     <!-- end page title -->
+    LOGGED IN
 @endsection

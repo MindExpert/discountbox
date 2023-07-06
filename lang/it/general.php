@@ -68,6 +68,7 @@ return [
     'results_found'   => 'Risultati Trovati',
     'expired'         => 'Scaduto',
     'default'         => 'Predefinito',
+    'logout_message'  => 'Sei sicuro di voler uscire?',
     'actions'         => [
         'singular'             => 'Azione',
         'plural'               => 'Azioni',

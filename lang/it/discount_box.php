@@ -18,6 +18,7 @@ return [
         'expires_at'      => 'Scade il',
         'status'          => 'Stato',
         'credits'         => 'Crediti',
+        'participants'    => 'Partecipanti',
         'highlighted'     => 'In evidenza',
         'show_on_home'    => 'Mostra in home',
         'created_at'      => 'Creato il',
@@ -54,5 +55,8 @@ return [
         'deleted'             => 'Sconta Box è stato eliminato con successo!',
         'not_deleted'         => 'Sconta Box non è stato eliminato!',
         'coupon_invalid'      => 'Il Buono è invalido! Controlla se il buono non è scaduto o se non è già stato utilizzato!',
+    ],
+    'messages' => [
+        'no_products'         => 'Nessun prodotto trovato su questo Sconta Box!',
     ],
 ];
