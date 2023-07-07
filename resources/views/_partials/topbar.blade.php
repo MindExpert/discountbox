@@ -66,13 +66,13 @@
                 </button>
                 <div class="dropdown-menu dropdown-menu-end">
                     <!-- item-->
-                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span>@lang('Profile')</span></a>
-                    <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span>@lang('My Wallet')</span></a>
-                    <a class="dropdown-item" href="#"><i class="bx bx-lock-open font-size-16 align-middle me-1"></i> <span>@lang('Lock screen')</span></a>
+                    <a class="dropdown-item" href="#"><i class="bx bx-user font-size-16 align-middle me-1"></i> <span>@lang('user.profile')</span></a>
+                    <a class="dropdown-item" href="#"><i class="bx bx-wallet font-size-16 align-middle me-1"></i> <span>@lang('user.my_wallet')</span></a>
+                    <a class="dropdown-item" href="{{ route('homepage') }}"><i class="bx bx-planet font-size-16 align-middle me-1"></i> <span>@lang('general.home')</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item d-block text-danger" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">
                         <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
-                        <span class="align-middle">Logout</span>
+                        <span class="align-middle">@lang('general.actions.logout')</span>
                     </a>
                 </div>
             </div>

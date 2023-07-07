@@ -1,5 +1,5 @@
 @extends('_layouts.guest', [
-    'title'         => 'Home',
+    'title'         => 'Dashboard',
     'hasHero'       => true,
     'hasBreadcrumb' => false,
 ])
@@ -12,11 +12,11 @@
 @section('content')
     <section class="inner-page">
         <div class="container">
-           @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxInProgress])
+            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxInProgress])
 
-           @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxAwarded])
+            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxAwarded])
 
-           @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxConcluded])
+            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxConcluded])
         </div>
     </section>
 @endsection

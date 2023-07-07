@@ -32,6 +32,21 @@ Route::prefix('/storage/local/{media}')->as('storage.local.')->middleware(['sign
         ->name('conversions.show');
 });
 
-Route::get('/')
-    ->uses([HomeController::class, 'index'])
-    ->name('homepage');
+Route::get('/')->uses([HomeController::class, 'index'])->name('homepage');
+
+Route::prefix('/')
+    ->as('frontend.')
+    ->group(function () {
+
+        Route::get('how-it-works')
+            ->uses([HomeController::class, 'howItWorks'])
+            ->name('how-it-works');
+
+        Route::get('testimonials')
+            ->uses([HomeController::class, 'testimonials'])
+            ->name('testimonials');
+
+        Route::get('partners')
+            ->uses([HomeController::class, 'partners'])
+            ->name('partners');
+    });

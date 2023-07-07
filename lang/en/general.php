@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'home'            => 'Web',
     'developed_by'    => 'Developed By',
     'updated_by'      => 'Updated By',
     'dashboard'       => 'Dashboard',

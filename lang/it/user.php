@@ -1,10 +1,11 @@
 <?php
 
 return [
-    'singular'  => 'User',
-    'plural'    => 'Users',
-    'profile'   => 'Profile',
-    'details'   => 'Details',
+    'singular'      => 'User',
+    'plural'        => 'Users',
+    'profile'       => 'Profile',
+    'my_wallet'     => 'My Wallet',
+    'details'       => 'Details',
     'fields'    => [
         'id'                           => 'ID',
         'role'                         => 'Role',

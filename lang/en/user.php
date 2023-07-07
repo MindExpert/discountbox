@@ -4,6 +4,7 @@ return [
     'singular'  => 'User',
     'plural'    => 'Users',
     'profile'   => 'Profile',
+    'my_wallet'   => 'My Wallet',
     'details'   => 'Details',
     'fields'    => [
         'id'                           => 'ID',

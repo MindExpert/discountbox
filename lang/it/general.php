@@ -1,12 +1,13 @@
 <?php
 
 return [
-    'developed_by'    => 'Developed By',
-    'updated_by'      => 'Updated By',
+    'home'            => 'Web',
+    'developed_by'    => 'Sviluppato Da',
+    'updated_by'      => 'Aggiornato Da',
     'dashboard'       => 'Panello',
     'pie_chart'       => 'Pie Chart',
     'bar_chart'       => 'Bar Chart',
-    'unknown'         => 'Unknown',
+    'unknown'         => 'Sconosciuto',
     'select_all'      => 'Seleziona Tutto',
     'no_balance'      => 'Nessun Balanza',
     'excel_file'      => 'File Excel',

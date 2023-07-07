@@ -8,11 +8,12 @@
         </div>
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link active" href="{{ url('/') }}">Home</a></li>
+                <li><a class="nav-link {{ active_route('frontend.homepage') }}" href="{{ url('/') }}">Home</a></li>
                 <li><a class="nav-link" href="#features">ScontaBOX in Corso</a></li>
                 <li><a class="nav-link" href="#gallery">ScontaBOX Conclusi</a></li>
-                <li><a class="nav-link" href="#pricing">Come Funziona</a></li>
-                <li><a class="nav-link" href="#faq">Testimonianze</a></li>
+                <li><a class="nav-link {{ active_route('frontend.partners') }}" href="{{ route('frontend.partners') }}">Partners</a></li>
+                <li><a class="nav-link {{ active_route('frontend.how-it-works') }}" href="{{ route('frontend.how-it-works') }}">Come Funziona</a></li>
+                <li><a class="nav-link {{ active_route('frontend.testimonials') }}" href="{{ route('frontend.testimonials') }}">Testimonianze</a></li>
                 {{--<li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>--}}
                 {{--    <ul>--}}
                 {{--        <li><a href="#">Drop Down 1</a></li>--}}

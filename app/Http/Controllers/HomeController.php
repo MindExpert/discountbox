@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -68,5 +68,20 @@ class HomeController extends Controller
             ->first();
 
         return view('welcome', compact('discountBoxInProgress', 'discountBoxAwarded', 'discountBoxConcluded'));
+    }
+
+    public function howItWorks(Request $request)
+    {
+        return view('frontend.how-it-works');
+    }
+
+    public function testimonials(Request $request)
+    {
+        return view('frontend.testimonials');
+    }
+
+    public function partners(Request $request)
+    {
+        return view('frontend.partners');
     }
 }
