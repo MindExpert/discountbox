@@ -49,6 +49,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class DiscountBox extends Model implements HasMedia
 {
+    use HasFactory;
     use SoftDeletes;
     use InteractsWithMedia;
 

@@ -9,16 +9,16 @@
         </div>
         <div class="mb-5 swiper-wrapper">
             @forelse($discountBox->products as $product)
-                <div class="swiper-slide">
-                    <div class="card">
+
+                    <div class="card custom-height-card swiper-slide">
                         @if($product->getFirstMediaUrl('featured_image'))
-                            <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="rounded  card-img-top" alt="Responsive image">
+                            <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image">
                         @else
-                            <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="rounded  card-img-top" alt="Responsive image">
+                            <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img card-img-top" alt="Responsive image">
                         @endif
                         <div class="card-body">
-                            <h4 class="card-title">{{ $product->name }}</h4>
-                            <p class="card-text">{!! getNWords($product->description, 10) !!} </p>
+                            <h4 class="card-title">{{ str_tease($product->name, 15) }}</h4>
+                            <p class="card-text">{!! getNWords($product->description, 5) !!} </p>
                             <p class="d-flex justify-content-between align-items-center">
                                 <span>@lang('discount_box.fields.credits'): {{$discountBox->credits}}</span>
                                 <span>@lang('discount_box.fields.participants'): 0</span>
@@ -29,7 +29,7 @@
                             <a href="#" class="btn btn-sm btn-primary">@lang('product.actions.view_model')</a>
                         </div>
                     </div>
-                </div>
+
             @empty
                 <div class="text-center">
                     <div class="alert alert-warning" role="alert">
@@ -66,15 +66,15 @@
                     },
                     640: {
                         slidesPerView: 2,
-                        spaceBetween: 20,
+                        spaceBetween: 10,
                     },
                     768: {
                         slidesPerView: 3,
-                        spaceBetween: 30,
+                        spaceBetween: 20,
                     },
                     1200: {
                         slidesPerView: 4,
-                        spaceBetween: 40
+                        spaceBetween: 30
                     }
                 }
             });

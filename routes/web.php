@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PrivateStorageController;
+use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +50,17 @@ Route::prefix('/')
         Route::get('partners')
             ->uses([HomeController::class, 'partners'])
             ->name('partners');
+
+        Route::prefix('products')
+            ->as('products.')
+            ->group(function () {
+                Route::get('/')
+                    ->uses([ProductsController::class, 'index'])
+                    ->name('index');
+
+                Route::get('/{product}')
+                    ->uses([ProductsController::class, 'show'])
+                    ->name('show');
+
+            });
     });

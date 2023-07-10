@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\StatusEnum;
 use App\Models\DiscountBox;
+use App\Models\Product;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -83,5 +84,17 @@ class HomeController extends Controller
     public function partners(Request $request)
     {
         return view('frontend.partners');
+    }
+
+    public function aboutUs(Request $request)
+    {
+        return view('frontend.about-us');
+    }
+
+    public function productShow(Request $request, Product $product)
+    {
+        $product->load('media');
+
+        return view('frontend.products.show', compact('product'));
     }
 }

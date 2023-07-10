@@ -8,6 +8,7 @@ use App\Support\Helper;
 use App\Support\SerialGenerator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -42,6 +43,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  */
 class Product extends Model implements HasMedia
 {
+    use HasFactory;
     use SoftDeletes;
     use InteractsWithMedia;
 

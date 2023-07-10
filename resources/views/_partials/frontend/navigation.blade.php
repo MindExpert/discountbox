@@ -9,7 +9,7 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link {{ active_route('frontend.homepage') }}" href="{{ url('/') }}">Home</a></li>
-                <li><a class="nav-link" href="#features">ScontaBOX in Corso</a></li>
+                <li><a class="nav-link {{ active_route('frontend.products.index') }}" href="{{ route('frontend.products.index') }}">ScontaBOX in Corso</a></li>
                 <li><a class="nav-link" href="#gallery">ScontaBOX Conclusi</a></li>
                 <li><a class="nav-link {{ active_route('frontend.partners') }}" href="{{ route('frontend.partners') }}">Partners</a></li>
                 <li><a class="nav-link {{ active_route('frontend.how-it-works') }}" href="{{ route('frontend.how-it-works') }}">Come Funziona</a></li>
