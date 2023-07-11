@@ -18,7 +18,7 @@ class DiscountBoxFactory extends Factory
      */
     public function definition(): array
     {
-        //$status = [StatusEnum::AWARDED, StatusEnum::IN_PROGRESS, StatusEnum::CONCLUDED];
+        //$status = [StatusEnum::IN_PROGRESS, StatusEnum::AWARDED,  StatusEnum::CONCLUDED];
         $status = [StatusEnum::IN_PROGRESS];
 
         $price = $this->faker->randomFloat(2, 5, 50);
