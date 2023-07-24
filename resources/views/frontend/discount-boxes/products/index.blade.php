@@ -6,6 +6,7 @@
 
 @section('breadcrumbs')
     <li><a href="{{url('/')}}">Home</a></li>
+    <li><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}">{{$discountBox->label}}</a></li>
     <li>Products</li>
 @endsection
 
@@ -25,7 +26,7 @@
                             </div>
 
                             <div class="p-2">
-                                <h5><a href="{{ route('frontend.products.show', ['product' => $product]) }}" class="text-dark">{{ str_tease($product->name, 15) }}</a></h5>
+                                <h5><a href="{{ route('frontend.discount-boxes.products.show', ['discountBox' => $discountBox, 'product' => $product]) }}" class="text-dark">{{ str_tease($product->name, 15) }}</a></h5>
                                 <p class="text-muted mb-0">{{ $product->created_at?->diffForHumans() }}</p>
                             </div>
 
@@ -46,12 +47,15 @@
                                 <p>{!!  getNWords($product->description, 10) !!}</p>
 
                                 <div>
-                                    <a href="{{ route('frontend.products.show', ['product' => $product]) }}" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.discount-boxes.products.show', ['discountBox' => $discountBox, 'product' => $product]) }}" class="text-primary">Read more <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="row">
+                {{ $products->appends(request()->except('products_page'))->links() }}
             </div>
         </div>
     </section>

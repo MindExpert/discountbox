@@ -28,7 +28,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         /** @var DiscountBox $discountBoxInProgress */
         $discountBoxInProgress = DiscountBox::query()
             ->where('discount_boxes.show_on_home', 'true')
@@ -89,12 +88,5 @@ class HomeController extends Controller
     public function aboutUs(Request $request)
     {
         return view('frontend.about-us');
-    }
-
-    public function productShow(Request $request, Product $product)
-    {
-        $product->load('media');
-
-        return view('frontend.products.show', compact('product'));
     }
 }

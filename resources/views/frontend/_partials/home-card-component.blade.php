@@ -5,7 +5,7 @@
     <div class="homepage-discountbox-slider swiper">
         <div class="d-flex justify-content-between align-items-center">
             <h4>{{$discountBox->name}} ―</h4>
-            <a href="javascript:void(0);" class="text-muted d-flex justify-content-between align-items-center"><span>@lang('general.actions.view_more')</span><i class="bx bx-chevron-right"></i></a>
+            <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-muted d-flex justify-content-between align-items-center"><span>@lang('general.actions.view_more')</span><i class="bx bx-chevron-right"></i></a>
         </div>
         <div class="mb-5 swiper-wrapper">
             @forelse($discountBox->products as $product)
@@ -25,7 +25,7 @@
                         <p class="card-text">
                             <small class="text-muted">@lang('discount_box.fields.expires_at') {{ $discountBox->expires_at?->diffForHumans() }}</small>
                         </p>
-                        <a href="{{ route('frontend.products.show', ['product' => $product]) }}" class="btn btn-sm btn-primary">@lang('product.actions.view_model')</a>
+                        <a href="{{ route('frontend.discount-boxes.products.show', ['discountBox' => $discountBox, 'product' => $product]) }}" class="btn btn-sm btn-primary">@lang('product.actions.view_model')</a>
                     </div>
                 </div>
             @empty

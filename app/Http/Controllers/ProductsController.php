@@ -25,25 +25,27 @@ class ProductsController extends Controller
      *
      * @return Renderable
      */
-    public function index()
+    public function index(DiscountBox $discountBox)
     {
         $products = Product::query()
-            ->withWhereHas('discount_boxes', function ($query) {
-                $query->where('discount_boxes.show_on_home', 'true')
-                    ->where('discount_boxes.status', StatusEnum::IN_PROGRESS->value);
+            ->withWhereHas('discount_boxes', function ($query) use ($discountBox) {
+                $query->where('discount_boxes.id', $discountBox->id);
             })
-            ->where('products.show_on_home', 'true')
+            //->where('products.show_on_home', 'true')
             ->orderBy('products.created_at', 'DESC')
-            ->paginate(12)
+            ->paginate(12, ['*'], 'products_page')
             ->withQueryString();
 
-        return view('frontend.products.index', compact('products'));
+        return view('frontend.discount-boxes.products.index', compact('discountBox','products'));
     }
 
-    public function show(Product $product)
+    public function show(DiscountBox $discountBox, Product $product)
     {
-        $product->load('media', 'discount_boxes');
+        $product = $discountBox->products()
+            ->with('media')
+            ->where('products.id', $product->id)
+            ->firstOrFail();
 
-        return view('frontend.products.show', compact('product'));
+        return view('frontend.discount-boxes.products.show', compact('discountBox', 'product'));
     }
 }

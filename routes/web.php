@@ -1,8 +1,10 @@
 <?php
 
+use App\Enums\StatusEnum;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PrivateStorageController;
+use App\Http\Controllers\DiscountBoxesController;
 use App\Http\Controllers\ProductsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,16 +53,34 @@ Route::prefix('/')
             ->uses([HomeController::class, 'partners'])
             ->name('partners');
 
-        Route::prefix('products')
-            ->as('products.')
+        Route::prefix('discount-boxes')
+            ->as('discount-boxes.')
             ->group(function () {
                 Route::get('/')
-                    ->uses([ProductsController::class, 'index'])
+                    ->uses([DiscountBoxesController::class, 'index'])
                     ->name('index');
 
-                Route::get('/{product}')
-                    ->uses([ProductsController::class, 'show'])
+                Route::get('/{status}')
+                    ->uses([DiscountBoxesController::class, 'indexByStatus'])
+                    ->where('status', collect(StatusEnum::values())->implode('|'))
+                    ->name('index-by-status');
+
+                Route::get('/{discountBox}')
+                    ->uses([DiscountBoxesController::class, 'show'])
                     ->name('show');
 
+                Route::prefix('{discountBox}/products')
+                    ->as('products.')
+                    ->group(function () {
+                        Route::get('/')
+                            ->uses([ProductsController::class, 'index'])
+                            ->name('index');
+
+                        Route::get('/{product}')
+                            ->uses([ProductsController::class, 'show'])
+                            ->name('show');
+
+                    });
             });
+
     });
