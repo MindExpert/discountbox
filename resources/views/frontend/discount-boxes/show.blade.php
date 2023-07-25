@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
     <li><a href="{{url('/')}}">Home</a></li>
-    <li><a href="{{url('/')}}">Products</a></li>
+    <li><a href="{{url('/')}}">DiscountBox</a></li>
     <li>Show</li>
 @endsection
 

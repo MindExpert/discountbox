@@ -35,8 +35,12 @@ if (! function_exists('active_url')) {
 }
 
 if (! function_exists('active_route')) {
-    function active_route(string $route, string $returnClass = 'active'): string
+    function active_route(string $route, string $returnClass = 'active', ?string $status = null): string
     {
+        if ($status !== null) {
+            return request()->route()->getName() === $route && request()->route()->parameter('status')?->value === $status ? $returnClass : '';
+        }
+
         return request()->route()->getName() === $route ? $returnClass : '';
     }
 }

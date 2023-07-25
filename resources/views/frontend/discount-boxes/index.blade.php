@@ -17,8 +17,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                         <div class="card">
                             <div class="custom-height-card">
-                                @if($discountBox->getFirstMediaUrl('featured_image'))
-                                    <img src="{{ $discountBox->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image">
+                                @if($discountBox->getFirstMediaUrl('cover_image'))
+                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image">
                                 @else
                                     <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image">
                                 @endif
