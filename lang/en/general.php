@@ -69,6 +69,7 @@ return [
     'results_found'   => 'Results Found',
     'expired'         => 'Expired',
     'default'         => 'Default',
+    'highlighted'     => 'Highlighted',
     'logout_message'  => 'Are you sure you want to proceed and logged out!',
     'actions'         => [
         'singular'             => 'Action',

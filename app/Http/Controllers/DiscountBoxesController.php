@@ -31,7 +31,7 @@ class DiscountBoxesController extends Controller
             ->with(['media'])
             ->where('discount_boxes.show_on_home', 'true')
             ->orderBy('discount_boxes.created_at', 'DESC')
-            ->paginate(12)
+            ->paginate(12, ['*'], 'discount_boxes_page')
             ->withQueryString();
 
         return view('frontend.discount-boxes.index', compact('discountBoxes'));
@@ -47,7 +47,7 @@ class DiscountBoxesController extends Controller
         $discountBoxes = DiscountBox::query()
             ->with(['media'])
             ->where('discount_boxes.status', $status->value)
-            ->where('discount_boxes.show_on_home', 'true')
+            //->where('discount_boxes.show_on_home', 'true')
             ->orderBy('discount_boxes.created_at', 'DESC')
             ->paginate(12)
             ->withQueryString();

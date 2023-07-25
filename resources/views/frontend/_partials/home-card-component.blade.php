@@ -9,11 +9,11 @@
         </div>
         <div class="mb-5 swiper-wrapper">
             @forelse($discountBox->products as $product)
-                <div class="card custom-height-card same-height swiper-slide">
+                <div class="card custom-height-card same-height swiper-slide @if($product->highlighted) border border-primary @endif">
                     @if($product->getFirstMediaUrl('featured_image'))
-                        <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image">
+                        <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                     @else
-                        <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img card-img-top" alt="Responsive image">
+                        <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                     @endif
                     <div class="card-body">
                         <h4 class="card-title">{{ str_tease($product->name, 15) }}</h4>

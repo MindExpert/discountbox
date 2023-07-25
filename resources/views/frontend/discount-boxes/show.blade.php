@@ -21,15 +21,7 @@
                     <div class="portfolio-details-slider swiper">
                         <div class="swiper-wrapper align-items-center">
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
+                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>
@@ -38,17 +30,13 @@
 
                 <div class="col-lg-7">
                     <div class="portfolio-info">
-                        <h3>{{ $product->name }}</h3>
+                        <h3>{{ $discountBox->name }}</h3>
                         <ul>
-                            <li><strong>@lang('product.fields.created_at')</strong>: {{ $product->created_at->format('d F, Y') }}</li>
-                            <li><strong>@lang('product.fields.url')</strong>: <a href="#">{{ $product->url }}</a></li>
-                            <li><strong>@lang('discount_box.plural')</strong>: {{ $product->discount_boxes->pluck('name')->implode(', ') }}</li>
+                            <li><strong>@lang('product.fields.created_at')</strong>: {{ $discountBox->created_at->format('d F, Y') }}</li>
                         </ul>
                     </div>
                     <div class="portfolio-description">
-                        <p>
-                            {{ $product->description }}
-                        </p>
+                        <p>--------</p>
                     </div>
                 </div>
 

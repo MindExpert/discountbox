@@ -15,17 +15,17 @@
             <div class="row">
                 @foreach($discountBoxes as $discountBox)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
-                        <div class="card">
+                        <div class="card @if($discountBox->highlighted) border border-success @endif">
                             <div class="custom-height-card">
                                 @if($discountBox->getFirstMediaUrl('cover_image'))
-                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image">
+                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
                                 @else
-                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image">
+                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
                                 @endif
                             </div>
 
                             <div class="p-2">
-                                <h5><a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}" class="text-dark">{{ str_tease($discountBox->name, 15) }}</a></h5>
+                                <h5><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-dark">{{ str_tease($discountBox->name, 15) }}</a></h5>
                                 <p class="text-muted mb-0">{{ $discountBox->created_at?->diffForHumans() }}</p>
                             </div>
 
@@ -46,12 +46,17 @@
                                 <p>{!!  getNWords($discountBox->description, 10) !!}</p>
 
                                 <div>
-                                    <a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}" class="text-primary">Vedi di Piu <i class="mdi mdi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-primary">Vedi di Piu <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="row">
+                <div class="col-md-12 align-self-center">
+                    {{ $discountBoxes->appends(request()->except('page'))->links() }}
+                </div>
             </div>
         </div>
     </section>

@@ -5,9 +5,10 @@
 ])
 
 @section('breadcrumbs')
-    <li><a href="{{url('/')}}">Home</a></li>
-    <li><a href="{{url('/')}}">Products</a></li>
-    <li>Show</a></li>
+    <li><a href="{{ url('/') }}">@lang('sidebar.menu.home')</a></li>
+    <li><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}">{{$discountBox->label}}</a></li>
+    <li><a href="{{ route('frontend.discount-boxes.products.show', ['discountBox' => $discountBox, 'product' => $product]) }}">{{$product->label}}</a></li>
+    <li>@lang('general.actions.view')</li>
 @endsection
 
 @section('content')
@@ -21,15 +22,15 @@
                     <div class="portfolio-details-slider swiper">
                         <div class="swiper-wrapper align-items-center">
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
+                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
                             </div>
 
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
+                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
                             </div>
 
                             <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="">
+                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
                             </div>
                         </div>
                         <div class="swiper-pagination"></div>

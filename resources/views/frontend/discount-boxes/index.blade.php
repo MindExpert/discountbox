@@ -18,9 +18,9 @@
                         <div class="card">
                             <div class="custom-height-card">
                                 @if($discountBox->getFirstMediaUrl('cover_image'))
-                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image">
+                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
                                 @else
-                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image">
+                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
                                 @endif
                             </div>
 
@@ -52,6 +52,11 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    {{ $discountBoxes->appends(request()->except('discount_box_page'))->links() }}
+                </div>
             </div>
         </div>
     </section>
