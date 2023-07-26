@@ -10,6 +10,12 @@
         <div class="mb-5 swiper-wrapper">
             @forelse($discountBox->products as $product)
                 <div class="card custom-height-card same-height swiper-slide @if($product->highlighted) border border-primary @endif">
+                    @if($product->highlighted)
+                        <div class="ribbon"><span>@lang('product.fields.highlighted')</span></div>
+                        {{--<div class="ribbon ribbon-top-right">--}}
+                        {{--    <span><i class="bx bx-star me-1"></i></span>--}}
+                        {{--</div>--}}
+                    @endif
                     @if($product->getFirstMediaUrl('featured_image'))
                         <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                     @else

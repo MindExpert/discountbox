@@ -17,9 +17,12 @@
                 @foreach($products as $product)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
                         <div class="card @if($product->highlighted) border border-primary @endif">
-                            <div class="ribbon ribbon-top-right">
-                                <span><i class="bx bx-star me-1"></i></span>
-                            </div>
+                            @if($product->highlighted)
+                                <div class="ribbon"><span>@lang('product.fields.highlighted')</span></div>
+                                {{--<div class="ribbon ribbon-top-right">--}}
+                                {{--    <span><i class="bx bx-star me-1"></i></span>--}}
+                                {{--</div>--}}
+                            @endif
                             <div class="custom-height-card">
                                 @if($product->getFirstMediaUrl('featured_image'))
                                     <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
