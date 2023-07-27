@@ -49,6 +49,7 @@ class DiscountBoxesController extends Controller
             ->where('discount_boxes.status', $status->value)
             //->where('discount_boxes.show_on_home', 'true')
             ->orderBy('discount_boxes.created_at', 'DESC')
+            ->withCount('products')
             ->paginate(12)
             ->withQueryString();
 

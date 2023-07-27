@@ -27,7 +27,8 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect()->to($this->redirectTo());
+                //return redirect()->to($this->redirectTo());
+                return redirect($this->redirectTo());
             }
         }
 

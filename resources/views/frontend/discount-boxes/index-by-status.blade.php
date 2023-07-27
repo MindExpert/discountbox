@@ -12,16 +12,28 @@
 @section('content')
     <section class="inner-page">
         <div class="container">
+            <div class="section-title">
+                <h2>@lang('discount_box.plural')</h2>
+                <p>
+                    Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem.
+                    Sit sint consectetur velit. Quisquam quos quisquam cupiditate.
+                </p>
+            </div>
             <div class="row">
                 @foreach($discountBoxes as $discountBox)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
-                        <div class="card @if($discountBox->highlighted) border border-success @endif">
+                        <div class="card discountbox-card @if($discountBox->highlighted) border border-success @endif">
                             @if($discountBox->highlighted)
-                                <div class="ribbon green"><span>@lang('product.fields.highlighted')</span></div>
-                                {{--<div class="ribbon ribbon-top-right">--}}
-                                {{--    <span><i class="bx bx-star me-1"></i></span>--}}
-                                {{--</div>--}}
+                                <div class="ribbon-main ribbon-main-top-right">
+                                    <span><i class="bx bx-star me-1"></i></span>
+                                </div>
                             @endif
+
+                            <div class="p-2">
+                                <h3 class="discountbox-name"><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}">{{ str_tease($discountBox->name, 15) }}</a></h3>
+                                <span class="discountbox-created_at">{{ $discountBox->created_at?->diffForHumans() }}</span>
+                            </div>
+
                             <div class="custom-height-card">
                                 @if($discountBox->getFirstMediaUrl('cover_image'))
                                     <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
@@ -31,20 +43,15 @@
                             </div>
 
                             <div class="p-2">
-                                <h5><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-dark">{{ str_tease($discountBox->name, 15) }}</a></h5>
-                                <p class="text-muted mb-0">{{ $discountBox->created_at?->diffForHumans() }}</p>
-                            </div>
-
-                            <div class="p-2">
                                 <ul class="list-inline">
-                                    <li class="list-inline-item me-2">
+                                    <li class="list-inline-item">
                                         <a href="javascript: void(0);" class="text-muted">
-                                            <i class="bx bx-credit-card align-middle text-muted me-1"></i> {{ $discountBox->credits }} Credits
+                                            <i class="bx bxl-product-hunt align-middle text-muted me-1"></i> {{ $discountBox->products_count }} @lang('product.plural')
                                         </a>
                                     </li>
                                     <li class="list-inline-item me-2">
                                         <a href="javascript: void(0);" class="text-muted">
-                                            <i class="bx bx-user align-middle text-muted me-1"></i> 12 Participants
+                                            <i class="bx bx-user align-middle text-muted me-1"></i> {{ rand(10, 40) }} Participants
                                         </a>
                                     </li>
                                 </ul>
@@ -52,7 +59,7 @@
                                 <p>{!!  getNWords($discountBox->description, 10) !!}</p>
 
                                 <div>
-                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-primary">Vedi di Piu <i class="mdi mdi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="get-started-btn">Vedi di Piu <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>

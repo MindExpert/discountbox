@@ -25,8 +25,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
-    //use RedirectsUser;
+    use RedirectsUser;
 
     /**
      * Where to redirect users after login.
@@ -57,10 +56,11 @@ class LoginController extends Controller
             FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->name]));
         }
 
-        if (auth()->user()->role === RolesEnum::ADMIN) {
-            return redirect()->route('management.dashboard');
-        }
+        return redirect()->to($this->redirectTo());
 
-        return redirect()->route('homepage');
+        //if (auth()->user()->role === RolesEnum::ADMIN) {
+        //    return redirect()->route('management.dashboard');
+        //}
+        //return redirect()->route('homepage');
     }
 }

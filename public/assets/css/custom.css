@@ -11,84 +11,84 @@
     height: 100% !important
 }
 
-/*!* common *!*/
-/*.ribbon {*/
-/*    width: 150px;*/
-/*    height: 150px;*/
-/*    overflow: hidden;*/
-/*    position: absolute;*/
-/*}*/
-/*.ribbon::before,*/
-/*.ribbon::after {*/
-/*    position: absolute;*/
-/*    z-index: -1;*/
-/*    content: '';*/
-/*    display: block;*/
-/*    border: 5px solid #2980b9;*/
-/*}*/
-/*.ribbon span {*/
-/*    position: absolute;*/
-/*    display: block;*/
-/*    width: 225px;*/
-/*    padding: 15px 0;*/
-/*    background-color: #3498db;*/
-/*    box-shadow: 0 5px 10px rgba(0,0,0,.1);*/
-/*    color: #fff;*/
-/*    font: 700 18px/1 'Lato', sans-serif;*/
-/*    text-shadow: 0 1px 1px rgba(0,0,0,.2);*/
-/*    text-transform: uppercase;*/
-/*    text-align: center;*/
-/*}*/
+/*!* RIBBON V1 *!*/
+.ribbon-main {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    position: absolute;
+}
+.ribbon-main::before,
+.ribbon-main::after {
+    position: absolute;
+    z-index: -1;
+    content: '';
+    display: block;
+    border: 5px solid #2980b9;
+}
+.ribbon-main span {
+    position: absolute;
+    display: block;
+    width: 225px;
+    padding: 15px 0;
+    background-color: #3498db;
+    box-shadow: 0 5px 10px rgba(0,0,0,.1);
+    color: #fff;
+    font: 700 18px/1 'Lato', sans-serif;
+    text-shadow: 0 1px 1px rgba(0,0,0,.2);
+    text-transform: uppercase;
+    text-align: center;
+}
 
-/*!* top left*!*/
-/*.ribbon-top-left {*/
-/*    top: -10px;*/
-/*    left: -10px;*/
-/*}*/
-/*.ribbon-top-left::before,*/
-/*.ribbon-top-left::after {*/
-/*    border-top-color: transparent;*/
-/*    border-left-color: transparent;*/
-/*}*/
-/*.ribbon-top-left::before {*/
-/*    top: 0;*/
-/*    right: 0;*/
-/*}*/
-/*.ribbon-top-left::after {*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*}*/
-/*.ribbon-top-left span {*/
-/*    right: -25px;*/
-/*    top: 30px;*/
-/*    transform: rotate(-45deg);*/
-/*}*/
+/* top left*/
+.ribbon-main-top-left {
+    top: -10px;
+    left: -10px;
+}
+.ribbon-main-top-left::before,
+.ribbon-main-top-left::after {
+    border-top-color: transparent;
+    border-left-color: transparent;
+}
+.ribbon-main-top-left::before {
+    top: 0;
+    right: 0;
+}
+.ribbon-main-top-left::after {
+    bottom: 0;
+    left: 0;
+}
+.ribbon-main-top-left span {
+    right: -25px;
+    top: 30px;
+    transform: rotate(-45deg);
+}
 
-/*!* top right*!*/
-/*.ribbon-top-right {*/
-/*    top: -10px;*/
-/*    right: -10px;*/
-/*}*/
-/*.ribbon-top-right::before,*/
-/*.ribbon-top-right::after {*/
-/*    border-top-color: transparent;*/
-/*    border-right-color: transparent;*/
-/*}*/
-/*.ribbon-top-right::before {*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*}*/
-/*.ribbon-top-right::after {*/
-/*    bottom: 0;*/
-/*    right: 0;*/
-/*}*/
-/*.ribbon-top-right span {*/
-/*    left: -25px;*/
-/*    top: 30px;*/
-/*    transform: rotate(45deg);*/
-/*}*/
+/* top right*/
+.ribbon-main-top-right {
+    top: -10px;
+    right: -10px;
+}
+.ribbon-main-top-right::before,
+.ribbon-main-top-right::after {
+    border-top-color: transparent;
+    border-right-color: transparent;
+}
+.ribbon-main-top-right::before {
+    top: 0;
+    left: 0;
+}
+.ribbon-main-top-right::after {
+    bottom: 0;
+    right: 0;
+}
+.ribbon-main-top-right span {
+    left: -25px;
+    top: 30px;
+    transform: rotate(45deg);
+}
 
-
+/* RIBBON V2.*/
 .ribbon {
     position: absolute;
     right: -5px;
@@ -161,4 +161,50 @@
 .yellow span::after {
     border-right-color: #79a70a;
     border-top-color: #79a70a;
+}
+
+.discountbox-card {
+    padding: 30px 15px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 30px rgba(73, 78, 92, 0.15);
+    background: #fff;
+    /*overflow: hidden;*/
+    border-radius: 5px;
+}
+.discountbox-card .discountbox-name {
+    font-weight: 200;
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: #5777ba;
+    font-family: "Open Sans", sans-serif;
+}
+
+.discountbox-card .discountbox-created_at {
+    color: #bababa;
+    font-size: 18px;
+    display: block;
+}
+
+.discountbox-card .get-started-btn {
+    background: #47536e;
+    display: inline-block;
+    padding: 5px 25px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 200;
+    font-family: "Raleway", sans-serif;
+    transition: 0.3s;
+}
+
+.discountbox-card .get-started-btn:hover {
+    background: #5777ba;
+}
+
+.discountbox-card h4 {
+    font-size: 32px;
+    color: #5777ba;
+    font-weight: 400;
+    font-family: "Open Sans", sans-serif;
+    margin-bottom: 25px;
 }

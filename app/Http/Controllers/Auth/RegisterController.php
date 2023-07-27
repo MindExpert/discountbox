@@ -28,7 +28,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
-    //use RedirectsUser;
+    use RedirectsUser;
 
     /**
      * Where to redirect users after registration.
@@ -103,10 +103,11 @@ class RegisterController extends Controller
         // Log the user in after registration
         auth()->login($user);
 
-        if ($user->role === RolesEnum::ADMIN) {
-            return redirect()->route('management.dashboard');
-        }
+        return redirect()->to($this->redirectTo());
 
-        return redirect()->route('homepage');
+        //if ($user->role === RolesEnum::ADMIN) {
+        //    return redirect()->route('management.dashboard');
+        //}
+        //return redirect()->route('homepage');
     }
 }
