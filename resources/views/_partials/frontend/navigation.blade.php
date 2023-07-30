@@ -34,17 +34,17 @@
                 @if (Route::has('login'))
                     @auth
                         <li>
-                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">Logout</a>
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">@lang('general.actions.logout')</a>
                         </li>
                         @if(auth()->user()->role === \App\Enums\RolesEnum::ADMIN)
                             <li><a href="{{ route('management.dashboard') }}" class="nav-link">Dashboard</a></li>
                         @else
-                            <li><a href="{{ url('/dashboard') }}" class="nav-link">Dashboard</a></li>
+                            <li><a href="{{ route('frontend.profile.edit') }}" class="nav-link">Profile</a></li>
                         @endif
                     @else
-                        <li><a href="{{ route('login') }}" class="signup">Log in</a></li>
+                        <li><a href="{{ route('login') }}" class="signup">@lang('general.actions.login')</a></li>
                         @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}" class="getstarted">Register</a></li>
+                            <li><a href="{{ route('register') }}" class="getstarted">@lang('general.actions.register')</a></li>
                         @endif
                     @endauth
                @endif

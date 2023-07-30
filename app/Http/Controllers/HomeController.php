@@ -3,11 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Enums\StatusEnum;
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\DiscountBox;
 use App\Models\Product;
+use App\Models\User;
+use App\Support\ActionJsonResponse;
+use App\Support\FlashNotification;
+use Exception;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -18,7 +24,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+         $this->middleware('auth')->except(['index', 'howItWorks', 'testimonials', 'partners']);
     }
 
     /**
@@ -83,10 +89,5 @@ class HomeController extends Controller
     public function partners(Request $request)
     {
         return view('frontend.partners');
-    }
-
-    public function aboutUs(Request $request)
-    {
-        return view('frontend.about-us');
     }
 }

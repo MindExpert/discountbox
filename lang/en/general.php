@@ -71,6 +71,7 @@ return [
     'default'         => 'Default',
     'highlighted'     => 'Highlighted',
     'logout_message'  => 'Are you sure you want to proceed and logged out!',
+    'not_allowed'     => 'You are not allowed to visit this section!',
     'actions'         => [
         'singular'             => 'Action',
         'plural'               => 'Actions',
@@ -116,10 +117,12 @@ return [
         'print'                => 'Print',
         'export'               => 'Export',
         'import'               => 'Import',
-        'logout'               => 'Logout',
         'logout_other_devices' => 'Logout Other Devices',
         'download'             => 'Download',
         'loading'              => 'Loading...',
+        'login'                => 'Login',
+        'register'             => 'Register',
+        'logout'               => 'Logout',
     ],
     'responses'       => [
         'logged_out_other_devices' => 'All other browser sessions have been logged out!',

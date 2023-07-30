@@ -28,6 +28,7 @@ class ProductsController extends Controller
     public function index(DiscountBox $discountBox)
     {
         $products = Product::query()
+            ->with(['media'])
             ->withWhereHas('discount_boxes', function ($query) use ($discountBox) {
                 $query->where('discount_boxes.id', $discountBox->id);
             })

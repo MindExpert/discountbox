@@ -163,14 +163,35 @@
     border-top-color: #79a70a;
 }
 
+/*--------------------------------------------------------------
+# Discountboxes
+--------------------------------------------------------------*/
 .discountbox-card {
     padding: 30px 15px;
     margin-bottom: 30px;
-    box-shadow: 0 0 30px rgba(73, 78, 92, 0.15);
+    /*box-shadow: 0 0 30px rgba(73, 78, 92, 0.15);*/
+    box-shadow: 0 10px 29px 0 rgba(68, 88, 144, 0.1);
     background: #fff;
-    /*overflow: hidden;*/
+    overflow: hidden;
     border-radius: 5px;
+    border-bottom: 3px solid #d9d8d8;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    /*margin: 0;*/
 }
+
+.discountbox-card:hover:not(.highlighted) {
+    box-shadow: 0 15px 35px 0 rgba(68, 88, 144, 0.2);
+    transform: translateY(-5px);
+    border-color: #3fcdc7;
+}
+
+.discountbox-card.highlighted:hover {
+    box-shadow: 0 15px 35px 0 rgba(68, 88, 144, 0.2);
+    transform: translateY(-5px);
+    border-color: #2282ff;
+}
+
 .discountbox-card .discountbox-name {
     font-weight: 200;
     margin-bottom: 10px;

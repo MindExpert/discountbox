@@ -158,7 +158,6 @@ class UsersController extends Controller
             FlashNotification::error(__('general.error'), __('user.responses.not_updated'));
             return ActionJsonResponse::make(false, route('management.users.index'))->response();
         }
-
     }
 
     public function destroy(User $user): RedirectResponse

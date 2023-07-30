@@ -22,7 +22,7 @@
             <div class="row">
                 @foreach($discountBoxes as $discountBox)
                     <div class="col-lg-3 col-md-4 col-sm-6 mb-3 d-flex align-items-stretch">
-                        <div class="card discountbox-card @if($discountBox->highlighted) border border-success @endif">
+                        <div class="card discountbox-card @if($discountBox->highlighted) highlighted @endif">
                             @if($discountBox->highlighted)
                                 <div class="ribbon-main ribbon-main-top-right">
                                     <span><i class="bx bx-star me-1"></i></span>

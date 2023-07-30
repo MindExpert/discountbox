@@ -71,6 +71,7 @@ return [
     'default'         => 'Predefinito',
     'highlighted'     => 'Evidenziata',
     'logout_message'  => 'Sei sicuro di voler uscire?',
+    'not_allowed'     => 'Non Sei Autorizzato A Visualizzare Questa Pagina!',
     'actions'         => [
         'singular'             => 'Azione',
         'plural'               => 'Azioni',
@@ -116,10 +117,12 @@ return [
         'print'                => 'Stampa',
         'export'               => 'Esporta',
         'import'               => 'Importa',
-        'logout'               => 'Disconnettersi',
         'logout_other_devices' => 'Disconnettersi Dagli Altri Dispositivi',
         'download'             => 'Scarica',
         'loading'              => 'Caricamento...',
+        'login'                => 'Accedi',
+        'register'             => 'Registrati',
+        'logout'               => 'Disconnettiti',
     ],
     'responses'       => [
         'logged_out_other_devices' => 'Tutte Le Altre Sessioni Del Browser Sono State Disconnesse!',

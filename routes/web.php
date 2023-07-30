@@ -6,6 +6,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PrivateStorageController;
 use App\Http\Controllers\DiscountBoxesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +82,18 @@ Route::prefix('/')
                             ->name('show');
 
                     });
+            });
+
+        Route::prefix('profile')
+            ->as('profile.')
+            ->group(function () {
+                Route::get('edit')
+                    ->uses([ProfileController::class, 'edit'])
+                    ->name('edit');
+
+                Route::put('/{user}/update')
+                    ->uses([ProfileController::class, 'update'])
+                    ->name('update');
             });
 
     });

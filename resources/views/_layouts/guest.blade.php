@@ -12,6 +12,7 @@
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    @yield('before-styles')
     <!-- Vendor CSS Files -->
     <link href="{{ asset('frontend/assets/vendor/aos/aos.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -20,9 +21,19 @@
     <link href="{{ asset('frontend/assets/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/assets/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+    @yield('styles')
+    <!-- Select2 Css -->
+    <link href="{{asset('assets/libs/select2/select2.min.css')}}" rel="stylesheet" type="text/css"/>
+    <!-- Toast Css -->
+    <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
+    <!-- custom Css-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Used to push from partial elements -->
     <!-- Template Main CSS File -->
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" type="text/css"/>
+    @yield('after-styles')
+    @stack('partial-styles')
 </head>
 <body>
 
@@ -62,10 +73,10 @@
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+@yield('script')
 <!-- Template Main JS File -->
 <script src="{{ asset('/frontend/assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/ajax-main.js') }}"></script>
-@yield('script')
 @yield('after-scripts')
 
 @stack('partial-scripts')
