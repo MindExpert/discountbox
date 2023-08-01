@@ -157,3 +157,30 @@
         </div>
     </section><!-- End Features Section -->
 @endsection
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $('a[data-bs-toggle="tab"]').click(function () {
+                if (window.history.pushState) {
+                    window.history.pushState('', '', '{{ route('frontend.profile.edit') }}'+$(this).attr('href'));
+                }
+            });
+
+            function activateTabByHash() {
+                if(window.location.hash) {
+                    $('a[data-bs-toggle="tab"][href="' + window.location.hash + '"]').tab('show');
+                } else {
+                    $('a[data-bs-toggle="tab"][href="profile-tab"]').tab('show');
+                }
+            }
+
+            activateTabByHash();
+
+            if (window.history && window.history.pushState) {
+                window.addEventListener("popstate", function(event) {
+                    activateTabByHash();
+                }, false);
+            }
+        });
+    </script>
+@endsection
