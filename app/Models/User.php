@@ -6,6 +6,7 @@ namespace App\Models;
 use App\Enums\RolesEnum;
 use App\Models\QueryBuilders\UserQueryBuilder;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -33,6 +34,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null                      $created_at
  * @property Carbon|null                      $updated_at
  * @property Carbon|null                      $deleted_at
+ * @property Collection|Transaction           $transactions
  *
  * @mixin UserQueryBuilder
  */
@@ -51,7 +53,7 @@ class User extends Authenticatable
         'banned_at'         => 'datetime',
         'last_login_at'     => 'datetime',
         'birth_date'        => 'date',
-//        'password'          => 'hashed',
+        //'password'          => 'hashed',
         'role'              => RolesEnum::class,
     ];
 
@@ -79,7 +81,6 @@ class User extends Authenticatable
         return $this->full_name;
     }
 
-
     public function preferredLocale()
     {
         return in_array($this->locale, config('app.locales')) ? $this->locale : config('app.locale');
@@ -93,6 +94,15 @@ class User extends Authenticatable
     public function isUser(): bool
     {
         return $this->role === RolesEnum::USER;
+    }
 
+    public function transactions(): HasMany
+    {
+        return $this->hasMany(Transaction::class, 'user_id', 'id');
+    }
+
+    public function availableBalance(): float
+    {
+        return $this->transactions()->sum('credit') - $this->transactions()->sum('debit');
     }
 }

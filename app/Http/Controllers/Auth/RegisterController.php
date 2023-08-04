@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\RolesEnum;
+use App\Events\Auth\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -100,14 +101,11 @@ class RegisterController extends Controller
             FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->name]));
         }
 
+        event(new UserRegistered($user));
+
         // Log the user in after registration
         auth()->login($user);
 
         return redirect()->to($this->redirectTo());
-
-        //if ($user->role === RolesEnum::ADMIN) {
-        //    return redirect()->route('management.dashboard');
-        //}
-        //return redirect()->route('homepage');
     }
 }

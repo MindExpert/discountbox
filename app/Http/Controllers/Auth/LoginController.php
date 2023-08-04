@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\RolesEnum;
+use App\Events\Auth\UserLoggedIn;
+use App\Events\Auth\UserLoggedOut;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Support\FlashNotification;
@@ -56,11 +58,22 @@ class LoginController extends Controller
             FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->name]));
         }
 
-        return redirect()->to($this->redirectTo());
+        event(new UserLoggedIn($user));
 
-        //if (auth()->user()->role === RolesEnum::ADMIN) {
-        //    return redirect()->route('management.dashboard');
-        //}
-        //return redirect()->route('homepage');
+        return redirect()->to($this->redirectTo());
+    }
+
+    public function logout(Request $request)
+    {
+        // Fire event, Log out user, Redirect
+        event(new UserLoggedOut($request->user()));
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
 }
