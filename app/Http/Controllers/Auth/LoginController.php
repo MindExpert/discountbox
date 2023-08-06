@@ -11,6 +11,7 @@ use App\Support\FlashNotification;
 use App\Support\RedirectsUser;
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -74,6 +75,14 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return $this->loggedOut($request) ?: redirect('/');
+        //return $this->loggedOut($request) ?: redirect('/');
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
 }

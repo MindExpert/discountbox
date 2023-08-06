@@ -50,7 +50,7 @@ class UsersController extends Controller
                         return view('management.users.datatable.role', compact('user'));
                     })
                     ->addColumn('actions', 'management.users.datatable.actions')
-                    ->rawColumns(['full_name', 'role', 'actions'])
+                    ->rawColumns(['actions', 'full_name', 'role'])
                     ->make(true);
             } catch (Exception $e) {
                 report($e);
@@ -88,19 +88,16 @@ class UsersController extends Controller
         try {
             /** @var User $user */
             $user = User::query()->create([
-                'role'            => $request->input('role'),
-                'first_name'      => $request->input('first_name'),
-                'last_name'       => $request->input('last_name'),
-                'nickname'        => $request->input('nickname'),
-                'email'           => $request->input('email'),
-                'password'        => Hash::make($request->input('password')),
-                'mobile'          => $request->input('mobile'),
-                //'locale'          => $request->input('locale'),
-                'birth_date'      => $request->input('birth_date'),
+                'role'        => $request->input('role'),
+                'first_name'  => $request->input('first_name'),
+                'last_name'   => $request->input('last_name'),
+                'nickname'    => $request->input('nickname'),
+                'email'       => $request->input('email'),
+                'password'    => Hash::make($request->input('password')),
+                'mobile'      => $request->input('mobile'),
+                //'locale'      => $request->input('locale'),
+                'birth_date'  => $request->input('birth_date'),
             ]);
-
-
-            $user->touch();
 
             FlashNotification::success(__('general.success'), __('user.responses.created'));
             return ActionJsonResponse::make(true, route('management.users.show', ['user' => $user->id]))->response();
@@ -147,8 +144,6 @@ class UsersController extends Controller
                     'password' => Hash::make($request->input('password')),
                 ]);
             }
-
-            $user->touch();
 
             FlashNotification::success(__('general.success'), __('user.responses.updated'));
             return ActionJsonResponse::make(true, route('management.users.show', ['user' => $user->id]))->response();

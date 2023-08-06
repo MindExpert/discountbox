@@ -5,6 +5,7 @@ use App\Http\Controllers\Management\CouponsController;
 use App\Http\Controllers\Management\DashboardController;
 use App\Http\Controllers\Management\DiscountBoxesController;
 use App\Http\Controllers\Management\ProductsController;
+use App\Http\Controllers\Management\TransactionsController;
 use App\Http\Controllers\Management\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -174,5 +175,42 @@ Route::prefix('/discount-boxes')
 
         Route::delete('/{discountBox}')
             ->uses([DiscountBoxesController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+Route::prefix('/transactions')
+    ->as('transactions.')
+    ->group(function () {
+        Route::get('/')
+            ->uses([TransactionsController::class, 'index'])
+            ->name('index');
+
+        Route::get('/search')
+            ->uses([TransactionsController::class, 'search'])
+            ->name('search')
+            ->middleware(['expects_json']);
+
+        Route::get('/create')
+            ->uses([TransactionsController::class, 'create'])
+            ->name('create');
+
+        Route::post('/')
+            ->uses([TransactionsController::class, 'store'])
+            ->name('store');
+
+        Route::get('/{transaction}')
+            ->uses([TransactionsController::class, 'show'])
+            ->name('show');
+
+        Route::get('/{transaction}/edit')
+            ->uses([TransactionsController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/{transaction}')
+            ->uses([TransactionsController::class, 'update'])
+            ->name('update');
+
+        Route::delete('/{transaction}')
+            ->uses([TransactionsController::class, 'destroy'])
             ->name('destroy');
     });

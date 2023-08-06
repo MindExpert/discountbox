@@ -62,11 +62,6 @@ class AuthEventListener
 
         $event->user->save();
 
-        // update login history
-        // $event->user->logins()->create([
-        //     'ip_address' => $ip_address
-        // ]);
-
         logger('handleUserLogin');
     }
 

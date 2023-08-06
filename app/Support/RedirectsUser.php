@@ -10,7 +10,11 @@ trait RedirectsUser
     public function redirectTo()
     {
         # Default URL
-        $defaultUrl       = route('management.dashboard');
+        if (auth()->user()?->isUser()) {
+            $defaultUrl = route('homepage');
+        } else {
+            $defaultUrl = route('management.dashboard');
+        }
         $intendedUrl      = session()->pull('url.intended', $defaultUrl);
         $routeMiddlewares = Route::getRoutes()->match(Request::create($intendedUrl))->middleware();
 

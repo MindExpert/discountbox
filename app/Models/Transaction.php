@@ -6,6 +6,7 @@ use App\Enums\TransactionTypeEnum;
 use App\Models\QueryBuilders\TransactionQueryBuilder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Support\Facades\Lang;
 
@@ -34,7 +35,7 @@ class Transaction extends Model
     public static string $morph_key = 'transaction';
 
     protected $casts = [
-        'role' => TransactionTypeEnum::class,
+        'type' => TransactionTypeEnum::class,
     ];
 
     protected static function boot(): void
@@ -53,6 +54,11 @@ class Transaction extends Model
     public function newEloquentBuilder($query): TransactionQueryBuilder
     {
         return new TransactionQueryBuilder($query);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id')->withTrashed();
     }
 
     public function transactional(): MorphTo

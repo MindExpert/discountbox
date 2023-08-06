@@ -1,5 +1,5 @@
 @extends('_layouts.app', [
-    'title' => 'management.dashboard',
+    'title' => __('general.dashboard'),
 ])
 
 @section('breadcrumbs')

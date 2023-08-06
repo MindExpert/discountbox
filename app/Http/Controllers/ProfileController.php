@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\StatusEnum;
+use App\Enums\TransactionTypeEnum;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\DiscountBox;
 use App\Models\User;
@@ -50,6 +51,33 @@ class ProfileController extends Controller
             if ($request->filled('password')) {
                 $user->update([
                     'password' => Hash::make($request->input('password')),
+                ]);
+            }
+
+            $hasNotFilledProfiled = $user->transactions()
+                ->where('type', TransactionTypeEnum::PROFILE_COMPLETE)
+                ->doesntExist();
+
+            # Add credits if user has not logged the first time and has not logged in for 24 hours
+            if($user->first_name !== null
+                && $user->last_name !== null
+                && $user->nickname !== null
+                && $user->email !== null
+                && $user->mobile !== null
+                && $user->birth_date !== null
+                && $hasNotFilledProfiled
+            ) {
+                $user->transactions()->create([
+                    'credit' => config('app.bonuses.profile'),
+                    'type'   => TransactionTypeEnum::PROFILE_COMPLETE,
+                    'name'   => json_encode([
+                        'lang'   => 'transaction.names.credit',
+                        'params' => ['actionable' => __('transaction.event.profile')]
+                    ]),
+                    'notes'  => json_encode([
+                        'lang'   => 'transaction.names.profile_bonus',
+                        'params' => []
+                    ]),
                 ]);
             }
 

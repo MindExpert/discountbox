@@ -12,5 +12,6 @@ return [
         'coupons'          => 'Buoni',
         'products'         => 'Prodotti',
         'discount_box'     => 'Sconta Box',
+        'transactions'     => 'Transazioni',
     ],
 ];

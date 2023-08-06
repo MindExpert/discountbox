@@ -8,7 +8,9 @@ enum TransactionTypeEnum: string
     case SHARE            = 'share';
     case LIKE             = 'like';
     case PROFILE_COMPLETE = 'profile';
-    case EXPENDITURE      = 'EXPENDITURE';
+    case EXPENDITURE      = 'expenditure';
+    case MANUAL_CREDIT    = 'manual_credit';
+    case MANUAL_DEBIT     = 'manual_debit';
 
     public static function default(): self
     {
@@ -37,6 +39,8 @@ enum TransactionTypeEnum: string
             self::SHARE->value            => 'danger',
             self::LIKE->value             => 'warning',
             self::EXPENDITURE->value      => 'secondary',
+            self::MANUAL_CREDIT->value    => 'success',
+            self::MANUAL_DEBIT->value     => 'danger',
         ][$this->value];
     }
 

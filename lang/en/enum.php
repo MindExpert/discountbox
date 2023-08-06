@@ -3,6 +3,7 @@
 use App\Enums\DiscountTypeEnum;
 use App\Enums\StatusEnum;
 use App\Enums\RolesEnum;
+use App\Enums\TransactionTypeEnum;
 
 
 return [
@@ -25,6 +26,19 @@ return [
         'label' => [
             DiscountTypeEnum::PERCENTAGE->value => 'Percentage',
             DiscountTypeEnum::VALUE->value      => 'Value',
+        ],
+    ],
+
+    TransactionTypeEnum::class => [
+        'label' => [
+            TransactionTypeEnum::LOGIN->value            => 'Login',
+            TransactionTypeEnum::PROFILE_COMPLETE->value => 'Profile Complete',
+            TransactionTypeEnum::LIKE->value             => 'Like',
+            TransactionTypeEnum::SHARE->value            => 'Share',
+            TransactionTypeEnum::EXPENDITURE->value      => 'Expenditure',
+            TransactionTypeEnum::MANUAL_CREDIT->value    => 'Manual Credit',
+            TransactionTypeEnum::MANUAL_DEBIT->value     => 'Manual Debit',
+
         ],
     ],
 ];

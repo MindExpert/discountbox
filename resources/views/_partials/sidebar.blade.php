@@ -46,6 +46,14 @@
                         </a>
                     </li>
                 @endcan
+                @can('viewAny', App\Models\Transaction::class)
+                    <li>
+                        <a href="{{ route('management.transactions.index') }}" class="waves-effect">
+                            <i class="bx bx-transfer"></i>
+                            <span>@lang('sidebar.menu.transactions')</span>
+                        </a>
+                    </li>
+                @endcan
                 <li class="menu-title">@lang('management.apps')</li>
 
                 <li>
