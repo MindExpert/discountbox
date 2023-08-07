@@ -41,7 +41,13 @@ class TransactionsController extends Controller
                         ];
                     })
                     ->editColumn('name', function (Transaction $transaction) {
-                        return view('management.transactions.datatable.name', compact('transaction'));
+                        if (! empty($product->notes)) {
+                            $html = nl2br($product->notes);
+                        } else {
+                            $html = __('general.no_data');
+                        }
+                        
+                        return view('management.transactions.datatable.name', compact('transaction', 'html'));
                     })
                     ->addColumn('type', function (Transaction $transaction) {
                         return view('management.transactions.datatable.type', compact('transaction'));
