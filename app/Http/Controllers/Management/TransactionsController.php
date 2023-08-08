@@ -10,9 +10,11 @@ use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
 use Exception;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransactionsController extends Controller
@@ -26,7 +28,7 @@ class TransactionsController extends Controller
 
                 $datatableQuery = Transaction::query()
                     ->select(['transactions.*'])
-                    ->with(['user', 'transactional']);
+                    ->with(['user']);
 
                 return DataTables::eloquent($datatableQuery)
                     ->addColumn('permissions', function (Transaction $transaction) {
@@ -40,20 +42,63 @@ class TransactionsController extends Controller
                             'delete' => $delete,
                         ];
                     })
+                    ->editColumn('user_id', function (Transaction $transaction) {
+                        return view('management.transactions.datatable.user', compact('transaction'));
+                    })
                     ->editColumn('name', function (Transaction $transaction) {
-                        if (! empty($product->notes)) {
-                            $html = nl2br($product->notes);
+                        if (! empty($transaction->notes)) {
+                            $html = nl2br($transaction->notes);
                         } else {
                             $html = __('general.no_data');
                         }
-                        
+
                         return view('management.transactions.datatable.name', compact('transaction', 'html'));
                     })
                     ->addColumn('type', function (Transaction $transaction) {
                         return view('management.transactions.datatable.type', compact('transaction'));
                     })
                     ->addColumn('actions', 'management.transactions.datatable.actions')
-                    ->rawColumns(['actions', 'name', 'type'])
+                    ->filterColumn('user_id', function (Builder $query, $keyword) {
+                        if ($keyword) {
+                            if (is_numeric($keyword)) {
+                                return $query->where('transactions.user_id', $keyword);
+                            } else {
+                                return $query->whereIn('transactions.user_id', function ($subQuery) use ($keyword) {
+                                    return $subQuery->select('id')
+                                        ->from('users')
+                                        ->whereRaw("CONVERT(users.first_name using 'utf8mb4') like ?", ["%$keyword%"])
+                                        ->orWhereRaw("CONVERT(users.last_name using 'utf8mb4') like ?", ["%$keyword%"]);
+                                });
+                            }
+                        }
+                        return $query;
+                    })
+                    ->withQuery('model_aggregates', function ($filteredQuery) {
+                        $filteredQuery->getQuery()->orders = null;
+                        $filteredQuery->getQuery()->limit = null;
+                        $filteredQuery->getQuery()->offset = null;
+
+                        return $filteredQuery
+                            ->select(DB::raw("
+                                SUM(transactions.credit) AS total_credit,
+                                SUM(transactions.debit) AS total_debit,
+                                (SUM(transactions.credit) - SUM(transactions.debit))  AS available_credit,
+                                transactions.type AS group_type
+                            "))
+                            ->groupBy('transactions.type')
+                            ->orderBy('transactions.type')
+                            ->get()
+                            ->map(function ($item) {
+                                return [
+                                    'available_credit' => number_format_short($item->available_credit, 2),
+                                    'total_credit'     => number_format_short($item->total_credit, 2),
+                                    'total_debit'      => number_format_short($item->total_debit, 2),
+                                    'type_label'       => TransactionTypeEnum::tryFrom($item->group_type)->label(),
+                                    'type_color'       => TransactionTypeEnum::tryFrom($item->group_type)->color(),
+                                ];
+                            });
+                    })
+                    ->rawColumns(['actions', 'user_id', 'name', 'type'])
                     ->make(true);
             } catch (Exception $e) {
                 report($e);

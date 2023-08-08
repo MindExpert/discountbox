@@ -78,4 +78,16 @@ class Transaction extends Model
         return $name;
     }
 
+    public function getNotesAttribute($notes): ?string
+    {
+        if ($notes) {
+            $decoded = json_decode($notes, true);
+            if ($decoded && isset($decoded['lang']) && Lang::has($decoded['lang'])) {
+                return __($decoded['lang'], $decoded['params'] ?? []);
+            }
+        }
+
+        return $notes;
+    }
+
 }

@@ -37,6 +37,7 @@
                             <thead>
                             <tr role="row"  class="bg-light">
                                 <th scope="col">@lang('transaction.fields.id')</th>
+                                <th scope="col">@lang('transaction.fields.user_id')</th>
                                 <th scope="col">@lang('transaction.fields.name')</th>
                                 <th scope="col">@lang('transaction.fields.type')</th>
                                 <th scope="col">@lang('transaction.fields.credit')</th>
@@ -45,6 +46,14 @@
                             </tr>
                             <tr role="row" style="display: none;">
                                 <th></th>
+                                <th>
+                                    <select class="form-control search-input select2" name="user_id" id="user_id"
+                                            style="width: 100% !important;"
+                                            aria-label="@lang('transaction.fields.user_id')"
+                                            data-placeholder="@lang('transaction.fields.user_id')"
+                                            data-allow-clear="true"
+                                    ></select>
+                                </th>
                                 <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="role" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
@@ -53,6 +62,7 @@
                             </tr>
                             </thead>
                             <tbody></tbody>
+                            <tfoot id="footer-table"></tfoot>
                         </table>
                     </div>
                 </div>
@@ -72,6 +82,8 @@
             let $resetFilterBtn = $('#datatable-reset-filter');
             let hasFilters = false;
 
+            let $userSelect = $('#user_id');
+
             let dt = $datatable.DataTable({
                 responsive: false,
                 searchDelay: 500,
@@ -84,6 +96,7 @@
                 deferRender: true,
                 columns: [
                     {data: 'id', name: 'id'},
+                    {data: 'user_id', name: 'user_id'},
                     {data: 'name', name: 'name'},
                     {data: 'type', name: 'type'},
                     // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},
@@ -107,6 +120,18 @@
                         maxWidth: 'calc(50% - 32px)',
                         maxHeight: 'calc(50% - 32px)',
                     });
+
+                    let html = '';
+                    $.each(settings.json.model_aggregates, function(index, value) {
+                        html += `<tr>
+                            <td colspan="3"></td>
+                            <td class="bg-info bg-opacity-10 fw-lighter fs-6">${value.type_label}</td>
+                            <td class="bg-success bg-opacity-10 fw-lighter">${value.total_credit}</td>
+                            <td class="bg-warning bg-opacity-10 fw-lighter">${value.total_debit}</td>
+                            <td></td>
+                        </tr>`;
+                    });
+                    $('#ajax-datatable #footer-table').html(html);
                 },
             });
 
@@ -139,7 +164,9 @@
                     if (columnSearchValue) {
                         let $field = $(`.search-input[name="${columnName}"]`);
 
-                        if($field.hasClass('select2-hidden-accessible')) {
+                        if ($field.attr('id') === 'user_id') {
+                            fillSelect2Element(columnSearchValue, "{{ route('management.users.search') }}", $userSelect);
+                        } else if($field.hasClass('select2-hidden-accessible')) {
                             $field.val(columnSearchValue).trigger('change.select2');
                         } else {
                             $field.val(columnSearchValue);
@@ -153,6 +180,32 @@
             if (hasFilters) {
                 $datatable.find('thead tr:eq(1)').show();
             }
+
+            $userSelect.select2({
+                placeholder: "@lang('user.actions.search')",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('management.users.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            keyword: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: $.map(data, function (response) {
+                                return {
+                                    id: response.id,
+                                    text: response.label,
+                                };
+                            })
+                        };
+                    },
+                    cache: false,
+                }
+            });
         });
     </script>
 @endsection
