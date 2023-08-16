@@ -24,12 +24,12 @@ class ProductDiscountBoxSeeder extends Seeder
         }
 
         if (0 === $productCount) {
-            $this->command->info('No Products Found. Skipping assigning categories to books!');
+            $this->command->info('No Products Found. Skipping assigning products to Discount Box!');
             return;
         }
 
-        $howManyMin = (int)$this->command->ask('Minimum products would you like on e Discount Box?', 6);
-        $howManyMax = min((int)$this->command->ask('How many max products would you like on e Discount Box?', $productCount), $productCount);
+        $howManyMin = (int)$this->command->ask('Minimum products would you like on Discount Box?', 6);
+        $howManyMax = min((int)$this->command->ask('How many max products would you like on Discount Box?', $productCount), $productCount);
 
         DiscountBox::all()->each(function(DiscountBox $discountBox) use($howManyMin, $howManyMax) {
             $take = random_int($howManyMin, $howManyMax);
