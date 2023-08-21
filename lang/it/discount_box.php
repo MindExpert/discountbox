@@ -31,6 +31,8 @@ return [
         'select_products' => 'Seleziona Prodotti',
         'image'           => 'Immagine',
         'cover_image'     => 'Immagine di copertina',
+        'validity'        => 'Validità',
+        'validity_info'   => 'Verifica sul sito di vendita modalità, tempi e costi di spedizione del prodotto',
     ],
     'actions'   => [
         'search'              => 'Cerca un Sconto Box...',

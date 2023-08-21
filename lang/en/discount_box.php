@@ -32,6 +32,8 @@ return [
         'image'           => 'Image',
         'cover_image'     => 'Cover Image',
         'coupon_info'     => 'Select a Coupon to be applied to this Discount Box',
+        'validity'        => 'Validity',
+        'validity_info'   => 'Check on the sales site the methods, times and costs of shipping the product',
     ],
     'actions'   => [
         'search'              => 'Search for a Discount Box...',

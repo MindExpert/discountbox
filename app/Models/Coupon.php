@@ -150,7 +150,7 @@ class Coupon extends Model
         return true;
     }
 
-    public function calculateDiscountedPrice(?float $price): float|int
+    public function calculateDiscountedPrice(?float $price = null): float|int
     {
         if ($price === null) {
             return 0;

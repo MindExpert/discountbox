@@ -229,3 +229,18 @@
     font-family: "Open Sans", sans-serif;
     margin-bottom: 25px;
 }
+
+.slide-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .slide-container {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 120px;
+    }
+}

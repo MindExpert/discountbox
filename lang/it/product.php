@@ -15,6 +15,7 @@ return [
         'review'          => 'Recensione',
         'url'             => 'URL',
         'status'          => 'Stato',
+        'price'           => 'Prezzo',
         'highlighted'     => 'In evidenza',
         'show_on_home'    => 'Mostra in Home',
         'concluded_at'    => 'Concluso il',
@@ -26,6 +27,10 @@ return [
         'image'           => 'Immagine',
         'featured_image'  => 'Immagine in evidenza',
         'gallery_images'  => 'Immagini di galleria',
+        'participation_fee' => 'Quota di partecipazione',
+        'sales_sites'       => 'Sito vendita',
+        'current_price'     => 'Prezzo attuale',
+        'discount_you'      => 'ScontaTu (max90%)',
     ],
     'actions'   => [
         'search'              => 'Cerca un Prodotto...',

@@ -28,6 +28,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string|null  $description
  * @property string|null  $review
  * @property string|null  $url
+ * @property double       $price
  * @property StatusEnum   $status
  * @property bool         $highlighted
  * @property bool         $show_on_home
@@ -55,6 +56,7 @@ class Product extends Model implements HasMedia
         'concluded_at' => 'datetime',
         'highlighted'  => 'boolean',
         'show_on_home' => 'boolean',
+        'price'        => 'double',
         'status'       => StatusEnum::class,
     ];
 

@@ -323,7 +323,7 @@ if (!function_exists('display_price')) {
      * @$price - Added hack in for when the variants are being created it passes over the new ISO currency code
      * which breaks number_format
      */
-    function display_price(float|int|string|null $price, int $precision = 2, ?string $symbol = ''): string
+    function display_price(float|int|string|null $price, int $precision = 2, ?string $symbol = '€'): string
     {
         if ($price === '') {
             return 0;

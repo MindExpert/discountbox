@@ -136,6 +136,7 @@ class ProductsController extends Controller
                 'url'           => $request->input('url'),
                 'description'   => $request->input('description'),
                 'review'        => $request->input('review'),
+                'price'         => $request->input('price') ?? 0.00,
                 //'status'        => $request->input('status'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
@@ -195,6 +196,7 @@ class ProductsController extends Controller
                 'review'        => $request->input('review'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
+                'price'         => $request->input('price') ?? 0.00,
                 //'status'        => $request->input('status'),
             ]);
 

@@ -15,6 +15,7 @@ return [
         'review'         => 'Review',
         'url'             => 'URL',
         'status'          => 'Status',
+        'price'           => 'Price',
         'highlighted'     => 'Highlighted',
         'show_on_home'    => 'Show on Home',
         'concluded_at'    => 'Concluded at',
@@ -26,6 +27,10 @@ return [
         'image'           => 'Image',
         'featured_image'  => 'Featured Image',
         'gallery_images'  => 'Gallery Images',
+        'participation_fee' => 'Participation fee',
+        'sales_sites'       => 'Sales site',
+        'current_price'     => 'Current price',
+        'discount_you'      => 'DiscountYou (max90%)',
     ],
     'actions'   => [
         'search'              => 'Search for a Product...',

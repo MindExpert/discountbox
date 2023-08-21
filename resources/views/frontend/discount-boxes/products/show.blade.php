@@ -17,21 +17,27 @@
         <div class="container">
 
             <div class="row gy-4">
-
                 <div class="col-lg-5">
                     <div class="portfolio-details-slider swiper">
                         <div class="swiper-wrapper align-items-center">
-                            <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
-                            </div>
+                            @if($media = $product->getFirstMedia('featured_image'))
+                                <div class="swiper-slide">
+                                    <img src="{{ $media->getFullUrl() }}" alt="" loading="lazy">
+                                </div>
+                            @endif
+                            @forelse($product->getMedia('gallery_images') as $media)
+                                <div class="swiper-slide">
+                                    <img src="{{ $media->getFullUrl() }}" alt="" loading="lazy">
+                                </div>
+                            @empty
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
+                                </div>
+                            @endforelse
 
-                            <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
-                            </div>
-
-                            <div class="swiper-slide">
-                                <img src="{{ asset('frontend/assets/img/placeholderx4.png') }}" alt="" loading="lazy">
-                            </div>
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -41,18 +47,31 @@
                     <div class="portfolio-info">
                         <h3>{{ $product->name }}</h3>
                         <ul>
-                            <li><strong>@lang('product.fields.created_at')</strong>: {{ $product->created_at->format('d F, Y') }}</li>
-                            <li><strong>@lang('product.fields.url')</strong>: <a href="#">{{ $product->url }}</a></li>
-                            <li><strong>@lang('discount_box.plural')</strong>: {{ $product->discount_boxes->pluck('name')->implode(', ') }}</li>
+                            <li><strong>@lang('product.fields.participation_fee')</strong>:&nbsp;{{ $discountBox->credits }}</li>
+                            <li><strong>@lang('product.fields.created_at')</strong>:&nbsp; {{ $product->created_at->format('d F, Y') }}</li>
                         </ul>
-                    </div>
-                    <div class="portfolio-description">
-                        <p>
-                            {{ $product->description }}
-                        </p>
+                        <br>
+                        <div class="slide-container gy-4">
+                            <label for="discount-range">@lang('product.fields.discount_you')</label>
+                            <input type="range" min="1" max="100" value="1" class="slider" id="discount-range">
+                            <button class="btn btn-primary btn-sm" id="js-btn-apply-discount">@lang('general.actions.apply')</button>
+                        </div>
+                        <br>
+                        <ul>
+                            <li><strong>@lang('product.fields.sales_sites')</strong>: <a href="{{$product->url}}">{{ $product->url }}</a></li>
+                            <li><strong>@lang('product.fields.current_price')</strong>: {{ display_price($discountBox->total) }}</li>
+                            <li><strong>@lang('discount_box.plural')</strong>: {{ $product->discount_boxes->pluck('name')->implode(', ') }}</li>
+                            <li>@lang('discount_box.fields.validity_info')</li>
+                            <li><strong>@lang('discount_box.fields.validity')</strong>: {{ $discountBox->coupon->expires_at?->format('d/m/Y') }}</li>
+                        </ul>
                     </div>
                 </div>
 
+                <div class="col-12">
+                    <div class="portfolio-description">
+                        <p> {!! $product->description !!}</p>
+                    </div>
+                </div>
             </div>
 
         </div>

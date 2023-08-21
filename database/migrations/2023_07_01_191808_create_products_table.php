@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->text('review')->nullable();
             $table->text('url')->nullable();
+            $table->unsignedDecimal('price')->default(0);
             $table->string('status')->default(StatusEnum::default()->value);
             $table->boolean('highlighted')->default(false);
             $table->boolean('show_on_home')->default(false);
