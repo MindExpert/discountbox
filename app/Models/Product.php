@@ -161,5 +161,4 @@ class Product extends Model implements HasMedia
     {
         return $this->status === StatusEnum::CONCLUDED;
     }
-
 }

@@ -61,6 +61,8 @@ class ProductsController extends Controller
 
         $discountBox->load('coupon');
 
+        $userAvailableCredit = auth()->user()->availableBalance();
+
         return view('frontend.discount-boxes.products.show', compact('discountBox', 'product'));
     }
 }

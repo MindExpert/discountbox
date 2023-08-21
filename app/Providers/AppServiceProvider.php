@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use App\Models\DiscountBox;
 use App\Models\Media;
 use App\Models\Product;
+use App\Models\ProductDiscountRequest;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -35,12 +36,13 @@ class AppServiceProvider extends ServiceProvider
         Paginator::useBootstrap();
 
         Relation::morphMap([
-            Coupon::$morph_key          => Coupon::class,
-            DiscountBox::$morph_key     => DiscountBox::class,
-            Media::$morph_key           => Media::class,
-            Product::$morph_key         => Product::class,
-            Transaction::$morph_key     => Transaction::class,
-            User::$morph_key            => User::class,
+            Coupon::$morph_key                  => Coupon::class,
+            DiscountBox::$morph_key             => DiscountBox::class,
+            Media::$morph_key                   => Media::class,
+            Product::$morph_key                 => Product::class,
+            ProductDiscountRequest::$morph_key  => ProductDiscountRequest::class,
+            Transaction::$morph_key             => Transaction::class,
+            User::$morph_key                    => User::class,
 
         ]);
     }
