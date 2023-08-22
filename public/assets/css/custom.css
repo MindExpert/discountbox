@@ -237,6 +237,11 @@
     width: 100%;
 }
 
+.slide-container .range-slider {
+    width: 100%;
+    margin: 0 15px;
+}
+
 @media (max-width: 768px) {
     .slide-container {
         flex-direction: column;
@@ -244,3 +249,43 @@
         height: 120px;
     }
 }
+
+/** SWEETALERT - START  **/
+/* SWAL CANCEL */
+button:where(.swal2-cancel) {
+    color: #565E6CFF !important;
+    background: #F3F4F6FF !important;
+    border-radius: 4px !important;
+}
+
+/* Hover */
+button:where(.swal2-cancel):hover {
+    color: #565E6CFF !important;
+    background: #DEE1E6FF !important;
+}
+
+/* Pressed */
+button:where(.swal2-cancel):hover:active {
+    color: #565E6CFF !important;
+    background: #CFD2DAFF !important;
+}
+
+/* SWAL CONFIRM */
+button:where(.swal2-confirm) {
+    color: #FFFFFFFF !important;
+    background: #00BDD6FF !important;
+    border-radius: 4px !important;
+}
+
+/* Hover */
+button:where(.swal2-confirm):hover {
+    color: #FFFFFFFF !important;
+    background: #00A9C0FF !important;
+}
+
+/* Pressed */
+button:where(.swal2-confirm):hover:active {
+    color: #FFFFFFFF !important;
+    background: #0095A9FF !important;
+}
+/** SWEETALERT - END  **/

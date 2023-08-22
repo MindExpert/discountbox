@@ -81,6 +81,10 @@ Route::prefix('/')
                             ->uses([ProductsController::class, 'show'])
                             ->name('show');
 
+                        Route::post('/{product}/request-discount')
+                            ->uses([ProductsController::class, 'submitRequestDiscount'])
+                            ->name('request-discount');
+
                     });
             });
 

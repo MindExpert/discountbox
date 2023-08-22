@@ -28,6 +28,8 @@
     <link href="{{asset('assets/libs/toastr/toastr.min.css')}}" rel="stylesheet" type="text/css"/>
     <!-- custom Css-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css" rel="stylesheet">
     <!-- Used to push from partial elements -->
     <!-- Template Main CSS File -->
     <link href="{{ asset('frontend/assets/css/style.css') }}" rel="stylesheet">
@@ -72,6 +74,8 @@
 <script src="{{ asset('assets/libs/tippy/tippy.all.min.js') }}"></script>
 <!-- Flatpickr JS -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
 
 @yield('script')
 <!-- Template Main JS File -->

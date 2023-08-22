@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\DiscountTypeEnum;
+use App\Enums\ProductDiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
 use App\Enums\RolesEnum;
 use App\Enums\TransactionTypeEnum;
@@ -38,6 +39,14 @@ return [
             TransactionTypeEnum::EXPENDITURE->value      => 'Spesa',
             TransactionTypeEnum::MANUAL_CREDIT->value    => 'Crediti manuali',
             TransactionTypeEnum::MANUAL_DEBIT->value     => 'Debiti manuali',
+        ],
+    ],
+
+    ProductDiscountRequestStatusEnum::class => [
+        'label' => [
+            ProductDiscountRequestStatusEnum::PENDING->value  => 'In attesa',
+            ProductDiscountRequestStatusEnum::APPROVED->value => 'Approvato',
+            ProductDiscountRequestStatusEnum::REJECTED->value => 'Rifiutato',
         ],
     ],
 ];

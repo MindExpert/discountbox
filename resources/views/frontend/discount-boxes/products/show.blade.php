@@ -52,9 +52,9 @@
                         </ul>
                         <br>
                         <div class="slide-container gy-4">
-                            <label for="discount-range">@lang('product.fields.discount_you')</label>
-                            <input type="range" min="1" max="100" value="1" class="slider" id="discount-range">
-                            <button class="btn btn-primary btn-sm" id="js-btn-apply-discount">@lang('general.actions.apply')</button>
+                            <label for="credit-range">@lang('product.fields.discount_you')</label>
+                            <input type="range" min="1" max="90" value="1" name="credit" class="range-slider" id="credit-range">
+                            <button class="btn btn-secondary" id="js-btn-apply-discount">@lang('general.actions.apply')</button>
                         </div>
                         <br>
                         <ul>
@@ -81,9 +81,9 @@
 @section('script')
     <script>
         $(document).ready(function() {
-            /**
-             * Portfolio details slider
-             */
+            let $applyBtn = $('#js-btn-apply-discount');
+
+            /** Portfolio details slider **/
             new Swiper('.portfolio-details-slider', {
                 speed: 400,
                 loop: true,
@@ -96,6 +96,76 @@
                     type: 'bullets',
                     clickable: true
                 }
+            });
+
+            // REMOVE MEDICAL CARD HISTORY from Array Element
+            $applyBtn.on('click', function (e) {
+                e.preventDefault();
+
+                swal.fire({
+                    title: "{{ __('product_discount_request.actions.confirm') }}",
+                    text: "{{ __('product_discount_request.actions.confirm_info') }}",
+                    icon: "warning",
+                    showCancelButton: true,
+                    // confirmButtonColor: '#00BDD6FF',
+                    // cancelButtonColor: '#F3F4F6FF',
+                    confirmButtonText: "{{ __('product_discount_request.actions.confirm') }}",
+                    showLoaderOnConfirm: true,
+                    preConfirm: (login) => {
+                        // Make a request to the backend to create a new discount request
+                        return fetch(`{{ route('frontend.discount-boxes.products.request-discount', ['discountBox' => $discountBox, 'product' => $product]) }}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                credit: $('#credit-range').val(),
+                            })
+                        })
+                        .then(response => {
+                            if (! response.ok && response.status === 422) {
+                                return response.json().then(data => {
+                                    throw new Error(data.message)
+                                });
+                            } else if (! response.ok && response.status === 404) {
+                                return response.json().then(data => {
+                                    throw new Error(data.message)
+                                });
+                            } else if (! response.ok) {
+                                throw new Error(response.statusText);
+                            }
+
+                            return response.json();
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        /* Dispatch event to calculate item rows iteration */
+                        document.querySelector("body").dispatchEvent(new CustomEvent('request-discount-added', {
+                            bubbles: true,
+                            cancelable: false,
+                            composed: false,
+                            detail: {
+                                discountRequest: result.value.data,
+                            }
+                        }));
+                        {{--toastr.success("{{ __('Hai inserito il tuo sconto') }}", "{{ __('Congratulazioni') }}");--}}
+                        Swal.fire({
+                            {{--imageUrl: "{{ asset('frontend/assets/img/illustrations/undraw_winners_ao2o.svg') }}",--}}
+                            icon: 'success',
+                            title: "{{ __('product_discount_request.messages.congrats') }}",
+                            text: result.value.message,
+                        })
+                    }
+                })
             });
         });
     </script>
