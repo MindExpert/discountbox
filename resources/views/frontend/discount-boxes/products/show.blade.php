@@ -62,7 +62,7 @@
                             <li><strong>@lang('product.fields.current_price')</strong>: {{ display_price($discountBox->total) }}</li>
                             <li><strong>@lang('discount_box.plural')</strong>: {{ $product->discount_boxes->pluck('name')->implode(', ') }}</li>
                             <li>@lang('discount_box.fields.validity_info')</li>
-                            <li><strong>@lang('discount_box.fields.validity')</strong>: {{ $discountBox->coupon->expires_at?->format('d/m/Y') }}</li>
+                            <li><strong>@lang('discount_box.fields.validity')</strong>: {{ $discountBox->coupon?->expires_at?->format('d/m/Y') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -104,13 +104,25 @@
 
                 swal.fire({
                     title: "{{ __('product_discount_request.actions.confirm') }}",
-                    text: "{{ __('product_discount_request.actions.confirm_info') }}",
+                    html: "{{ __('product_discount_request.actions.confirm_info') }}",
+                    //text: "{{ __('product_discount_request.actions.confirm_info') }}",
                     icon: "warning",
                     showCancelButton: true,
                     // confirmButtonColor: '#00BDD6FF',
                     // cancelButtonColor: '#F3F4F6FF',
                     confirmButtonText: "{{ __('product_discount_request.actions.confirm') }}",
                     showLoaderOnConfirm: true,
+                    customClass: {
+                        confirmButton: 'btn btn-primary btn-lg',
+                        cancelButton: 'btn btn-danger btn-lg',
+                        //loader: 'custom-loader'
+                    },
+                    didOpen: () => {
+                        //
+                    },
+                    didClose: () => {
+                        //
+                    },
                     preConfirm: (login) => {
                         // Make a request to the backend to create a new discount request
                         return fetch(`{{ route('frontend.discount-boxes.products.request-discount', ['discountBox' => $discountBox, 'product' => $product]) }}`, {

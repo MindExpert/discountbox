@@ -45,7 +45,7 @@
                                     </li>
                                     <li class="list-inline-item me-2">
                                         <a href="javascript: void(0);" class="text-muted">
-                                            <i class="bx bx-user align-middle text-muted me-1"></i> 12 Participants
+                                            <i class="bx bx-user align-middle text-muted me-1"></i> {{ $product->participants }} Participants
                                         </a>
                                     </li>
                                 </ul>

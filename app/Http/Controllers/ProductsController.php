@@ -35,6 +35,11 @@ class ProductsController extends Controller
             ->withWhereHas('discount_boxes', function ($query) use ($discountBox) {
                 $query->where('discount_boxes.id', $discountBox->id);
             })
+            ->addSelect(['participants' => ProductDiscountRequest::query()
+                ->selectRaw('count(*)')
+                ->whereColumn('product_discount_requests.product_id', 'products.id')
+                ->where('product_discount_requests.discount_box_id', $discountBox->id)
+            ])
             //->where('products.show_on_home', 'true')
             ->orderBy('products.created_at', 'DESC')
             ->paginate(12, ['*'], 'products_page')
