@@ -41,7 +41,8 @@ class TransactionPolicy
      */
     public function update(User $auth, Transaction $transaction): bool
     {
-        return ($auth->isAdministrator() || $auth->is($transaction->user));
+        return false;
+        //return ($auth->isAdministrator() || $auth->is($transaction->user));
     }
 
     /**
@@ -49,7 +50,8 @@ class TransactionPolicy
      */
     public function delete(User $auth, Transaction $transaction): bool
     {
-        return $auth->isAdministrator();
+        return false;
+        //return $auth->isAdministrator();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Management;
 
 use App\Enums\TransactionTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Management\TransactionStoreRequest;
 use App\Models\Transaction;
 use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
@@ -135,21 +136,40 @@ class TransactionsController extends Controller
         #TODO: Add validation for user_id and amount
         $type = $request->input('type');
 
+        if ($type === 'credit') {
+            $credit = $request->input('amount');
+            $debit  = 0;
+            $name   = json_encode([
+                'lang'   => 'transaction.names.credit',
+                'params' => ['actionable' => __('transaction.event.manual')]
+            ]);
+            $notes = json_encode([
+                'lang'   => 'transaction.names.manual_bonus',
+                'params' => []
+            ]);
+
+        } else {
+            $credit = 0;
+            $debit  = $request->input('amount');
+            $name   = json_encode([
+                'lang'   => 'transaction.names.debit',
+                'params' => ['actionable' => __('transaction.event.manual')]
+            ]);
+            $notes = json_encode([
+                'lang'   => 'transaction.names.manual_debit',
+                'params' => []
+            ]);
+        }
+
         try {
             /** @var Transaction $Transaction */
             $transaction = Transaction::query()->create([
                 'user_id' => $request->input('user_id'),
-                'credit'  => $type === 'credit' ? $request->input('amount') : 0,
-                'debit'   => $type === 'debit' ? $request->input('amount') : 0,
-                'type'    => TransactionTypeEnum::PROFILE_COMPLETE,
-                'name'    => json_encode([
-                    'lang'   => 'transaction.names.manual_bonus',
-                    'params' => ['actionable' => __('transaction.event.profile')]
-                ]),
-                'notes'  => json_encode([
-                    'lang'   => 'transaction.names.profile_bonus',
-                    'params' => []
-                ]),
+                'credit'  => $credit,
+                'debit'   => $debit,
+                'type'    => $type === 'credit' ? TransactionTypeEnum::MANUAL_CREDIT : TransactionTypeEnum::MANUAL_DEBIT,
+                'name'    => $name,
+                'notes'   => $notes,
             ]);
 
             FlashNotification::success(__('general.success'), __('transaction.responses.created'));

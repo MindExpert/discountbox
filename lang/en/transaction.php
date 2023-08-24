@@ -58,6 +58,7 @@ return [
         'profile'  => 'Profile',
         'share'    => 'Share',
         'like'     => 'Like',
+        'manual'   => 'Manual',
     ],
     'responses'              => [
         'created'              => 'Transaction is successfully created!',

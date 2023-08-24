@@ -90,7 +90,7 @@ return [
         'confirm'              => 'Confirma',
         'pay'                  => 'Paga',
         'liquidate'            => 'Saldo',
-        'view_more'            => 'Visualizza',
+        'view_more'            => 'Vedi di piu',
         'config'               => 'Configura',
         'pick_up'              => 'Scegli',
         'update'               => 'Aggiorna',

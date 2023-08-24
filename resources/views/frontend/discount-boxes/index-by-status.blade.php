@@ -1,12 +1,12 @@
 @extends('_layouts.guest', [
-    'title'         => 'Discount Boxes',
+    'title'         => __('discount_box.plural'),
     'hasHero'       => false,
     'hasBreadcrumb' => true,
 ])
 
 @section('breadcrumbs')
-    <li><a href="{{url('/')}}">Home</a></li>
-    <li>DisountBox</li>
+    <li><a href="{{url('/')}}">@lang('sidebar.menu.home')</a></li>
+    <li>@lang('discount_box.plural')</li>
 @endsection
 
 @section('content')
@@ -59,7 +59,7 @@
                                 <p>{!!  getNWords($discountBox->description, 10) !!}</p>
 
                                 <div>
-                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="get-started-btn">Vedi di Piu <i class="mdi mdi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="get-started-btn">@lang('general.actions.view_more') <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>
