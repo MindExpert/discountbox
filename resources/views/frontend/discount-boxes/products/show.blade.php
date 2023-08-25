@@ -50,13 +50,26 @@
                             <li><strong>@lang('product.fields.participation_fee')</strong>:&nbsp;{{ $discountBox->credits }}</li>
                             <li><strong>@lang('product.fields.created_at')</strong>:&nbsp; {{ $product->created_at->format('d F, Y') }}</li>
                         </ul>
-                        <br>
-                        <div class="slide-container gy-4">
+
+                        <div class="slide-container mt-2 mb-2" style="position: relative">
+                            <div class="slider">
+                                <input type="range"
+                                       min="1"
+                                       max="90"
+                                       value="1"
+                                       name="credit"
+                                       id="credit-range"
+                                       oninput="creditRangeValue.innerText = this.value"/>
+                                <p id="creditRangeValue">1</p>
+                            </div>
+                        </div>
+
+                        {{-- <input type="range" min="1" max="90" value="1" name="credit" class="range-slider" id="credit-range">--}}
+                        <div class="d-flex justify-content-between align-items-center pt-4 pb-4 px-2 mt-2 mb-4">
                             <label for="credit-range">@lang('product.fields.discount_you')</label>
-                            <input type="range" min="1" max="90" value="1" name="credit" class="range-slider" id="credit-range">
                             <button class="btn btn-secondary" id="js-btn-apply-discount">@lang('general.actions.apply')</button>
                         </div>
-                        <br>
+
                         <ul>
                             <li><strong>@lang('product.fields.sales_sites')</strong>: <a href="{{$product->url}}">{{ $product->url }}</a></li>
                             <li><strong>@lang('product.fields.current_price')</strong>: {{ display_price($discountBox->total) }}</li>
@@ -98,6 +111,22 @@
                 }
             });
 
+            let toastMixin = Swal.mixin({
+                toast: true,
+                position: 'top-right',
+                timer: 3000,
+                showConfirmButton: false,
+                timerProgressBar: true,
+                iconColor: 'white',
+                customClass: {
+                    popup: 'colored-toast'
+                },
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            });
+
             // REMOVE MEDICAL CARD HISTORY from Array Element
             $applyBtn.on('click', function (e) {
                 e.preventDefault();
@@ -123,7 +152,10 @@
                     didClose: () => {
                         //
                     },
-                    preConfirm: (login) => {
+                    preConfirm: (login) =>
+                    {
+                        console.log('preConfirm');
+                        console.log($('#credit-range').val());
                         // Make a request to the backend to create a new discount request
                         return fetch(`{{ route('frontend.discount-boxes.products.request-discount', ['discountBox' => $discountBox, 'product' => $product]) }}`, {
                             method: 'POST',
@@ -169,13 +201,19 @@
                                 discountRequest: result.value.data,
                             }
                         }));
-                        {{--toastr.success("{{ __('Hai inserito il tuo sconto') }}", "{{ __('Congratulazioni') }}");--}}
-                        Swal.fire({
-                            {{--imageUrl: "{{ asset('frontend/assets/img/illustrations/undraw_winners_ao2o.svg') }}",--}}
+
+                        toastMixin.fire({
                             icon: 'success',
                             title: "{{ __('product_discount_request.messages.congrats') }}",
                             text: result.value.message,
-                        })
+                        });
+
+                        {{--Swal.fire({--}}
+                        {{--    --}}{{--imageUrl: "{{ asset('frontend/assets/img/illustrations/undraw_winners_ao2o.svg') }}",--}}
+                        {{--    icon: 'success',--}}
+                        {{--    title: "{{ __('product_discount_request.messages.congrats') }}",--}}
+                        {{--    text: result.value.message,--}}
+                        {{--});--}}
                     }
                 })
             });
