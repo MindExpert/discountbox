@@ -29,7 +29,13 @@ class TransactionsController extends Controller
 
                 $datatableQuery = Transaction::query()
                     ->select(['transactions.*'])
-                    ->with(['user']);
+                    ->with(['user'])
+                    ->addSelect(["user_balance" => function ($query) {
+                        return $query->selectRaw("SUM(credit) - SUM(debit) AS balance")
+                            ->from('transactions as user_transactions')
+                            ->whereColumn('user_transactions.user_id', 'transactions.user_id');
+                        }]
+                    );
 
                 return DataTables::eloquent($datatableQuery)
                     ->addColumn('permissions', function (Transaction $transaction) {
@@ -42,6 +48,9 @@ class TransactionsController extends Controller
                             'update' => $update,
                             'delete' => $delete,
                         ];
+                    })
+                    ->editColumn('created_at', function (Transaction $transaction) {
+                        return $transaction->created_at->format('d/m/Y H:i:s');
                     })
                     ->editColumn('user_id', function (Transaction $transaction) {
                         return view('management.transactions.datatable.user', compact('transaction'));
@@ -127,27 +136,27 @@ class TransactionsController extends Controller
     {
         $this->authorize('create', Transaction::class);
 
-        return view('management.users.create');
+        return view('management.transactions.create');
     }
 
     public function store(TransactionStoreRequest $request): JsonResponse
     {
         $this->authorize('create', Transaction::class);
-        #TODO: Add validation for user_id and amount
-        $type = $request->input('type');
 
-        if ($type === 'credit') {
+        $mode = $request->input('type');
+
+        if ($mode === 'credit') {
             $credit = $request->input('amount');
             $debit  = 0;
             $name   = json_encode([
                 'lang'   => 'transaction.names.credit',
                 'params' => ['actionable' => __('transaction.event.manual')]
             ]);
-            $notes = json_encode([
+            $notes = $request->input('notes') ?? json_encode([
                 'lang'   => 'transaction.names.manual_bonus',
                 'params' => []
             ]);
-
+            $type = TransactionTypeEnum::MANUAL_CREDIT;
         } else {
             $credit = 0;
             $debit  = $request->input('amount');
@@ -155,19 +164,20 @@ class TransactionsController extends Controller
                 'lang'   => 'transaction.names.debit',
                 'params' => ['actionable' => __('transaction.event.manual')]
             ]);
-            $notes = json_encode([
+            $notes = $request->input('notes') ?? json_encode([
                 'lang'   => 'transaction.names.manual_debit',
                 'params' => []
             ]);
+            $type = TransactionTypeEnum::MANUAL_DEBIT;
         }
 
         try {
-            /** @var Transaction $Transaction */
+            /** @var Transaction $transaction */
             $transaction = Transaction::query()->create([
                 'user_id' => $request->input('user_id'),
                 'credit'  => $credit,
                 'debit'   => $debit,
-                'type'    => $type === 'credit' ? TransactionTypeEnum::MANUAL_CREDIT : TransactionTypeEnum::MANUAL_DEBIT,
+                'type'    => $type,
                 'name'    => $name,
                 'notes'   => $notes,
             ]);
@@ -187,45 +197,6 @@ class TransactionsController extends Controller
         $this->authorize('view', $transaction);
 
         return view('management.transactions.show', compact('transaction'));
-    }
-
-    public function edit(Transaction $transaction): View
-    {
-        $this->authorize('update', $transaction);
-
-        return view('management.transactions.edit', compact('transaction'));
-    }
-
-    public function update(UserUpdateRequest $request, Transaction $transaction): JsonResponse
-    {
-        $this->authorize('update', $user);
-
-        try {
-            $user->update([
-                'role'            => $request->input('role'),
-                'first_name'      => $request->input('first_name'),
-                'last_name'       => $request->input('last_name'),
-                'nickname'        => $request->input('nickname'),
-                'email'           => $request->input('email'),
-                'mobile'          => $request->input('mobile'),
-                //'locale'          => $request->input('locale'),
-                'birth_date'      => $request->input('birth_date'),
-            ]);
-
-            if ($request->filled('password')) {
-                $user->update([
-                    'password' => Hash::make($request->input('password')),
-                ]);
-            }
-
-            FlashNotification::success(__('general.success'), __('user.responses.updated'));
-            return ActionJsonResponse::make(true, route('management.users.show', ['user' => $user->id]))->response();
-        } catch (Exception $exception) {
-            report($exception);
-
-            FlashNotification::error(__('general.error'), __('user.responses.not_updated'));
-            return ActionJsonResponse::make(false, route('management.users.index'))->response();
-        }
     }
 
     public function destroy(Request $request, Transaction $transaction): RedirectResponse

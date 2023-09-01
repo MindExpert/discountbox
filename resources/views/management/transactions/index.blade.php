@@ -42,6 +42,7 @@
                                 <th scope="col">@lang('transaction.fields.type')</th>
                                 <th scope="col">@lang('transaction.fields.credit')</th>
                                 <th scope="col">@lang('transaction.fields.debit')</th>
+                                <th scope="col">@lang('transaction.fields.created_at')</th>
                                 <th scope="col">@lang('general.actions.plural')</th>
                             </tr>
                             <tr role="row" style="display: none;">
@@ -58,6 +59,7 @@
                                 <th><input type="text" class="form-control search-input" name="role" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="debit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th></th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -102,6 +104,7 @@
                     // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},
                     {data: 'credit', name: 'credit'},
                     {data: 'debit', name: 'debit'},
+                    {data: 'created_at', name: 'created_at'},
                     {data: 'actions', name: 'actions', orderable: false, searchable: false}
                 ],
                 drawCallback: function (settings) {

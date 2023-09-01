@@ -88,6 +88,20 @@
                                 </div>
                             </div>
 
+                            <!-- BIRTHDATE -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
+                                    <input type="date" class="form-control date"
+                                           name="birth_date"
+                                           id="birth_date"
+                                           placeholder="@lang('user.fields.birth_date')"
+                                           value="{{ $user->birth_date?->toDateString() }}"
+                                    />
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
                             <!-- ROLE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">

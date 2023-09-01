@@ -64,6 +64,15 @@
                                 </div>
                             </div>
 
+                            <!-- BIRTHDATE -->
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
+                                    <input type="dat" class="form-control date" name="birth_date" id="birth_date" placeholder="@lang('user.fields.birth_date')">
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                            </div>
+
                             <!-- ROLE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">

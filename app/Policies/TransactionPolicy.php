@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\TransactionTypeEnum;
 use App\Models\Transaction;
 use App\Models\User;
 
@@ -50,8 +51,9 @@ class TransactionPolicy
      */
     public function delete(User $auth, Transaction $transaction): bool
     {
-        return false;
-        //return $auth->isAdministrator();
+        return $auth->isAdministrator()
+            && in_array($transaction->type, [TransactionTypeEnum::MANUAL_CREDIT, TransactionTypeEnum::MANUAL_DEBIT])
+            && $transaction->created_at->isToday();
     }
 
     /**

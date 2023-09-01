@@ -289,3 +289,17 @@ button:where(.swal2-confirm):hover:active {
     background: #0095A9FF !important;
 }
 /** SWEETALERT - END  **/
+
+
+/*.select2-container--default,*/
+.select2-container .select2-selection--single{
+    height: 2.3rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 2.3rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 2.2rem !important;
+}

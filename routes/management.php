@@ -202,14 +202,6 @@ Route::prefix('/transactions')
             ->uses([TransactionsController::class, 'show'])
             ->name('show');
 
-        Route::get('/{transaction}/edit')
-            ->uses([TransactionsController::class, 'edit'])
-            ->name('edit');
-
-        Route::put('/{transaction}')
-            ->uses([TransactionsController::class, 'update'])
-            ->name('update');
-
         Route::delete('/{transaction}')
             ->uses([TransactionsController::class, 'destroy'])
             ->name('destroy');
