@@ -54,7 +54,7 @@
                         </a>
                     </li>
                 @endcan
-                <li class="menu-title">@lang('management.apps')</li>
+                <li class="menu-title">@lang('More')</li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">

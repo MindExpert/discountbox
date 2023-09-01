@@ -33,35 +33,44 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="ajax-datatable" class="table table-sm table-bordered table-nowrap w-100" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="ajax-datatable" class="table table-condensed table-bordered table-nowrap w-100" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
-                            <tr role="row"  class="bg-light">
-                                <th scope="col">@lang('transaction.fields.id')</th>
-                                <th scope="col">@lang('transaction.fields.user_id')</th>
-                                <th scope="col">@lang('transaction.fields.name')</th>
-                                <th scope="col">@lang('transaction.fields.type')</th>
-                                <th scope="col">@lang('transaction.fields.credit')</th>
-                                <th scope="col">@lang('transaction.fields.debit')</th>
-                                <th scope="col">@lang('transaction.fields.created_at')</th>
-                                <th scope="col">@lang('general.actions.plural')</th>
-                            </tr>
-                            <tr role="row" style="display: none;">
-                                <th></th>
-                                <th>
-                                    <select class="form-control search-input select2" name="user_id" id="user_id"
-                                            style="width: 100% !important;"
-                                            aria-label="@lang('transaction.fields.user_id')"
-                                            data-placeholder="@lang('transaction.fields.user_id')"
-                                            data-allow-clear="true"
-                                    ></select>
-                                </th>
-                                <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="role" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="debit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                                <tr role="row"  class="bg-light">
+                                    <th scope="col">@lang('transaction.fields.id')</th>
+                                    <th scope="col">@lang('transaction.fields.user_id')</th>
+                                    <th scope="col">@lang('transaction.fields.name')</th>
+                                    <th scope="col">@lang('transaction.fields.type')</th>
+                                    <th scope="col">@lang('transaction.fields.credit')</th>
+                                    <th scope="col">@lang('transaction.fields.debit')</th>
+                                    <th scope="col">@lang('transaction.fields.created_at')</th>
+                                    <th scope="col">@lang('general.actions.plural')</th>
+                                </tr>
+                                <tr role="row" style="display: none;">
+                                    <th></th>
+                                    <th>
+                                        <select class="form-control search-input select2" name="user_id" id="user_id"
+                                                style="width: 100% !important;"
+                                                aria-label="@lang('transaction.fields.user_id')"
+                                                data-placeholder="@lang('transaction.fields.user_id')"
+                                                data-allow-clear="true"
+                                        ></select>
+                                    </th>
+                                    <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                    <th>
+                                        <select class="form-control select2 search-input" name="type"
+                                                data-allow-clear="true"
+                                                data-placeholder="@lang('transaction.fields.type')" style="width: 100%">
+                                            <option value="">@lang('transaction.fields.type')</option>
+                                            @foreach(\App\Enums\TransactionTypeEnum::cases() as $type)
+                                                <option value="{{ $type->value }}">{{ $type->label() }}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
+                                    <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                    <th><input type="text" class="form-control search-input" name="debit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody></tbody>
                             <tfoot id="footer-table"></tfoot>
@@ -127,10 +136,13 @@
                     let html = '';
                     $.each(settings.json.model_aggregates, function(index, value) {
                         html += `<tr>
-                            <td colspan="3"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td class="bg-info bg-opacity-10 fw-lighter fs-6">${value.type_label}</td>
                             <td class="bg-success bg-opacity-10 fw-lighter">${value.total_credit}</td>
                             <td class="bg-warning bg-opacity-10 fw-lighter">${value.total_debit}</td>
+                            <td></td>
                             <td></td>
                         </tr>`;
                     });
