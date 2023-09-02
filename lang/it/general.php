@@ -101,6 +101,7 @@ return [
         'search'               => 'Ricerca',
         'filter'               => 'Filtro',
         'approve'              => 'Approvare',
+        'reject'               => 'Rifiutare',
         'disapprove'           => 'Disapprovare',
         'entity-evaluation'    => 'Valutazione',
         'order_by'             => 'Ordina Per',

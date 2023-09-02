@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\TransactionTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\ProductDiscountRequest;
 use App\Support\EmptyDatatable;
+use App\Support\FlashNotification;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -28,14 +32,14 @@ class ProductDiscountRequestsController extends Controller
 
                 return DataTables::eloquent($datatableQuery)
                     ->addColumn('permissions', function (ProductDiscountRequest $productDiscountRequest) {
-                        $view    = user()->can('view', $productDiscountRequest);
-                        $approve = user()->can('update', $productDiscountRequest);
-                        $reject  = user()->can('delete', $productDiscountRequest);
+                        $view     = user()->can('view', $productDiscountRequest);
+                        $delete   = user()->can('delete', $productDiscountRequest);
+                        $toggleStatus = user()->can('toggleStatus', $productDiscountRequest);
 
                         return [
                             'view'    => $view,
-                            'approve' => $approve,
-                            'reject'  => $reject,
+                            'delete'    => $delete,
+                            'toggleStatus' => $toggleStatus,
                         ];
                     })
                     ->editColumn('created_at', function (ProductDiscountRequest $productDiscountRequest) {
@@ -139,5 +143,104 @@ class ProductDiscountRequestsController extends Controller
         $this->authorize('view', $productDiscountRequest);
 
         return view('management.product-discount-requests.show', compact('productDiscountRequest'));
+    }
+
+    public function approve(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    {
+        $this->authorize('toggleStatus', $productDiscountRequest);
+
+        try {
+            DB::beginTransaction();
+
+            // Check user balance, if user balance is less than credit, throw exception
+            // We re-add the credit to the user's balance to check the balance against the credit of the request
+            $userBalance = $productDiscountRequest->user->availableBalance() + $productDiscountRequest->credit;
+
+            if ($userBalance < $productDiscountRequest->credit) {
+                throw new Exception(__('product_discount_request.responses.not_approved'));
+            }
+
+            $productDiscountRequest->user->transactions()->create([
+                'user_id' => $request->input('user_id'),
+                'credit'  => 0,
+                'debit'   => $productDiscountRequest->credit,
+                'type'    => TransactionTypeEnum::EXPENDITURE,
+                'name'    => json_encode([
+                    'lang'   => 'transaction.event.expenditure',
+                    'params' => []
+                ]),
+                'notes' => json_encode([
+                    'lang'   => 'transaction.names.expenditure_for_request',
+                    'params' => [
+                        'product' => $productDiscountRequest->product->name,
+                    ]
+                ]),
+                'transactional_type' => ProductDiscountRequest::$morph_key,
+                'transactional_id'   => $productDiscountRequest->id,
+            ]);
+
+            $productDiscountRequest->update([
+                'status'      => ProductDiscountRequestStatusEnum::APPROVED,
+                'approved_at' => now(),
+            ]);
+
+            DB::commit();
+            FlashNotification::success(__('general.success'), __('product_discount_request.responses.approved'));
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollBack();
+            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_approved'));
+        }
+
+        if ($request->get('redirect_to')) {
+            return redirect()->to($request->get('redirect_to'));
+        } else {
+            return redirect()->route('management.product-discount-requests.index');
+        }
+    }
+
+    public function reject(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    {
+        $this->authorize('toggleStatus', $productDiscountRequest);
+
+        try {
+
+            $productDiscountRequest->update([
+                'status'      => ProductDiscountRequestStatusEnum::REJECTED,
+                'approved_at' => null,
+            ]);
+
+            FlashNotification::success(__('general.success'), __('product_discount_request.responses.rejected'));
+        } catch (Exception $exception) {
+            report($exception);
+            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_rejected'));
+        }
+
+        if ($request->get('redirect_to')) {
+            return redirect()->to($request->get('redirect_to'));
+        } else {
+            return redirect()->route('management.product-discount-requests.index');
+        }
+    }
+
+    public function destroy(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    {
+        $this->authorize('delete', $productDiscountRequest);
+
+        try {
+            $productDiscountRequest->delete();
+
+            FlashNotification::success(__('general.success'), __('product_discount_request.responses.deleted'));
+        } catch (Exception $exception) {
+            report($exception);
+            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_deleted'));
+        }
+
+        if ($request->get('redirect_to')) {
+            return redirect()->to($request->get('redirect_to'));
+        } else {
+            return redirect()->route('management.product-discount-requests.index');
+        }
+
     }
 }

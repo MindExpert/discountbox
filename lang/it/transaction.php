@@ -49,8 +49,9 @@ return [
         'register_bonus'  => 'Bonus di registrazione',
         'share_bonus'     => 'Bonus di condivisione',
         'like_bonus'      => 'Bonus Like',
-        'manual_bonus'     => 'Credito manuale',
-        'manual_debit'     => 'Rimosso manuale',
+        'manual_bonus'    => 'Credito manuale',
+        'manual_debit'    => 'Rimosso manuale',
+        'expenditure_for_request' => 'Spesa per richiesta di sconto prodotto su prodotto :product',
     ],
     'event' => [
         'login'    => 'Accesso',
@@ -59,6 +60,7 @@ return [
         'share'    => 'Condividi',
         'like'     => 'Like',
         'manual'   => 'Manuale',
+        'expenditure' => 'Spesa',
     ],
     'responses'=> [
         'created'              => 'La transazione è stata creata con successo!',

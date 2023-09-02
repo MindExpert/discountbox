@@ -41,6 +41,8 @@ return [
         'edit_model'          => 'Edit Discount requests',
         'update_model'        => 'Update Discount requests',
         'delete_model'        => 'Delete Discount requests',
+        'ask_approve'         => 'Are you sure you want to Approve this Discount requests?',
+        'ask_reject'          => 'Are you sure you want to Reject this Discount requests?',
         'ask_delete'          => 'Are you sure you want to delete Discount requests?',
     ],
     'responses' => [
@@ -50,5 +52,9 @@ return [
         'not_updated'         => 'Discount requests could not be updated!',
         'deleted'             => 'Discount requests is successfully deleted!',
         'not_deleted'         => 'Discount requests could not be deleted!',
+        'approved'            => 'Discount requests is successfully approved!',
+        'not_approved'        => 'Discount requests could not be approved!',
+        'rejected'            => 'Discount requests is successfully rejected!',
+        'not_rejected'        => 'Discount requests could not be rejected!',
     ],
 ];

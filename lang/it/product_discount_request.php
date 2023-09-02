@@ -41,7 +41,9 @@ return [
         'edit_model'          => 'Modifica Richieste di sconto',
         'update_model'        => 'Aggiorna Richieste di sconto',
         'delete_model'        => 'Elimina Richieste di sconto',
-        'ask_delete'          => 'Are you sure you want to delete Discount requests?',
+        'ask_approve'         => 'Sei sicuro di voler approvare questa richiesta di sconto?',
+        'ask_reject'          => 'Sei sicuro di voler rifiutare questa richiesta di sconto?',
+        'ask_delete'          => 'Sei sicuro di voler eliminare la richiesta di sconto?',
     ],
     'responses' => [
         'created'             => 'Discount requests is successfully created!',

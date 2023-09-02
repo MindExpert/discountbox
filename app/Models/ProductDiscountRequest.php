@@ -5,8 +5,10 @@ namespace App\Models;
 use App\Enums\ProductDiscountRequestStatusEnum;
 use App\Models\QueryBuilders\ProductDiscountRequestQueryBuilder;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -22,9 +24,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Carbon|null  $created_at
  * @property Carbon|null  $updated_at
  * @property Carbon|null  $deleted_at
+ *
  * @property User         $user
  * @property DiscountBox  $discount_box
  * @property Product      $product
+ * @property Collection|Transaction[] $transactions
  *
  * @mixin ProductDiscountRequestQueryBuilder
  */
@@ -73,6 +77,11 @@ class ProductDiscountRequest extends Model
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function transactions(): MorphMany
+    {
+        return $this->morphMany(Transaction::class, 'transactional', 'transactional_type', 'transactional_id', 'id');
     }
 
     public function getLabelAttribute(): string

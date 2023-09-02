@@ -226,11 +226,11 @@ Route::prefix('/product-discount-requests')
 
         Route::post('/{productDiscountRequest}/approve')
             ->uses([ProductDiscountRequestsController::class, 'approve'])
-            ->name('store');
+            ->name('approve');
 
         Route::post('/{productDiscountRequest}/reject')
             ->uses([ProductDiscountRequestsController::class, 'reject'])
-            ->name('store');
+            ->name('reject');
 
         Route::delete('/{productDiscountRequest}')
             ->uses([ProductDiscountRequestsController::class, 'destroy'])

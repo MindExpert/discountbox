@@ -38,13 +38,14 @@ class ProductDiscountRequestPolicy
     }
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can approve the model.
      */
-    public function update(User $auth, ProductDiscountRequest $productDiscountRequest): bool
+    public function toggleStatus(User $auth, ProductDiscountRequest $productDiscountRequest): bool
     {
-        return false;
-        //return ($auth->isAdministrator() || $auth->is($transaction->user));
+        return $auth->isAdministrator()
+            && $productDiscountRequest->status === ProductDiscountRequestStatusEnum::PENDING;
     }
+
 
     /**
      * Determine whether the user can delete the model.

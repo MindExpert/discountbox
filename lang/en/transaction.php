@@ -51,6 +51,7 @@ return [
         'like_bonus'       => 'Like Bonus',
         'manual_bonus'     => 'Manual Bonus',
         'manual_debit'     => 'Manual Debit',
+        'expenditure_for_request' => 'Expenditure for Product Discount request on product :product ',
     ],
     'event' => [
         'login'    => 'Login',
@@ -59,6 +60,7 @@ return [
         'share'    => 'Share',
         'like'     => 'Like',
         'manual'   => 'Manual',
+        'expenditure' => 'Expenditure',
     ],
     'responses'              => [
         'created'              => 'Transaction is successfully created!',

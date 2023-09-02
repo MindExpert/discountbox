@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Image\Exceptions\InvalidManipulation;
@@ -44,6 +45,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property User                 $user
  * @property Coupon|null          $coupon
  * @property Collection|Product[] $products
+ * @property Collection|Transaction[] $transactions
  *
  * @mixin DiscountBoxQueryBuilder
  */
@@ -129,6 +131,11 @@ class DiscountBox extends Model implements HasMedia
         return $this->belongsToMany(Product::class, 'discount_box_product', 'discount_box_id', 'product_id')
             ->withTimestamps()
             ->using(DiscountBoxProduct::class);
+    }
+
+    public function transactions(): MorphMany
+    {
+        return $this->morphMany(Transaction::class, 'transactional', 'transactional_type', 'transactional_id', 'id');
     }
 
     public function getLabelAttribute(): string

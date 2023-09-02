@@ -101,6 +101,7 @@ return [
         'search'               => 'Search',
         'filter'               => 'Filter',
         'approve'              => 'Approve',
+        'reject'               => 'Reject',
         'disapprove'           => 'Disapprove',
         'entity-evaluation'    => 'Evaluation',
         'order_by'             => 'Order By',
