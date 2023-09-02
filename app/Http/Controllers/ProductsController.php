@@ -90,7 +90,7 @@ class ProductsController extends Controller
         if ($userAvailableCredit < $request->input('credit')) {
             return response()->json([
                 'success' => false,
-                'message' => __('You do not have enough credit to request this discount.'),
+                'message' => __('Non hai abbastanza credito per richiedere questo sconto.'),
             ], 422);
         }
 
@@ -104,7 +104,7 @@ class ProductsController extends Controller
         if ($requestExists) {
             return response()->json([
                 'success' => false,
-                'message' => __('You have already requested a submission for this discount.'),
+                'message' => __('Hai già richiesto un\'iscrizione per questo sconto.'),
             ], 422);
         }
 
@@ -120,7 +120,7 @@ class ProductsController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => __('Your request has been submitted successfully.'),
+            'message' => __('La tua richiesta è stata inviata con successo.'),
             'data'    => $productDiscountRequest,
         ], 200);
     }

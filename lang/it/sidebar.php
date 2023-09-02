@@ -2,16 +2,17 @@
 
 return [
     'menu' => [
-        'home'             => 'Home',
-        'main'             => 'Main',
-        'access'           => 'Accesso',
-        'administration'   => 'Amministrazione',
-        'dashboard'        => 'Panelo',
-        'search'           => 'Cerca',
-        'users'            => 'Utenti',
-        'coupons'          => 'Buoni',
-        'products'         => 'Prodotti',
-        'discount_box'     => 'Sconta Box',
-        'transactions'     => 'Transazioni',
+        'home'                      => 'Home',
+        'main'                      => 'Main',
+        'access'                    => 'Accesso',
+        'administration'            => 'Amministrazione',
+        'dashboard'                 => 'Panelo',
+        'search'                    => 'Cerca',
+        'users'                     => 'Utenti',
+        'coupons'                   => 'Buoni',
+        'products'                  => 'Prodotti',
+        'discount_box'              => 'Sconta Box',
+        'transactions'              => 'Transazioni',
+        'product_discount_requests' => 'Richieste Sconto',
     ],
 ];

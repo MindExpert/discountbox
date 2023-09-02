@@ -2,16 +2,17 @@
 
 return [
     'menu' => [
-        'home'             => 'Home',
-        'main'             => 'Main',
-        'access'           => 'Access',
-        'administration'   => 'Administration',
-        'dashboard'        => 'Dashboard',
-        'search'           => 'Search',
-        'users'            => 'Users',
-        'coupons'          => 'Coupons',
-        'products'         => 'Products',
-        'discount_box'     => 'Discount Box',
-        'transactions'     => 'Transactions',
+        'home'                      => 'Home',
+        'main'                      => 'Main',
+        'access'                    => 'Access',
+        'administration'            => 'Administration',
+        'dashboard'                 => 'Dashboard',
+        'search'                    => 'Search',
+        'users'                     => 'Users',
+        'coupons'                   => 'Coupons',
+        'products'                  => 'Products',
+        'discount_box'              => 'Discount Box',
+        'transactions'              => 'Transactions',
+        'product_discount_requests' => 'Product Discount Requests',
     ],
 ];

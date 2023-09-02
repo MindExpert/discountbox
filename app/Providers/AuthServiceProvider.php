@@ -5,10 +5,14 @@ namespace App\Providers;
 use App\Models\Coupon;
 use App\Models\DiscountBox;
 use App\Models\Product;
+use App\Models\ProductDiscountRequest;
+use App\Models\Transaction;
 use App\Models\User;
 use App\Policies\CouponPolicy;
 use App\Policies\DiscountBoxPolicy;
+use App\Policies\ProductDiscountRequestPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\TransactionPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -21,10 +25,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        Coupon::class       => CouponPolicy::class,
-        DiscountBox::class  => DiscountBoxPolicy::class,
-        Product::class      => ProductPolicy::class,
-        User::class         => UserPolicy::class,
+        Coupon::class                 => CouponPolicy::class,
+        DiscountBox::class            => DiscountBoxPolicy::class,
+        ProductDiscountRequest::class => ProductDiscountRequestPolicy::class,
+        Product::class                => ProductPolicy::class,
+        Transaction::class            => TransactionPolicy::class,
+        User::class                   => UserPolicy::class,
     ];
 
     /**

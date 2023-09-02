@@ -154,8 +154,6 @@
                     },
                     preConfirm: (login) =>
                     {
-                        console.log('preConfirm');
-                        console.log($('#credit-range').val());
                         // Make a request to the backend to create a new discount request
                         return fetch(`{{ route('frontend.discount-boxes.products.request-discount', ['discountBox' => $discountBox, 'product' => $product]) }}`, {
                             method: 'POST',

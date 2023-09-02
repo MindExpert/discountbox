@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CouponsController;
 use App\Http\Controllers\Management\DashboardController;
 use App\Http\Controllers\Management\DiscountBoxesController;
+use App\Http\Controllers\Management\ProductDiscountRequestsController;
 use App\Http\Controllers\Management\ProductsController;
 use App\Http\Controllers\Management\TransactionsController;
 use App\Http\Controllers\Management\UsersController;
@@ -204,5 +205,34 @@ Route::prefix('/transactions')
 
         Route::delete('/{transaction}')
             ->uses([TransactionsController::class, 'destroy'])
+            ->name('destroy');
+    });
+
+Route::prefix('/product-discount-requests')
+    ->as('product-discount-requests.')
+    ->group(function () {
+        Route::get('/')
+            ->uses([ProductDiscountRequestsController::class, 'index'])
+            ->name('index');
+
+        Route::get('/search')
+            ->uses([ProductDiscountRequestsController::class, 'search'])
+            ->name('search')
+            ->middleware(['expects_json']);
+
+        Route::get('/{productDiscountRequest}')
+            ->uses([ProductDiscountRequestsController::class, 'show'])
+            ->name('show');
+
+        Route::post('/{productDiscountRequest}/approve')
+            ->uses([ProductDiscountRequestsController::class, 'approve'])
+            ->name('store');
+
+        Route::post('/{productDiscountRequest}/reject')
+            ->uses([ProductDiscountRequestsController::class, 'reject'])
+            ->name('store');
+
+        Route::delete('/{productDiscountRequest}')
+            ->uses([ProductDiscountRequestsController::class, 'destroy'])
             ->name('destroy');
     });
