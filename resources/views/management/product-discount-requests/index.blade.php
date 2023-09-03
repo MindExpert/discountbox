@@ -107,7 +107,9 @@
             let $resetFilterBtn = $('#datatable-reset-filter');
             let hasFilters = false;
 
-            let $userSelect = $('#user_id');
+            let $userSelect = $('#user_id'),
+                $discountBoxSelect = $('#discount_box_id'),
+                $productSelect = $('#product_id');
 
             let dt = $datatable.DataTable({
                 responsive: false,
@@ -180,6 +182,10 @@
 
                         if ($field.attr('id') === 'user_id') {
                             fillSelect2Element(columnSearchValue, "{{ route('management.users.search') }}", $userSelect);
+                        } else if ($field.attr('id') === 'discount_box_id') {
+                            fillSelect2Element(columnSearchValue, "{{ route('management.discount-boxes.search') }}", $discountBoxSelect);
+                        } else if ($field.attr('id') === 'product_id') {
+                            fillSelect2Element(columnSearchValue, "{{ route('management.products.search') }}", $productSelect);
                         } else if($field.hasClass('select2-hidden-accessible')) {
                             $field.val(columnSearchValue).trigger('change.select2');
                         } else {
@@ -200,6 +206,58 @@
                 allowClear: true,
                 ajax: {
                     url: "{{ route('management.users.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            keyword: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: $.map(data, function (response) {
+                                return {
+                                    id: response.id,
+                                    text: response.label,
+                                };
+                            })
+                        };
+                    },
+                    cache: false,
+                }
+            });
+
+            $discountBoxSelect.select2({
+                placeholder: "@lang('discount_box.actions.search')",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('management.discount-boxes.search') }}",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            keyword: params.term,
+                        };
+                    },
+                    processResults: function (data, params) {
+                        return {
+                            results: $.map(data, function (response) {
+                                return {
+                                    id: response.id,
+                                    text: response.label,
+                                };
+                            })
+                        };
+                    },
+                    cache: false,
+                }
+            });
+
+            $productSelect.select2({
+                placeholder: "@lang('product.actions.search')",
+                allowClear: true,
+                ajax: {
+                    url: "{{ route('management.products.search') }}",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {
