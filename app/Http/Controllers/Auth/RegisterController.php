@@ -57,11 +57,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nickname'   => ['nullable', 'string', 'max:191', 'unique:users,nickname'],
-            'first_name' => ['required', 'string', 'max:191'],
-            'last_name'  => ['required', 'string', 'max:191'],
-            'birth_date' => ['nullable', 'date'],
-            'mobile'     => ['nullable', 'string', 'max:191'],
+            'nickname'   => ['required', 'string', 'max:191', 'unique:users,nickname'],
+            //'first_name' => ['required', 'string', 'max:191'],
+            //'last_name'  => ['required', 'string', 'max:191'],
+            //'birth_date' => ['nullable', 'date'],
+            //'mobile'     => ['nullable', 'string', 'max:191'],
             'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'   => ['required', 'string', 'min:8', 'confirmed'],
             'country_id' => ['nullable', 'numeric'],
@@ -78,13 +78,12 @@ class RegisterController extends Controller
     {
         return User::create([
             'nickname'    => $data['nickname'],
-            'first_name'  => $data['first_name'],
-            'last_name'   => $data['last_name'],
-            'birth_date'  => $data['birth_date'],
-            'mobile'      => $data['mobile'],
+            //'first_name'  => $data['first_name'],
+            //'last_name'   => $data['last_name'],
+            //'birth_date'  => $data['birth_date'],
+            //'mobile'      => $data['mobile'],
             'email'       => $data['email'],
             'password'    => Hash::make($data['password']),
-            //'country_id'  => $data['country_id'],
             'role'        => RolesEnum::USER,
         ]);
     }
@@ -94,11 +93,11 @@ class RegisterController extends Controller
         $hour = Carbon::now()->format('H');
 
         if ($hour < 12) {
-            FlashNotification::info(__('auth.welcome'), __('auth.good_morning', ['name' => auth()->user()->name]));
+            FlashNotification::info(__('auth.welcome'), __('auth.good_morning', ['name' => auth()->user()->nickname]));
         } elseif ($hour < 18) {
-            FlashNotification::info(__('auth.welcome'), __('auth.good_afternoon', ['name' => auth()->user()->name]));
+            FlashNotification::info(__('auth.welcome'), __('auth.good_afternoon', ['name' => auth()->user()->nickname]));
         } else {
-            FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->name]));
+            FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->nickname]));
         }
 
         event(new UserRegistered($user));

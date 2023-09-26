@@ -43,61 +43,59 @@
                                         @enderror
                                     </div>
 
-                                    <!-- FIRST_NAME -->
-                                    <div class="mb-3">
-                                        <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>
-                                        <input id="first_name" type="text"
-                                               class="form-control @error('first_name') is-invalid @enderror"
-                                               name="first_name"
-                                               value="{{ old('first_name') }}"
-                                               placeholder="@lang('user.fields.first_name')"
-                                        />
-                                        @error('name')
-                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+{{--                                    <!-- FIRST_NAME -->--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>--}}
+{{--                                        <input id="first_name" type="text"--}}
+{{--                                               class="form-control @error('first_name') is-invalid @enderror"--}}
+{{--                                               name="first_name"--}}
+{{--                                               value="{{ old('first_name') }}"--}}
+{{--                                               placeholder="@lang('user.fields.first_name')"--}}
+{{--                                        />--}}
+{{--                                        @error('name')--}}
+{{--                                            <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                    <!-- LAST_NAME -->--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>--}}
+{{--                                        <input id="last_name" type="text"--}}
+{{--                                               class="form-control @error('last_name') is-invalid @enderror"--}}
+{{--                                               name="last_name"--}}
+{{--                                               value="{{ old('last_name') }}"--}}
+{{--                                               placeholder="@lang('user.fields.last_name')"--}}
+{{--                                        />--}}
+{{--                                        @error('name')--}}
+{{--                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
+{{--                                    <!-- MOBILE -->--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>--}}
+{{--                                        <input id="mobile" type="tel"--}}
+{{--                                               class="form-control @error('mobile') is-invalid @enderror"--}}
+{{--                                               name="mobile"--}}
+{{--                                               value="{{ old('mobile') }}"--}}
+{{--                                               placeholder="@lang('user.fields.mobile')"--}}
+{{--                                        />--}}
+{{--                                        @error('name')--}}
+{{--                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
 
-                                    <!-- LAST_NAME -->
-                                    <div class="mb-3">
-                                        <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>
-                                        <input id="last_name" type="text"
-                                               class="form-control @error('last_name') is-invalid @enderror"
-                                               name="last_name"
-                                               value="{{ old('last_name') }}"
-                                               placeholder="@lang('user.fields.last_name')"
-                                        />
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <!-- MOBILE -->
-                                    <div class="mb-3">
-                                        <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>
-                                        <input id="mobile" type="tel"
-                                               class="form-control @error('mobile') is-invalid @enderror"
-                                               name="mobile"
-                                               value="{{ old('mobile') }}"
-                                               placeholder="@lang('user.fields.mobile')"
-                                        />
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-
-                                    <!-- BIRTH_DATE -->
-                                    <div class="mb-3">
-                                        <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
-                                        <input id="birth_date" type="date"
-                                               class="form-control date @error('birth_date') is-invalid @enderror"
-                                               name="birth_date"
-                                               value="{{ old('birth_date') }}"
-                                               placeholder="@lang('user.fields.birth_date')"
-                                        />
-                                        @error('name')
-                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                        @enderror
-                                    </div>
+{{--                                    <!-- BIRTH_DATE -->--}}
+{{--                                    <div class="mb-3">--}}
+{{--                                        <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>--}}
+{{--                                        <input id="birth_date" type="date"--}}
+{{--                                               class="form-control date @error('birth_date') is-invalid @enderror"--}}
+{{--                                               name="birth_date"--}}
+{{--                                               value="{{ old('birth_date') }}"--}}
+{{--                                               placeholder="@lang('user.fields.birth_date')"--}}
+{{--                                        />--}}
+{{--                                        @error('name')--}}
+{{--                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>--}}
+{{--                                        @enderror--}}
+{{--                                    </div>--}}
 
                                     <!-- EMAIL -->
                                     <div class="mb-3">
@@ -149,30 +147,30 @@
                                     </div>
                                 </form>
 
-                                <div class="mt-4 text-center">
-                                    <h5 class="font-size-14 mb-3">Sign up using</h5>
+                                {{--<div class="mt-4 text-center">--}}
+                                {{--    <h5 class="font-size-14 mb-3">Sign up using</h5>--}}
 
-                                    <ul class="list-inline">
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                               class="social-list-item bg-primary text-white border-primary">
-                                                <i class="mdi mdi-facebook"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                               class="social-list-item bg-info text-white border-info">
-                                                <i class="mdi mdi-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="list-inline-item">
-                                            <a href="#"
-                                               class="social-list-item bg-danger text-white border-danger">
-                                                <i class="mdi mdi-google"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                {{--    <ul class="list-inline">--}}
+                                {{--        <li class="list-inline-item">--}}
+                                {{--            <a href="#"--}}
+                                {{--               class="social-list-item bg-primary text-white border-primary">--}}
+                                {{--                <i class="mdi mdi-facebook"></i>--}}
+                                {{--            </a>--}}
+                                {{--        </li>--}}
+                                {{--        <li class="list-inline-item">--}}
+                                {{--            <a href="#"--}}
+                                {{--               class="social-list-item bg-info text-white border-info">--}}
+                                {{--                <i class="mdi mdi-twitter"></i>--}}
+                                {{--            </a>--}}
+                                {{--        </li>--}}
+                                {{--        <li class="list-inline-item">--}}
+                                {{--            <a href="#"--}}
+                                {{--               class="social-list-item bg-danger text-white border-danger">--}}
+                                {{--                <i class="mdi mdi-google"></i>--}}
+                                {{--            </a>--}}
+                                {{--        </li>--}}
+                                {{--    </ul>--}}
+                                {{--</div>--}}
                             </div>
 
                             <div class="mt-5 text-center">

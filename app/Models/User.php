@@ -16,10 +16,10 @@ use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int                              $id
- * @property int|null                         $country_id
+ * @property string                           $nickname
  * @property string                           $first_name
  * @property string                           $last_name
- * @property string                           $nickname
+ * @property string                           $full_name
  * @property RolesEnum                        $role
  * @property string                           $email
  * @property string                           $password
@@ -68,7 +68,11 @@ class User extends Authenticatable
         parent::boot();
 
         static::saving(function (User $user) {
-            $user->full_name = "{$user->first_name} {$user->last_name}";
+            if (($user->isDirty('first_name') && $user->first_name !== null)
+                || ($user->isDirty('last_name') && $user->last_name !== null)
+            ) {
+                $user->full_name = "{$user->first_name} {$user->last_name}";
+            }
         });
     }
 
@@ -79,7 +83,7 @@ class User extends Authenticatable
 
     public function getLabelAttribute(): string
     {
-        return $this->full_name;
+        return $this->nickname;
     }
 
     public function preferredLocale()

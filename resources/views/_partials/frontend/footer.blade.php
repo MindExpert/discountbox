@@ -1,19 +1,19 @@
 <!-- ======= Footer V1======= -->
 <footer id="footer">
-    <div class="footer-newsletter">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h4>Join Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="#" method="post">
-                        <input type="email" name="email">
-                        <input type="submit" value="Subscribe">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    {{--<div class="footer-newsletter">--}}
+    {{--    <div class="container">--}}
+    {{--        <div class="row justify-content-center">--}}
+    {{--            <div class="col-lg-6">--}}
+    {{--                <h4>Join Our Newsletter</h4>--}}
+    {{--                <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>--}}
+    {{--                <form action="#" method="post">--}}
+    {{--                    <input type="email" name="email">--}}
+    {{--                    <input type="submit" value="Subscribe">--}}
+    {{--                </form>--}}
+    {{--            </div>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
+    {{--</div>--}}
 
     <div class="footer-top">
         <div class="container">
@@ -24,29 +24,25 @@
                         <!-- Uncomment below if you prefer to use an image logo -->
                         <a href="{{ url('/') }}"><img src="{{ asset('/frontend/assets/img/logox1.png') }}" alt="" class="img-fluid"></a>
                     </div>
-                    <p>
-                        A108 Adam Street <br>
-                        New York, NY 535022<br>
-                        United States <br><br>
-                        <strong>Phone:</strong> +1 5589 55488 55<br>
-                        <strong>Email:</strong> info@example.com<br>
-                    </p>
+                    {{--<p>--}}
+                    {{--    A108 Adam Street <br>--}}
+                    {{--    New York, NY 535022<br>--}}
+                    {{--    United States <br><br>--}}
+                    {{--    <strong>Phone:</strong> +1 5589 55488 55<br>--}}
+                    {{--    <strong>Email:</strong> info@example.com<br>--}}
+                    {{--</p>--}}
                 </div>
 
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                    </ul>
+                    <h4>Come Funziona</h4>
+                    {{--<ul>--}}
+                    {{--    <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>--}}
+                    {{--    <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>--}}
+                    {{--</ul>--}}
                 </div>
 
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Our Services</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                    </ul>
+                    <h4>Privacy Policy</h4>
                 </div>
 
                 <div class="col-lg-3 col-md-6 footer-links">
