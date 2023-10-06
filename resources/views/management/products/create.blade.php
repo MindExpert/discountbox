@@ -56,24 +56,6 @@
                                 </div>
                             </div>
 
-                            <!-- HIGHLIGHTED -->
-                            <div class="col-md-6">
-                                <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="highlighted" name="highlighted" value="1">
-                                    <label class="form-check-label" for="highlighted">@lang('product.fields.highlighted')</label>
-                                    <span class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
-                            <!-- SHOW_ON_HOME -->
-                            <div class="col-md-6">
-                                <div class="form-check form-switch form-switch-lg mt-2 mb-3" dir="ltr">
-                                    <input class="form-check-input" type="checkbox" id="show_on_home" name="show_on_home" value="1">
-                                    <label class="form-check-label" for="show_on_home">@lang('product.fields.show_on_home')</label>
-                                    <span class="invalid-feedback"></span>
-                                </div>
-                            </div>
-
                             <!-- FEATURED_IMAGE -->
                             <div class="col-md-6 featured_image-wrapper">
                                 <div class="form-group mb-3">
@@ -103,22 +85,6 @@
                                 </div>
                             </div>
 
-                            {{--<!-- STATUS -->--}}
-                            {{--<div class="col-md-6">--}}
-                            {{--    <div class="form-group mb-3">--}}
-                            {{--        <label for="status" class="form-label">@lang('product.fields.status')</label>--}}
-                            {{--        <select class="form-control select2" name="status" id="status"--}}
-                            {{--                data-allow-clear="true"--}}
-                            {{--                data-placeholder="@lang('product.fields.select_status')" style="width: 100%">--}}
-                            {{--            <option value="">@lang('product.fields.select_status')</option>--}}
-                            {{--            @foreach(\App\Enums\StatusEnum::cases() as $type)--}}
-                            {{--                <option value="{{ $type->value }}">{{ $type->label() }}</option>--}}
-                            {{--            @endforeach--}}
-                            {{--        </select>--}}
-                            {{--        <span class="invalid-feedback"></span>--}}
-                            {{--    </div>--}}
-                            {{--</div>--}}
-
                         </div>
                     </div>
                     <div class="card-footer bg-success bg-opacity-10">
@@ -141,8 +107,7 @@
     <script>
         $(document).ready(function () {
             let $description = $('#description'),
-                $review      = $('#review'),
-                $userSelect  = $('#assignee_id');
+                $review      = $('#review');
 
             initTinymce('#description');
             initTinymce('#review');

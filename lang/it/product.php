@@ -30,7 +30,7 @@ return [
         'participation_fee' => 'Quota di partecipazione',
         'sales_sites'       => 'Sito vendita',
         'current_price'     => 'Prezzo attuale',
-        'discount_you'      => 'ScontaTu (max90%)',
+        'discount_you'      => 'ScontaTu (max :percentage %)',
     ],
     'actions'   => [
         'search'              => 'Cerca un Prodotto...',

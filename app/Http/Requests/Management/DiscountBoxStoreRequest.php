@@ -24,6 +24,7 @@ class DiscountBoxStoreRequest extends FormRequest
                 Rule::exists('coupons', 'id')->whereNull('applied_at')
             ],
             'credits'         => ['required', 'numeric', 'gte:0', 'max:9999999'],
+            'max_discount_percentage' => ['required', 'numeric', 'gte:0', 'max:100'],
             'highlighted'     => ['nullable', 'boolean'],
             'show_on_home'    => ['nullable', 'boolean'],
             'cover_image' => [
@@ -33,7 +34,7 @@ class DiscountBoxStoreRequest extends FormRequest
                     ->maxItemSizeInKb(2048)
                     ->attribute('cover_image', ['required'])
             ],
-            'products' => [
+            'product_id' => [
                 'required',
                 'numeric',
                 Rule::exists('products', 'id')->whereNull('deleted_at')
@@ -52,7 +53,8 @@ class DiscountBoxStoreRequest extends FormRequest
             'highlighted'   => __('discount_box.fields.highlighted'),
             'show_on_home'  => __('discount_box.fields.show_on_home'),
             'cover_image'   => __('discount_box.fields.cover_image'),
-            'products'      => __('discount_box.fields.products'),
+            'product_id'    => __('discount_box.fields.products'),
+            'max_discount_percentage' => __('discount_box.fields.max_discount_percentage'),
         ];
     }
 }

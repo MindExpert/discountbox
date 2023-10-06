@@ -13,6 +13,6 @@ class DiscountBoxSeeder extends Seeder
      */
     public function run(): void
     {
-        DiscountBox::factory(25)->create();
+        DiscountBox::factory(50)->create();
     }
 }

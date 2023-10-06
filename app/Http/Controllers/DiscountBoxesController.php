@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
+use App\Enums\TransactionTypeEnum;
 use App\Models\DiscountBox;
 use App\Models\Product;
 use App\Models\DiscountRequest;
+use App\Models\Transaction;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -83,12 +85,17 @@ class DiscountBoxesController extends Controller
      */
     public function show(DiscountBox $discountBox)
     {
-        $discountBox->load('media', 'product', 'coupon');
+        $discountBox->load('media', 'product', 'coupon')
+            ->loadCount('discount_requests as participants');
+
+        $winnerUser = $discountBox->discount_requests()
+            ->with('user')
+            ->where('status', DiscountRequestStatusEnum::APPROVED)
+            ->first() ?? null;
 
         $userAvailableCredit = auth()->user()?->availableBalance();
 
-        //return view('frontend.discount-boxes.show', compact('discountBox'));
-        return view('frontend.discount-boxes.show', compact('discountBox', 'userAvailableCredit'));
+        return view('frontend.discount-boxes.show', compact('discountBox', 'userAvailableCredit', 'winnerUser'));
     }
 
     /**
@@ -99,25 +106,24 @@ class DiscountBoxesController extends Controller
      */
     public function submitRequestDiscount(Request $request, DiscountBox $discountBox): JsonResponse
     {
-        $userAvailableCredit = user()->availableBalance();
-
-        if ($userAvailableCredit < $discountBox->credits) {
-            return response()->json([
-                'success' => false,
-                'message' => __('Non hai abbastanza credito per richiedere questo sconto.'),
-            ], 422);
-        }
-
         $requestExists = DiscountRequest::query()
             ->where('user_id', user()->id)
             ->where('discount_box_id', $discountBox->id)
-            //->where('status', DiscountRequestStatusEnum::PENDING)
             ->exists();
 
         if ($requestExists) {
             return response()->json([
                 'success' => false,
-                'message' => __('Hai già richiesto un\'iscrizione per questo sconto.'),
+                'message' => __('discount_request.messages.already_requested'),
+            ], 422);
+        }
+
+        $userAvailableCredit = user()->availableBalance();
+
+        if ($userAvailableCredit < $discountBox->credits) {
+            return response()->json([
+                'success' => false,
+                'message' => __('discount_request.messages.not_enough_credits'),
             ], 422);
         }
 
@@ -131,9 +137,28 @@ class DiscountBoxesController extends Controller
                 'status'          => DiscountRequestStatusEnum::PENDING,
             ]);
 
+        Transaction::create([
+            'user_id' => $discountRequest->user_id,
+            'credit'  => 0,
+            'debit'   => $discountRequest->credit,
+            'type'    => TransactionTypeEnum::EXPENDITURE,
+            'name'    => json_encode([
+                'lang'   => 'transaction.event.expenditure',
+                'params' => []
+            ]),
+            'notes' => json_encode([
+                'lang'   => 'transaction.names.expenditure_for_request',
+                'params' => [
+                    'product' => $discountRequest->discount_box->name,
+                ]
+            ]),
+            'transactional_type' => DiscountRequest::$morph_key,
+            'transactional_id'   => $discountRequest->id,
+        ]);
+
         return response()->json([
             'success' => true,
-            'message' => __('La tua richiesta è stata inviata con successo.'),
+            'message' => __('discount_request.messages.request_sent'),
             'data'    => $discountRequest,
         ], 200);
     }

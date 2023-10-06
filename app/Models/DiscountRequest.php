@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\DiscountRequestStatusEnum;
-use App\Models\QueryBuilders\ProductDiscountRequestQueryBuilder;
+use App\Models\QueryBuilders\DiscountRequestQueryBuilder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -29,7 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property DiscountBox  $discount_box
  * @property Collection|Transaction[] $transactions
  *
- * @mixin ProductDiscountRequestQueryBuilder
+ * @mixin DiscountRequestQueryBuilder
  */
 class DiscountRequest extends Model
 {
@@ -49,18 +49,18 @@ class DiscountRequest extends Model
     {
         parent::boot();
 
-        static::creating(function (DiscountRequest $productDiscountRequest) {
+        static::creating(function (DiscountRequest $discountRequest) {
             //
         });
 
-        static::created(function (DiscountRequest $productDiscountRequest) {
+        static::created(function (DiscountRequest $discountRequest) {
             //
         });
     }
 
-    public function newEloquentBuilder($query): ProductDiscountRequestQueryBuilder
+    public function newEloquentBuilder($query): DiscountRequestQueryBuilder
     {
-        return new ProductDiscountRequestQueryBuilder($query);
+        return new DiscountRequestQueryBuilder($query);
     }
 
     public function user(): BelongsTo

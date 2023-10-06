@@ -59,6 +59,10 @@
                                     <td class="value">{{ $discountBox->discount }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="label">@lang('discount_box.fields.max_discount_percentage')</th>
+                                    <td class="value">{{ $discountBox->max_discount_percentage }}</td>
+                                </tr>
+                                <tr>
                                     <th class="label">@lang('discount_box.fields.total')</th>
                                     <td class="value">{{ $discountBox->total }}</td>
                                 </tr>

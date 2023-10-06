@@ -17,11 +17,8 @@ class ProductUpdateRequest extends FormRequest
             'name'            => ['required', 'string', 'max:255'],
             'description'     => ['required', 'string', 'max:5000'],
             'review'          => ['nullable', 'string', 'max:5000'],
-            'url'             => ['nullable', 'string', 'url'],
+            'url'             => ['nullable', 'string'],
             'price'           => ['nullable', 'numeric', 'gte:0', 'lte:999999.99'],
-            'status'          => ['nullable', new Enum(StatusEnum::class)],
-            'highlighted'     => ['nullable', 'boolean'],
-            'show_on_home'    => ['nullable', 'boolean'],
             'featured_image' => [
                 'nullable',
                 $this
@@ -47,9 +44,6 @@ class ProductUpdateRequest extends FormRequest
             'review'          => __('product.fields.review'),
             'url'             => __('product.fields.url'),
             'price'           => __('product.fields.price'),
-            'status'          => __('product.fields.status'),
-            'highlighted'     => __('product.fields.highlighted'),
-            'show_on_home'    => __('product.fields.show_on_home'),
             'featured_image'  => __('product.fields.featured_image'),
             'gallery_images'  => __('product.fields.gallery_images'),
         ];

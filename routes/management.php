@@ -4,7 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Management\CouponsController;
 use App\Http\Controllers\Management\DashboardController;
 use App\Http\Controllers\Management\DiscountBoxesController;
-use App\Http\Controllers\Management\ProductDiscountRequestsController;
+use App\Http\Controllers\Management\DiscountRequestsController;
 use App\Http\Controllers\Management\ProductsController;
 use App\Http\Controllers\Management\TransactionsController;
 use App\Http\Controllers\Management\UsersController;
@@ -208,31 +208,31 @@ Route::prefix('/transactions')
             ->name('destroy');
     });
 
-Route::prefix('/product-discount-requests')
-    ->as('product-discount-requests.')
+Route::prefix('/discount-requests')
+    ->as('discount-requests.')
     ->group(function () {
         Route::get('/')
-            ->uses([ProductDiscountRequestsController::class, 'index'])
+            ->uses([DiscountRequestsController::class, 'index'])
             ->name('index');
 
         Route::get('/search')
-            ->uses([ProductDiscountRequestsController::class, 'search'])
+            ->uses([DiscountRequestsController::class, 'search'])
             ->name('search')
             ->middleware(['expects_json']);
 
-        Route::get('/{productDiscountRequest}')
-            ->uses([ProductDiscountRequestsController::class, 'show'])
+        Route::get('/{discountRequest}')
+            ->uses([DiscountRequestsController::class, 'show'])
             ->name('show');
 
-        Route::post('/{productDiscountRequest}/approve')
-            ->uses([ProductDiscountRequestsController::class, 'approve'])
+        Route::post('/{discountRequest}/approve')
+            ->uses([DiscountRequestsController::class, 'approve'])
             ->name('approve');
 
-        Route::post('/{productDiscountRequest}/reject')
-            ->uses([ProductDiscountRequestsController::class, 'reject'])
+        Route::post('/{discountRequest}/reject')
+            ->uses([DiscountRequestsController::class, 'reject'])
             ->name('reject');
 
-        Route::delete('/{productDiscountRequest}')
-            ->uses([ProductDiscountRequestsController::class, 'destroy'])
+        Route::delete('/{discountRequest}')
+            ->uses([DiscountRequestsController::class, 'destroy'])
             ->name('destroy');
     });

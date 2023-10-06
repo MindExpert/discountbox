@@ -37,7 +37,7 @@
                                 <th scope="col">@lang('discount_request.fields.id')</th>
                                 <th scope="col">@lang('discount_request.fields.user_id')</th>
                                 <th scope="col">@lang('discount_request.fields.discount_box_id')</th>
-                                <th scope="col">@lang('discount_request.fields.product_id')</th>
+                                <th scope="col">@lang('discount_request.fields.percentage')</th>
                                 <th scope="col">@lang('discount_request.fields.credit')</th>
                                 <th scope="col">@lang('discount_request.fields.status')</th>
                                 <th scope="col">@lang('discount_request.fields.approved_at')</th>
@@ -63,13 +63,9 @@
                                             data-allow-clear="true"
                                     ></select>
                                 </th>
-                                <th>
-                                    <select class="form-control search-input select2" name="product_id" id="product_id"
-                                            style="width: 100% !important;"
-                                            aria-label="@lang('discount_request.fields.product_id')"
-                                            data-placeholder="@lang('discount_request.fields.product_id')"
-                                            data-allow-clear="true"
-                                    ></select>
+                                <th><input type="text" class="form-control search-input" name="percentage"
+                                           placeholder="@lang('general.actions.search')"
+                                           aria-label="@lang('general.actions.search')" />
                                 </th>
                                 <th><input type="text" class="form-control search-input" name="credit"
                                            placeholder="@lang('general.actions.search')"
@@ -116,8 +112,7 @@
             let hasFilters = false;
 
             let $userSelect = $('#user_id'),
-                $discountBoxSelect = $('#discount_box_id'),
-                $productSelect = $('#product_id');
+                $discountBoxSelect = $('#discount_box_id');
 
             let dt = $datatable.DataTable({
                 responsive: false,
@@ -127,13 +122,13 @@
                 orderCellsTop: true,
                 stateSave: true,
                 order: [[0, 'asc']],
-                ajax: '{{ route('management.product-discount-requests.index') }}',
+                ajax: '{{ route('management.discount-requests.index') }}',
                 deferRender: true,
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'user_id', name: 'user_id'},
                     {data: 'discount_box_id', name: 'discount_box_id'},
-                    {data: 'product_id', name: 'product_id'},
+                    {data: 'percentage', name: 'percentage'},
                     {data: 'credit', name: 'credit'},
                     {data: 'status', name: 'status'},
                     {data: 'approved_at', name: 'debit'},
@@ -192,8 +187,6 @@
                             fillSelect2Element(columnSearchValue, "{{ route('management.users.search') }}", $userSelect);
                         } else if ($field.attr('id') === 'discount_box_id') {
                             fillSelect2Element(columnSearchValue, "{{ route('management.discount-boxes.search') }}", $discountBoxSelect);
-                        } else if ($field.attr('id') === 'product_id') {
-                            fillSelect2Element(columnSearchValue, "{{ route('management.products.search') }}", $productSelect);
                         } else if ($field.hasClass('select2-hidden-accessible')) {
                             $field.val(columnSearchValue).trigger('change.select2');
                         } else {
@@ -240,32 +233,6 @@
                 allowClear: true,
                 ajax: {
                     url: "{{ route('management.discount-boxes.search') }}",
-                    dataType: 'json',
-                    delay: 250,
-                    data: function (params) {
-                        return {
-                            keyword: params.term,
-                        };
-                    },
-                    processResults: function (data, params) {
-                        return {
-                            results: $.map(data, function (response) {
-                                return {
-                                    id: response.id,
-                                    text: response.label,
-                                };
-                            })
-                        };
-                    },
-                    cache: false,
-                }
-            });
-
-            $productSelect.select2({
-                placeholder: "@lang('product.actions.search')",
-                allowClear: true,
-                ajax: {
-                    url: "{{ route('management.products.search') }}",
                     dataType: 'json',
                     delay: 250,
                     data: function (params) {

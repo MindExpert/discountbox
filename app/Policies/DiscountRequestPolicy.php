@@ -6,7 +6,7 @@ use App\Enums\DiscountRequestStatusEnum;
 use App\Models\DiscountRequest;
 use App\Models\User;
 
-class ProductDiscountRequestPolicy
+class DiscountRequestPolicy
 {
     public function viewAny(User $auth): bool
     {
@@ -16,9 +16,9 @@ class ProductDiscountRequestPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $auth, DiscountRequest $productDiscountRequest): bool
+    public function view(User $auth, DiscountRequest $discountRequest): bool
     {
-        return ($auth->isAdministrator() || $auth->is($productDiscountRequest->user));
+        return ($auth->isAdministrator() || $auth->is($discountRequest->user));
     }
 
     /**
@@ -40,26 +40,26 @@ class ProductDiscountRequestPolicy
     /**
      * Determine whether the user can approve the model.
      */
-    public function toggleStatus(User $auth, DiscountRequest $productDiscountRequest): bool
+    public function toggleStatus(User $auth, DiscountRequest $discountRequest): bool
     {
         return $auth->isAdministrator()
-            && $productDiscountRequest->status === DiscountRequestStatusEnum::PENDING;
+            && $discountRequest->status === DiscountRequestStatusEnum::PENDING;
     }
 
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $auth, DiscountRequest $productDiscountRequest): bool
+    public function delete(User $auth, DiscountRequest $discountRequest): bool
     {
         return $auth->isAdministrator()
-            && in_array($productDiscountRequest->status, [DiscountRequestStatusEnum::REJECTED, DiscountRequestStatusEnum::PENDING]);
+            && in_array($discountRequest->status, [DiscountRequestStatusEnum::REJECTED, DiscountRequestStatusEnum::PENDING]);
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $auth, DiscountRequest $productDiscountRequest): bool
+    public function restore(User $auth, DiscountRequest $discountRequest): bool
     {
         return $auth->isAdministrator();
     }
@@ -67,9 +67,9 @@ class ProductDiscountRequestPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $auth, DiscountRequest $productDiscountRequest): bool
+    public function forceDelete(User $auth, DiscountRequest $discountRequest): bool
     {
         return $auth->isAdministrator()
-            && in_array($productDiscountRequest->status, [DiscountRequestStatusEnum::REJECTED, DiscountRequestStatusEnum::PENDING]);
+            && in_array($discountRequest->status, [DiscountRequestStatusEnum::REJECTED, DiscountRequestStatusEnum::PENDING]);
     }
 }

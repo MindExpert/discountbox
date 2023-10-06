@@ -30,7 +30,7 @@ return [
         'participation_fee' => 'Participation fee',
         'sales_sites'       => 'Sales site',
         'current_price'     => 'Current price',
-        'discount_you'      => 'DiscountYou (max90%)',
+        'discount_you'      => 'DiscountYou (max :percentage %)',
     ],
     'actions'   => [
         'search'              => 'Search for a Product...',

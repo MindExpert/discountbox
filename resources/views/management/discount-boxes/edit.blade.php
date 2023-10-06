@@ -153,14 +153,14 @@
                             <!-- PRODUCTS MULTI-SELECT -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="products" class="form-label">@lang('discount_box.fields.products')</label>
-                                    <select class="form-control select2" name="products[]" id="products" multiple
+                                    <label for="product_id" class="form-label">@lang('discount_box.fields.product_id')</label>
+                                    <select class="form-control select2" name="product_id" id="product_id"
                                             data-allow-clear="true"
-                                            data-placeholder="@lang('discount_box.fields.select_products')" style="width: 100%">
+                                            data-placeholder="@lang('discount_box.fields.select_product')" style="width: 100%">
                                         <option value="">@lang('discount_box.fields.select_products')</option>
-                                        @foreach($discountBox->products as $product)
-                                            <option value="{{ $product->id }}" selected>{{ $product->name }}</option>
-                                        @endforeach
+                                        @if($discountBox->product)
+                                            <option value="{{ $discountBox->product->id }}" selected>{{ $discountBox->product->name }}</option>
+                                        @endif
                                     </select>
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -188,7 +188,7 @@
     <script>
         $(document).ready(function () {
             let $couponSelect  = $('#coupon_id'),
-                $productSelect = $('#products');
+                $productSelect = $('#product_id');
 
             $couponSelect.select2({
                 placeholder: "@lang('coupon.actions.search')",

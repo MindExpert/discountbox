@@ -10,7 +10,7 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Policies\CouponPolicy;
 use App\Policies\DiscountBoxPolicy;
-use App\Policies\ProductDiscountRequestPolicy;
+use App\Policies\DiscountRequestPolicy;
 use App\Policies\ProductPolicy;
 use App\Policies\TransactionPolicy;
 use App\Policies\UserPolicy;
@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Coupon::class                 => CouponPolicy::class,
         DiscountBox::class            => DiscountBoxPolicy::class,
-        DiscountRequest::class => ProductDiscountRequestPolicy::class,
+        DiscountRequest::class => DiscountRequestPolicy::class,
         Product::class                => ProductPolicy::class,
         Transaction::class            => TransactionPolicy::class,
         User::class                   => UserPolicy::class,

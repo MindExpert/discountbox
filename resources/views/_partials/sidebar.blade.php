@@ -56,7 +56,7 @@
                 @endcan
                 @can('viewAny', App\Models\DiscountRequest::class)
                     <li>
-                        <a href="{{ route('management.product-discount-requests.index') }}" class="waves-effect">
+                        <a href="{{ route('management.discount-requests.index') }}" class="waves-effect">
                             <i class="bx bx-file"></i>
                             <span>@lang('sidebar.menu.discount_requests')</span>
                         </a>

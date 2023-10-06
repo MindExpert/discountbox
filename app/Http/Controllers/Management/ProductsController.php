@@ -55,13 +55,9 @@ class ProductsController extends Controller
                             $html = __('general.no_data');
                         }
                         return view('management.products.datatable.name', compact('product', 'html'));
-                        //return view('management.products.datatable.name', compact('product'))->render();
                     })
-                    ->editColumn('status', fn(Product $product) => view('management.products.datatable.status', compact('product')))
-                    ->editColumn('highlighted', fn(Product $product) => view('management.products.datatable.highlighted', compact('product')))
-                    ->editColumn('show_on_home', fn(Product $product) => view('management.products.datatable.show_on_home', compact('product')))
                     ->addColumn('actions', 'management.products.datatable.actions')
-                    ->rawColumns(['actions', 'image', 'name', 'status', 'highlighted', 'show_on_home'])
+                    ->rawColumns(['actions', 'image', 'name'])
                     ->make(true);
             } catch (Exception $e) {
                 report($e);
@@ -137,9 +133,6 @@ class ProductsController extends Controller
                 'description'   => $request->input('description'),
                 'review'        => $request->input('review'),
                 'price'         => $request->input('price') ?? 0.00,
-                //'status'        => $request->input('status'),
-                'highlighted'   => $request->boolean('highlighted'),
-                'show_on_home'  => $request->boolean('show_on_home'),
             ]);
 
             # ADD Images to Media Library when creating
@@ -194,10 +187,7 @@ class ProductsController extends Controller
                 'url'           => $request->input('url'),
                 'description'   => $request->input('description'),
                 'review'        => $request->input('review'),
-                'highlighted'   => $request->boolean('highlighted'),
-                'show_on_home'  => $request->boolean('show_on_home'),
                 'price'         => $request->input('price') ?? 0.00,
-                //'status'        => $request->input('status'),
             ]);
 
             # SYNC Images to Media Library when UPDATING

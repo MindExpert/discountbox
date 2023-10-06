@@ -170,6 +170,8 @@ class DiscountBoxesController extends Controller
                 'expires_at'    => $request->input('expires_at'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
+                'product_id'    => $request->input('product_id'),
+                'max_discount_percentage' => $request->input('max_discount_percentage') ?? '0',
             ]);
 
             # ADD Images to Media Library when creating
@@ -206,7 +208,7 @@ class DiscountBoxesController extends Controller
     {
         $this->authorize('update', $discountBox);
 
-        $discountBox->load(['media', 'coupon', 'products']);
+        $discountBox->load(['media', 'coupon', 'product']);
 
         return view('management.discount-boxes.edit', compact('discountBox'));
     }
@@ -250,15 +252,13 @@ class DiscountBoxesController extends Controller
                 'expires_at'    => $request->input('expires_at'),
                 'highlighted'   => $request->boolean('highlighted'),
                 'show_on_home'  => $request->boolean('show_on_home'),
+                'max_discount_percentage' => $request->input('max_discount_percentage') ?? '0',
+                'product_id'    => $request->input('product_id'),
             ]);
 
             # SYNC Images to Media Library when UPDATING
             $discountBox->syncFromMediaLibraryRequest($request->input('cover_image'))
                 ->toMediaCollection('cover_image');
-
-            # SYNC Products to Discount Box
-            $products = (array) $request->input('products');
-            $discountBox->products()->sync(array_values(array_unique($products)));
 
             DB::commit();
 
@@ -277,7 +277,8 @@ class DiscountBoxesController extends Controller
         $this->authorize('delete', $discountBox);
 
         try {
-            #TODO: Delete all the images from the media library, and all the related data
+            //Delete all the images from the media library, and all the related data
+            $discountBox->clearMediaCollection('cover_image');
 
             $discountBox->delete();
 

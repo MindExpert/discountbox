@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'singular'   => 'Product Discount Request',
-    'plural'     => 'Product Discount Requests',
+    'singular'   => 'Discount Request',
+    'plural'     => 'Discount Requests',
     'details'    => 'Details',
     'congrats'   => 'Congrats',
     'view_offer' => 'View Offer',
@@ -10,7 +10,7 @@ return [
         'id'              => 'ID',
         'user_id'         => 'User',
         'discount_box_id' => 'Discount Box',
-        'product_id'      => 'Product',
+        'percentage'      => 'Percentage',
         'approved_at'     => 'Approved at',
         'credit'          => 'Credit',
         'notes'           => 'Notes',
@@ -20,11 +20,10 @@ return [
         'deleted_at'      => 'Deleted at',
         'select_user'     => 'Select User',
         'select_discount_box' => 'Select Discount Box',
-        'select_product'    => 'Select Product',
         'participation_fee' => 'Participation fee',
         'sales_sites'       => 'Sales site',
         'current_price'     => 'Current price',
-        'discount_you'      => 'DiscountYou (max90%)',
+        'discount_you'      => 'DiscountYou (max :percentage %)',
     ],
     'actions'   => [
         'search'              => 'Search for a discount requests..',

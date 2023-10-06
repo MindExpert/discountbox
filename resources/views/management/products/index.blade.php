@@ -40,9 +40,6 @@
                                 <th scope="col">@lang('product.fields.image')</th>
                                 <th scope="col">@lang('product.fields.serial')</th>
                                 <th scope="col">@lang('product.fields.name')</th>
-                                <th scope="col">@lang('product.fields.status')</th>
-                                <th scope="col">@lang('product.fields.highlighted')</th>
-                                <th scope="col">@lang('product.fields.show_on_home')</th>
                                 <th scope="col">@lang('general.actions.plural')</th>
                             </tr>
                             <tr role="row" style="display: none;">
@@ -50,9 +47,6 @@
                                 <th></th>
                                 <th><input type="text" class="form-control search-input" name="serial" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="status" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="highlighted" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="show_on_home" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -92,10 +86,7 @@
                     {data: 'image', name: 'image', orderable: false, searchable: false},
                     {data: 'serial', name: 'serial'},
                     {data: 'name', name: 'name'},
-                    {data: 'status', name: 'status'},
                     // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},
-                    {data: 'highlighted', name: 'highlighted'},
-                    {data: 'show_on_home', name: 'show_on_home'},
                     {data: 'actions', name: 'actions', orderable: false, searchable: false}
                 ],
                 drawCallback: function (settings) {

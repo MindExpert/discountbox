@@ -51,24 +51,43 @@
                             <li><strong>@lang('product.fields.created_at')</strong>:&nbsp; {{ $discountBox->created_at->format('d F, Y') }}</li>
                         </ul>
 
-                        <div class="slide-container mt-2 mb-2" style="position: relative">
-                            <div class="slider">
-                                <input type="range"
-                                       min="1"
-                                       max="90"
-                                       value="1"
-                                       name="credit"
-                                       id="percentage-range"
-                                       oninput="creditRangeValue.innerText = this.value"/>
-                                <p id="creditRangeValue">1</p> %
+                        @if($discountBox->inProgress())
+                            <!-- Progress bar 1 -->
+                            <div class="slide-container mt-2 mb-2" style="position: relative">
+                                <div class="slider">
+                                    <input type="range"
+                                           min="1"
+                                           max="{{$discountBox->max_discount_percentage ?? 50}}"
+                                           value="1"
+                                           name="credit"
+                                           id="percentage-range"
+                                           oninput="creditRangeValue.innerText = this.value"/>
+                                    <p id="creditRangeValue">1</p> %
+                                </div>
                             </div>
-                        </div>
+                            <!-- Apply discount button -->
+                            <div class="d-flex justify-content-between align-items-center pt-4 pb-4 px-2 mt-2 mb-4">
+                                <label for="percentage-range">@lang('product.fields.discount_you', ['percentage' => $discountBox->max_discount_percentage])</label>
+                                <button class="btn btn-secondary" id="js-btn-apply-discount" @disabled(! $discountBox->isAvailable())>@lang('general.actions.apply')</button>
+                            </div>
+                        @elseif($discountBox->isConcluded())
+                            <div class="alert alert-primary mt-4 mb-4">
+                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.concluded')
+                            </div>
+                        @elseif($discountBox->isAwarded() && user()?->isWinner($discountBox))
+                            <div class="alert alert-success mt-4 mb-4">
+                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.winner_user', ['percentage' => optional($winnerUser)->percentage])
+                            </div>
+                        @elseif($discountBox->isAwarded() && ! user()?->isWinner($discountBox))
+                            <div class="alert alert-info mt-4 mb-4">
+                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.winner_general', ['percentage' => optional($winnerUser)->percentage])
+                            </div>
+                        @else
+                            <div class="alert alert-warning mt-4 mb-4">
+                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.not_available')
+                            </div>
+                        @endif
 
-                        {{-- <input type="range" min="1" max="90" value="1" name="credit" class="range-slider" id="percentage-range">--}}
-                        <div class="d-flex justify-content-between align-items-center pt-4 pb-4 px-2 mt-2 mb-4">
-                            <label for="percentage-range">@lang('product.fields.discount_you')</label>
-                            <button class="btn btn-secondary" id="js-btn-apply-discount">@lang('general.actions.apply')</button>
-                        </div>
 
                         <ul>
                             <li><strong>@lang('product.fields.sales_sites')</strong>: <a href="{{$discountBox->product->url}}">{{ $discountBox->product->url }}</a></li>
@@ -129,6 +148,18 @@
             // REMOVE MEDICAL CARD HISTORY from Array Element
             $applyBtn.on('click', function (e) {
                 e.preventDefault();
+                let userIsAuth = '{{ auth()->check() }}';
+
+                console.log(userIsAuth);
+
+                if(!userIsAuth) {
+                    toastMixin.fire({
+                        icon: 'info',
+                        title: "{{ __('general.info') }}",
+                        text: "{{ __('discount_request.messages.not_authenticated') }}",
+                    });
+                    return;
+                }
 
                 swal.fire({
                     title: "{{ __('discount_request.actions.confirm') }}",
@@ -145,14 +176,10 @@
                         cancelButton: 'btn btn-danger btn-lg',
                         //loader: 'custom-loader'
                     },
-                    didOpen: () => {
-                        //
-                    },
-                    didClose: () => {
-                        //
-                    },
-                    preConfirm: (login) =>
-                    {
+                    allowOutsideClick: () => !Swal.isLoading(),
+                    didOpen: () => { },
+                    didClose: () => {},
+                    preConfirm: (login) => {
                         // Make a request to the backend to create a new discount request
                         return fetch(`{{ route('frontend.discount-boxes.request-discount', ['discountBox' => $discountBox]) }}`, {
                             method: 'POST',
@@ -165,28 +192,27 @@
                                 percentage: $('#percentage-range').val(),
                             })
                         })
-                            .then(response => {
-                                if (! response.ok && response.status === 422) {
-                                    return response.json().then(data => {
-                                        throw new Error(data.message)
-                                    });
-                                } else if (! response.ok && response.status === 404) {
-                                    return response.json().then(data => {
-                                        throw new Error(data.message)
-                                    });
-                                } else if (! response.ok) {
-                                    throw new Error(response.statusText);
-                                }
+                        .then(response => {
+                            if (! response.ok && response.status === 422) {
+                                return response.json().then(data => {
+                                    throw new Error(data.message)
+                                });
+                            } else if (! response.ok && response.status === 404) {
+                                return response.json().then(data => {
+                                    throw new Error(data.message)
+                                });
+                            } else if (! response.ok) {
+                                throw new Error(response.statusText);
+                            }
 
-                                return response.json();
-                            })
-                            .catch(error => {
-                                Swal.showValidationMessage(
-                                    `Request failed: ${error}`
-                                )
-                            })
+                            return response.json();
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(
+                                `Request failed: ${error}`
+                            )
+                        })
                     },
-                    allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
                     if (result.isConfirmed) {
                         /* Dispatch event to calculate item rows iteration */

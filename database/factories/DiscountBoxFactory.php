@@ -33,7 +33,7 @@ class DiscountBoxFactory extends Factory
             'price'         => $price,
             'discount'      => $discount,
             'total'         => $total,
-            'max_discount_percentage' => $this->faker->randomFloat(2, 0, 90),
+            'max_discount_percentage' => $this->faker->randomNumber(2, true),
             'expires_at'    => $this->faker->dateTimeBetween(now()->addDays(10), now()->addMonths(2)),
             'credits'       => $this->faker->randomNumber(2),
             'status'        => $status[rand(0, count($status)-1)],

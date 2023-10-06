@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
 use App\Models\QueryBuilders\DiscountBoxQueryBuilder;
-use App\Support\Helper;
 use App\Support\SerialGenerator;
 use Carbon\Carbon;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -65,6 +65,7 @@ class DiscountBox extends Model implements HasMedia
         'highlighted'  => 'boolean',
         'show_on_home' => 'boolean',
         'status'       => StatusEnum::class,
+        'max_discount_percentage' => 'integer',
     ];
 
     protected static function boot(): void
@@ -160,5 +161,22 @@ class DiscountBox extends Model implements HasMedia
     public function isConcluded(): bool
     {
         return $this->status === StatusEnum::CONCLUDED;
+    }
+
+    public function isExpired(): bool
+    {
+        return $this->expires_at->isPast();
+    }
+
+    public function isAvailable(): bool
+    {
+        return $this->inProgress() && ! $this->isExpired();
+    }
+
+    public function hasWinner(): bool
+    {
+        return $this->discount_requests()
+            ->where('status', DiscountRequestStatusEnum::APPROVED)
+            ->exists();
     }
 }
