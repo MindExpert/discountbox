@@ -15,9 +15,11 @@ return new class extends Migration
         Schema::create('discount_boxes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
+            $table->foreignId('product_id');
             $table->foreignId('coupon_id')->nullable();
             $table->string('serial')->index()->unique();
             $table->string('name')->index();
+            $table->decimal('max_discount_percentage')->default(0);
             $table->unsignedInteger('price')->default(0);
             $table->unsignedInteger('discount')->default(0);
             $table->unsignedInteger('total')->default(0);
@@ -31,6 +33,7 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('coupon_id')->references('id')->on('coupons');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

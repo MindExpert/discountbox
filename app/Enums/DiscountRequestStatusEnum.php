@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum ProductDiscountRequestStatusEnum: string
+enum DiscountRequestStatusEnum: string
 {
     case PENDING  = 'pending';
     case APPROVED = 'approved';
@@ -15,7 +15,7 @@ enum ProductDiscountRequestStatusEnum: string
 
     public static function values(): array
     {
-        return array_map(function (ProductDiscountRequestStatusEnum $case) {
+        return array_map(function (DiscountRequestStatusEnum $case) {
             return $case->value;
         }, self::cases());
     }

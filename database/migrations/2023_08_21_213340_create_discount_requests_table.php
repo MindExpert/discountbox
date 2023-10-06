@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\DiscountRequestStatusEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,14 +12,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('product_discount_requests', function (Blueprint $table) {
+        Schema::create('discount_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('discount_box_id');
-            $table->foreignId('product_id');
             $table->decimal('credit', 8, 2);
-            $table->enum('status', ProductDiscountRequestStatusEnum::values())->default(ProductDiscountRequestStatusEnum::default()->value);
-            $table->text('notes')->nullable();
+            $table->decimal('percentage', 8, 2);
+            $table->enum('status', DiscountRequestStatusEnum::values())->default(DiscountRequestStatusEnum::default()->value);
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -32,11 +31,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('discount_boxes');
 
-            $table->foreign('product_id')
-                ->references('id')
-                ->on('products');
-
-            $table->unique(['user_id', 'discount_box_id', 'product_id'], 'user_id_discount_box_id_product_id_unique');
+            $table->unique(['user_id', 'discount_box_id'], 'user_id_discount_box_id_unique');
         });
     }
 
@@ -45,6 +40,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('product_discount_requests');
+        Schema::dropIfExists('discount_requests');
     }
 };

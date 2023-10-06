@@ -66,26 +66,13 @@ Route::prefix('/')
                     ->where('status', collect(StatusEnum::values())->implode('|'))
                     ->name('index-by-status');
 
-                Route::get('/{discountBox}')
+                Route::get('/{discountBox}/product')
                     ->uses([DiscountBoxesController::class, 'show'])
                     ->name('show');
 
-                Route::prefix('{discountBox}/products')
-                    ->as('products.')
-                    ->group(function () {
-                        Route::get('/')
-                            ->uses([ProductsController::class, 'index'])
-                            ->name('index');
-
-                        Route::get('/{product}')
-                            ->uses([ProductsController::class, 'show'])
-                            ->name('show');
-
-                        Route::post('/{product}/request-discount')
-                            ->uses([ProductsController::class, 'submitRequestDiscount'])
-                            ->name('request-discount');
-
-                    });
+                Route::post('/{discountBox}/request-discount')
+                    ->uses([DiscountBoxesController::class, 'submitRequestDiscount'])
+                    ->name('request-discount');
             });
 
         Route::prefix('profile')

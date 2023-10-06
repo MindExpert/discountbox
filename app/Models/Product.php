@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\Image\Exceptions\InvalidManipulation;
@@ -29,9 +30,6 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property string|null  $review
  * @property string|null  $url
  * @property double       $price
- * @property StatusEnum   $status
- * @property bool         $highlighted
- * @property bool         $show_on_home
  * @property Carbon|null  $concluded_at
  * @property string       $label
  * @property Carbon|null  $created_at
@@ -125,11 +123,9 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function discount_boxes(): BelongsToMany
+    public function discount_boxes(): HasMany
     {
-        return $this->belongsToMany(DiscountBox::class, 'discount_box_product', 'product_id', 'discount_box_id')
-            ->withTimestamps()
-            ->using(DiscountBoxProduct::class);
+        return $this->hasMany(DiscountBox::class, 'product_id', 'id');
     }
 
     public function getLabelAttribute(): string

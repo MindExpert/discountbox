@@ -1,14 +1,14 @@
 @extends('_layouts.app', [
-    'title' => __('product_discount_request.plural'),
+    'title' => __('discount_request.plural'),
 ])
 @section('before-styles')
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ asset('/assets/libs/datatables/datatables.min.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('/assets/libs/datatables/datatables.min.css') }}" type="text/css"/>
 @endsection
 
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
-    <li class="breadcrumb-item active">@lang('product_discount_request.plural')</li>
+    <li class="breadcrumb-item active">@lang('discount_request.plural')</li>
 @endsection
 
 @section('content')
@@ -16,29 +16,32 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header border-info border-3 d-inline-flex flex-column flex-md-row align-items-center justify-content-between">
-                    <h4 class="card-title">@lang('product_discount_request.plural')</h4>
+                    <h4 class="card-title">@lang('discount_request.plural')</h4>
                     <div class="btn-group btn-group-sm" role="group" aria-label="">
-                        <a href="javascript:void(0);" id="datatable-reset-filter" class="btn btn-outline-warning tippy-btn mr-1" title="@lang('general.actions.clear_filter')">
+                        <a href="javascript:void(0);" id="datatable-reset-filter"
+                           class="btn btn-outline-warning tippy-btn mr-1" title="@lang('general.actions.clear_filter')">
                             <i class="fa fa-broom"></i> @lang('general.actions.clear_filter')
                         </a>
-                        <a href="javascript:void(0);" id="datatable-filter" class="btn btn-outline-success tippy-btn mr-1" title="@lang('general.filter')">
+                        <a href="javascript:void(0);" id="datatable-filter"
+                           class="btn btn-outline-success tippy-btn mr-1" title="@lang('general.filter')">
                             <i class="fa fa-filter"></i> @lang('general.actions.filter')
                         </a>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="ajax-datatable" class="table table-sm table-bordered table-nowrap w-100" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <table id="ajax-datatable" class="table table-sm table-bordered table-nowrap w-100"
+                               style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                             <thead>
-                            <tr role="row"  class="bg-light">
-                                <th scope="col">@lang('product_discount_request.fields.id')</th>
-                                <th scope="col">@lang('product_discount_request.fields.user_id')</th>
-                                <th scope="col">@lang('product_discount_request.fields.discount_box_id')</th>
-                                <th scope="col">@lang('product_discount_request.fields.product_id')</th>
-                                <th scope="col">@lang('product_discount_request.fields.credit')</th>
-                                <th scope="col">@lang('product_discount_request.fields.status')</th>
-                                <th scope="col">@lang('product_discount_request.fields.approved_at')</th>
-                                <th scope="col">@lang('product_discount_request.fields.created_at')</th>
+                            <tr role="row" class="bg-light">
+                                <th scope="col">@lang('discount_request.fields.id')</th>
+                                <th scope="col">@lang('discount_request.fields.user_id')</th>
+                                <th scope="col">@lang('discount_request.fields.discount_box_id')</th>
+                                <th scope="col">@lang('discount_request.fields.product_id')</th>
+                                <th scope="col">@lang('discount_request.fields.credit')</th>
+                                <th scope="col">@lang('discount_request.fields.status')</th>
+                                <th scope="col">@lang('discount_request.fields.approved_at')</th>
+                                <th scope="col">@lang('discount_request.fields.created_at')</th>
                                 <th scope="col">@lang('general.actions.plural')</th>
                             </tr>
                             <tr role="row" style="display: none;">
@@ -46,42 +49,47 @@
                                 <th>
                                     <select class="form-control search-input select2" name="user_id" id="user_id"
                                             style="width: 100% !important;"
-                                            aria-label="@lang('product_discount_request.fields.user_id')"
-                                            data-placeholder="@lang('product_discount_request.fields.user_id')"
+                                            aria-label="@lang('discount_request.fields.user_id')"
+                                            data-placeholder="@lang('discount_request.fields.user_id')"
                                             data-allow-clear="true"
                                     ></select>
                                 </th>
                                 <th>
-                                    <select class="form-control search-input select2" name="discount_box_id" id="discount_box_id"
+                                    <select class="form-control search-input select2" name="discount_box_id"
+                                            id="discount_box_id"
                                             style="width: 100% !important;"
-                                            aria-label="@lang('product_discount_request.fields.discount_box_id')"
-                                            data-placeholder="@lang('product_discount_request.fields.discount_box_id')"
+                                            aria-label="@lang('discount_request.fields.discount_box_id')"
+                                            data-placeholder="@lang('discount_request.fields.discount_box_id')"
                                             data-allow-clear="true"
                                     ></select>
                                 </th>
                                 <th>
                                     <select class="form-control search-input select2" name="product_id" id="product_id"
                                             style="width: 100% !important;"
-                                            aria-label="@lang('product_discount_request.fields.product_id')"
-                                            data-placeholder="@lang('product_discount_request.fields.product_id')"
+                                            aria-label="@lang('discount_request.fields.product_id')"
+                                            data-placeholder="@lang('discount_request.fields.product_id')"
                                             data-allow-clear="true"
                                     ></select>
                                 </th>
-                                <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="credit"
+                                           placeholder="@lang('general.actions.search')"
+                                           aria-label="@lang('general.actions.search')"></th>
                                 <th>
                                     <select class="form-control search-input select2" name="status" id="status"
                                             style="width: 100% !important;"
-                                            aria-label="@lang('product_discount_request.fields.status')"
-                                            data-placeholder="@lang('product_discount_request.fields.status')"
+                                            aria-label="@lang('discount_request.fields.status')"
+                                            data-placeholder="@lang('discount_request.fields.status')"
                                             data-allow-clear="true"
                                     >
                                         <option value=""></option>
-                                        @foreach(\App\Enums\ProductDiscountRequestStatusEnum::cases() as $type)
+                                        @foreach(\App\Enums\DiscountRequestStatusEnum::cases() as $type)
                                             <option value="{{ $type->value }}">{{ $type->label() }}</option>
                                         @endforeach
                                     </select>
                                 </th>
-                                <th><input type="text" class="form-control search-input" name="approved_at" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th><input type="text" class="form-control search-input" name="approved_at"
+                                           placeholder="@lang('general.actions.search')"
+                                           aria-label="@lang('general.actions.search')"></th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -186,7 +194,7 @@
                             fillSelect2Element(columnSearchValue, "{{ route('management.discount-boxes.search') }}", $discountBoxSelect);
                         } else if ($field.attr('id') === 'product_id') {
                             fillSelect2Element(columnSearchValue, "{{ route('management.products.search') }}", $productSelect);
-                        } else if($field.hasClass('select2-hidden-accessible')) {
+                        } else if ($field.hasClass('select2-hidden-accessible')) {
                             $field.val(columnSearchValue).trigger('change.select2');
                         } else {
                             $field.val(columnSearchValue);

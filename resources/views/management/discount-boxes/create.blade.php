@@ -122,7 +122,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="products" class="form-label">@lang('discount_box.fields.products')</label>
-                                    <select class="form-control select2" name="products[]" id="products" multiple
+                                    <select class="form-control select2" name="products" id="products"
                                             data-allow-clear="true"
                                             data-placeholder="@lang('discount_box.fields.select_products')" style="width: 100%">
                                         <option value="">@lang('discount_box.fields.select_products')</option>

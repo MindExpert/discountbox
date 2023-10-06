@@ -12,11 +12,9 @@
 @section('content')
     <section class="inner-page">
         <div class="container">
-            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxInProgress])
+            @include('frontend._partials.home-card-component', ['discountBoxes' => $discountBoxInProgress, 'status' => \App\Enums\StatusEnum::IN_PROGRESS])
 
-            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxAwarded])
-
-            @include('frontend._partials.home-card-component', ['discountBox' => $discountBoxConcluded])
+            @include('frontend._partials.home-card-component', ['discountBoxes' => $discountBoxAwardedAndConcluded, 'status' => \App\Enums\StatusEnum::CONCLUDED])
         </div>
     </section>
 @endsection

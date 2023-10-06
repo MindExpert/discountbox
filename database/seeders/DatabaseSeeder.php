@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ProductSeeder::class,
             DiscountBoxSeeder::class,
-            ProductDiscountBoxSeeder::class,
+            //ProductDiscountBoxSeeder::class,
         ]);
 
         Schema::enableForeignKeyConstraints();

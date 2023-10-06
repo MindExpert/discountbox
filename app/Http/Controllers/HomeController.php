@@ -17,63 +17,33 @@ use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-         $this->middleware('auth')->except(['index', 'howItWorks', 'testimonials', 'partners']);
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
-     */
     public function index()
     {
         /** @var DiscountBox $discountBoxInProgress */
         $discountBoxInProgress = DiscountBox::query()
             ->where('discount_boxes.show_on_home', 'true')
             ->where('status', StatusEnum::IN_PROGRESS->value)
+            ->withCount('discount_requests')
             ->orderBy('discount_boxes.created_at', 'DESC')
-            ->withWhereHas('products', function ($query) {
-                $query
-                    ->with('media')
-                    //->where('products.show_on_home', 'true')
-                    ->orderBy('products.created_at', 'DESC')->limit(6);
+            ->withWhereHas('product', function ($query) {
+                $query->with('media');
             })
-            ->first();
+            ->take(6)
+            ->get();
 
-        /** @var DiscountBox $discountBoxAwarded */
-        $discountBoxAwarded = DiscountBox::query()
+        /** @var DiscountBox $discountBoxAwardedAndConcluded */
+        $discountBoxAwardedAndConcluded = DiscountBox::query()
             ->where('discount_boxes.show_on_home', 'true')
-            ->where('status', StatusEnum::AWARDED->value)
+            ->whereIn('status', [StatusEnum::AWARDED->value, StatusEnum::CONCLUDED->value])
+            ->withCount('discount_requests')
             ->orderBy('discount_boxes.created_at', 'DESC')
-            ->withWhereHas('products', function ($query) {
-                $query
-                    ->with('media')
-                    //->where('products.show_on_home', 'true')
-                    ->orderBy('products.created_at', 'DESC')->limit(6);
+            ->withWhereHas('product', function ($query) {
+                $query->with('media');
             })
-            ->first();
+            ->take(6)
+            ->get();
 
-        /** @var DiscountBox $discountBoxConcluded */
-        $discountBoxConcluded = DiscountBox::query()
-            ->where('discount_boxes.show_on_home', 'true')
-            ->where('status', StatusEnum::CONCLUDED->value)
-            ->orderBy('discount_boxes.created_at', 'DESC')
-            ->withWhereHas('products', function ($query) {
-                $query
-                    ->with('media')
-                    //->where('products.show_on_home', 'true')
-                    ->orderBy('products.created_at', 'DESC')->limit(6);
-            })
-            ->first();
-
-        return view('welcome', compact('discountBoxInProgress', 'discountBoxAwarded', 'discountBoxConcluded'));
+        return view('welcome', compact('discountBoxInProgress', 'discountBoxAwardedAndConcluded'));
     }
 
     public function howItWorks(Request $request)

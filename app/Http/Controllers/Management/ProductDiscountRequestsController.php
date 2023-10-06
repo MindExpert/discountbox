@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Management;
 
-use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\TransactionTypeEnum;
 use App\Http\Controllers\Controller;
-use App\Models\ProductDiscountRequest;
+use App\Models\DiscountRequest;
 use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
 use Exception;
@@ -21,17 +21,17 @@ class ProductDiscountRequestsController extends Controller
 {
     public function index(Request $request): View|JsonResponse
     {
-        $this->authorize('viewAny', ProductDiscountRequest::class);
+        $this->authorize('viewAny', DiscountRequest::class);
 
         if ($request->ajax() || $request->wantsJson()) {
             try {
 
-                $datatableQuery = ProductDiscountRequest::query()
-                    ->select(['product_discount_requests.*'])
+                $datatableQuery = DiscountRequest::query()
+                    ->select(['discount_requests.*'])
                     ->with(['user', 'discount_box', 'product']);
 
                 return DataTables::eloquent($datatableQuery)
-                    ->addColumn('permissions', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->addColumn('permissions', function (DiscountRequest $productDiscountRequest) {
                         $view     = user()->can('view', $productDiscountRequest);
                         $delete   = user()->can('delete', $productDiscountRequest);
                         $toggleStatus = user()->can('toggleStatus', $productDiscountRequest);
@@ -42,24 +42,24 @@ class ProductDiscountRequestsController extends Controller
                             'toggleStatus' => $toggleStatus,
                         ];
                     })
-                    ->editColumn('created_at', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('created_at', function (DiscountRequest $productDiscountRequest) {
                         return $productDiscountRequest->created_at->format('d/m/Y H:i:s');
                     })
-                    ->editColumn('approved_at', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('approved_at', function (DiscountRequest $productDiscountRequest) {
                         return $productDiscountRequest->approved_at
                             ? $productDiscountRequest->approved_at->format('d/m/Y H:i:s')
                             : "---";
                     })
-                    ->editColumn('user_id', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('user_id', function (DiscountRequest $productDiscountRequest) {
                         return view('management.product-discount-requests.datatable.user', compact('productDiscountRequest'));
                     })
-                    ->editColumn('discount_box_id', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('discount_box_id', function (DiscountRequest $productDiscountRequest) {
                         return view('management.product-discount-requests.datatable.discount_box', compact('productDiscountRequest'));
                     })
-                    ->editColumn('product_id', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('product_id', function (DiscountRequest $productDiscountRequest) {
                         return view('management.product-discount-requests.datatable.product', compact('productDiscountRequest'));
                     })
-                    ->editColumn('status', function (ProductDiscountRequest $productDiscountRequest) {
+                    ->editColumn('status', function (DiscountRequest $productDiscountRequest) {
                         if (! empty($productDiscountRequest->notes)) {
                             $html = nl2br($productDiscountRequest->notes);
                         } else {
@@ -72,9 +72,9 @@ class ProductDiscountRequestsController extends Controller
                     ->filterColumn('user_id', function (Builder $query, $keyword) {
                         if ($keyword) {
                             if (is_numeric($keyword)) {
-                                return $query->where('product_discount_requests.user_id', $keyword);
+                                return $query->where('discount_requests.user_id', $keyword);
                             } else {
-                                return $query->whereIn('product_discount_requests.user_id', function ($subQuery) use ($keyword) {
+                                return $query->whereIn('discount_requests.user_id', function ($subQuery) use ($keyword) {
                                     return $subQuery->select('id')
                                         ->from('users')
                                         ->whereRaw("CONVERT(users.first_name using 'utf8mb4') like ?", ["%$keyword%"])
@@ -87,9 +87,9 @@ class ProductDiscountRequestsController extends Controller
                     ->filterColumn('discount_box_id', function (Builder $query, $keyword) {
                         if ($keyword) {
                             if (is_numeric($keyword)) {
-                                return $query->where('product_discount_requests.discount_box_id', $keyword);
+                                return $query->where('discount_requests.discount_box_id', $keyword);
                             } else {
-                                return $query->whereIn('product_discount_requests.discount_box_id', function ($subQuery) use ($keyword) {
+                                return $query->whereIn('discount_requests.discount_box_id', function ($subQuery) use ($keyword) {
                                     return $subQuery->select('id')
                                         ->from('discount_boxes')
                                         ->whereRaw("CONVERT(discount_boxes.serial using 'utf8mb4') like ?", ["%$keyword%"])
@@ -102,9 +102,9 @@ class ProductDiscountRequestsController extends Controller
                     ->filterColumn('product_id', function (Builder $query, $keyword) {
                         if ($keyword) {
                             if (is_numeric($keyword)) {
-                                return $query->where('product_discount_requests.product_id', $keyword);
+                                return $query->where('discount_requests.product_id', $keyword);
                             } else {
-                                return $query->whereIn('product_discount_requests.product_id', function ($subQuery) use ($keyword) {
+                                return $query->whereIn('discount_requests.product_id', function ($subQuery) use ($keyword) {
                                     return $subQuery->select('id')
                                         ->from('discount_boxes')
                                         ->whereRaw("CONVERT(products.serial using 'utf8mb4') like ?", ["%$keyword%"])
@@ -128,24 +128,24 @@ class ProductDiscountRequestsController extends Controller
 
     public function search(Request $request): JsonResponse
     {
-        $this->authorize('search', ProductDiscountRequest::class);
+        $this->authorize('search', DiscountRequest::class);
 
         return response()->json(
-            ProductDiscountRequest::search(
+            DiscountRequest::search(
                 $request->get('keyword'),
                 $request->get('id')
             )->get()->append(['label'])
         );
     }
 
-    public function show(ProductDiscountRequest $productDiscountRequest): View
+    public function show(DiscountRequest $productDiscountRequest): View
     {
         $this->authorize('view', $productDiscountRequest);
 
         return view('management.product-discount-requests.show', compact('productDiscountRequest'));
     }
 
-    public function approve(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    public function approve(Request $request, DiscountRequest $productDiscountRequest): RedirectResponse
     {
         $this->authorize('toggleStatus', $productDiscountRequest);
 
@@ -157,7 +157,7 @@ class ProductDiscountRequestsController extends Controller
             $userBalance = $productDiscountRequest->user->availableBalance() + $productDiscountRequest->credit;
 
             if ($userBalance < $productDiscountRequest->credit) {
-                throw new Exception(__('product_discount_request.responses.not_approved'));
+                throw new Exception(__('discount_request.responses.not_approved'));
             }
 
             $productDiscountRequest->user->transactions()->create([
@@ -175,21 +175,21 @@ class ProductDiscountRequestsController extends Controller
                         'product' => $productDiscountRequest->product->name,
                     ]
                 ]),
-                'transactional_type' => ProductDiscountRequest::$morph_key,
+                'transactional_type' => DiscountRequest::$morph_key,
                 'transactional_id'   => $productDiscountRequest->id,
             ]);
 
             $productDiscountRequest->update([
-                'status'      => ProductDiscountRequestStatusEnum::APPROVED,
+                'status'      => DiscountRequestStatusEnum::APPROVED,
                 'approved_at' => now(),
             ]);
 
             DB::commit();
-            FlashNotification::success(__('general.success'), __('product_discount_request.responses.approved'));
+            FlashNotification::success(__('general.success'), __('discount_request.responses.approved'));
         } catch (Exception $exception) {
             report($exception);
             DB::rollBack();
-            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_approved'));
+            FlashNotification::error(__('general.error'), __('discount_request.responses.not_approved'));
         }
 
         if ($request->get('redirect_to')) {
@@ -199,21 +199,21 @@ class ProductDiscountRequestsController extends Controller
         }
     }
 
-    public function reject(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    public function reject(Request $request, DiscountRequest $productDiscountRequest): RedirectResponse
     {
         $this->authorize('toggleStatus', $productDiscountRequest);
 
         try {
 
             $productDiscountRequest->update([
-                'status'      => ProductDiscountRequestStatusEnum::REJECTED,
+                'status'      => DiscountRequestStatusEnum::REJECTED,
                 'approved_at' => null,
             ]);
 
-            FlashNotification::success(__('general.success'), __('product_discount_request.responses.rejected'));
+            FlashNotification::success(__('general.success'), __('discount_request.responses.rejected'));
         } catch (Exception $exception) {
             report($exception);
-            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_rejected'));
+            FlashNotification::error(__('general.error'), __('discount_request.responses.not_rejected'));
         }
 
         if ($request->get('redirect_to')) {
@@ -223,17 +223,17 @@ class ProductDiscountRequestsController extends Controller
         }
     }
 
-    public function destroy(Request $request, ProductDiscountRequest $productDiscountRequest): RedirectResponse
+    public function destroy(Request $request, DiscountRequest $productDiscountRequest): RedirectResponse
     {
         $this->authorize('delete', $productDiscountRequest);
 
         try {
             $productDiscountRequest->delete();
 
-            FlashNotification::success(__('general.success'), __('product_discount_request.responses.deleted'));
+            FlashNotification::success(__('general.success'), __('discount_request.responses.deleted'));
         } catch (Exception $exception) {
             report($exception);
-            FlashNotification::error(__('general.error'), __('product_discount_request.responses.not_deleted'));
+            FlashNotification::error(__('general.error'), __('discount_request.responses.not_deleted'));
         }
 
         if ($request->get('redirect_to')) {

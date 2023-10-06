@@ -26,13 +26,14 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property int                  $id
  * @property int                  $user_id
  * @property int|null             $coupon_id
+ * @property int|null             $product_id
  * @property string               $serial
  * @property string               $name
+ * @property float|null           $max_discount_percentage
  * @property float|null           $price
  * @property float|null           $discount # Calculated Discount from COUPON RELATIONSHIP (as a value)
  * @property float|null           $total    # Calculated Total (Price - Discount)
-//* @property string|null          $discount_type # Got it from COUPON RELATIONSHIP
-//* @property float|null           $discount
+ * @property string|null          $discount_type # Got it from COUPON RELATIONSHIP
  * @property Carbon|null          $expires_at
  * @property integer              $credits
  * @property StatusEnum           $status
@@ -44,7 +45,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Carbon|null          $deleted_at
  * @property User                 $user
  * @property Coupon|null          $coupon
- * @property Collection|Product[] $products
+ * @property Product              $product
  * @property Collection|Transaction[] $transactions
  *
  * @mixin DiscountBoxQueryBuilder
@@ -126,16 +127,19 @@ class DiscountBox extends Model implements HasMedia
         return $this->belongsTo(Coupon::class, 'coupon_id', 'id');
     }
 
-    public function products(): BelongsToMany
+    public function product(): BelongsTo
     {
-        return $this->belongsToMany(Product::class, 'discount_box_product', 'discount_box_id', 'product_id')
-            ->withTimestamps()
-            ->using(DiscountBoxProduct::class);
+        return $this->belongsTo(Product::class, 'product_id', 'id');
     }
 
     public function transactions(): MorphMany
     {
         return $this->morphMany(Transaction::class, 'transactional', 'transactional_type', 'transactional_id', 'id');
+    }
+
+    public function discount_requests(): HasMany
+    {
+        return $this->hasMany(DiscountRequest::class, 'discount_box_id', 'id');
     }
 
     public function getLabelAttribute(): string

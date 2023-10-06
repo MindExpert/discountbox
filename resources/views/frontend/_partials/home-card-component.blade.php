@@ -1,37 +1,35 @@
 @props([
-    'discountBox' => null,
+    'discountBox' => [],
+    'status' => null,
 ])
-@if($discountBox)
+@if($discountBoxes->count())
     <div class="homepage-discountbox-slider swiper">
         <div class="d-flex justify-content-between align-items-center">
-            <h4>{{$discountBox->name}} ―</h4>
-            <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="text-muted d-flex justify-content-between align-items-center"><span>@lang('general.actions.view_more')</span><i class="bx bx-chevron-right"></i></a>
+            <h4>{{$status->label()}}  ―</h4>
+            <a href="{{ route('frontend.discount-boxes.index-by-status', ['status' => $status]) }}" class="text-muted d-flex justify-content-between align-items-center"><span>@lang('general.actions.view_more')</span><i class="bx bx-chevron-right"></i></a>
         </div>
         <div class="mb-5 swiper-wrapper">
-            @forelse($discountBox->products as $product)
-                <div class="card custom-height-card same-height swiper-slide @if($product->highlighted) border border-primary @endif">
-                    @if($product->highlighted)
+            @forelse($discountBoxes as $discountBox)
+                <div class="card custom-height-card same-height swiper-slide @if($discountBox->highlighted) border border-primary @endif">
+                    @if($discountBox->highlighted)
                         <div class="ribbon"><span>@lang('product.fields.highlighted')</span></div>
-                        {{--<div class="ribbon ribbon-top-right">--}}
-                        {{--    <span><i class="bx bx-star me-1"></i></span>--}}
-                        {{--</div>--}}
                     @endif
-                    @if($product->getFirstMediaUrl('featured_image'))
-                        <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
+                    @if($discountBox->product->getFirstMediaUrl('featured_image'))
+                        <img src="{{ $discountBox->product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                     @else
                         <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                     @endif
                     <div class="card-body">
-                        <h4 class="card-title">{{ str_tease($product->name, 15) }}</h4>
-                        <p class="card-text">{!! getNWords($product->description, 5) !!} </p>
+                        <h4 class="card-title">{{ str_tease($discountBox->product->name, 15) }}</h4>
+                        <p class="card-text">{!! getNWords($discountBox->product->description, 5) !!} </p>
                         <p class="d-flex justify-content-between align-items-center">
                             <span>@lang('discount_box.fields.credits'): {{$discountBox->credits}}</span>
-                            <span>@lang('discount_box.fields.participants'): 0</span>
+                            <span>@lang('discount_box.fields.participants'): {{ $discountBox->discount_requests_count }}</span>
                         </p>
                         <p class="card-text">
                             <small class="text-muted">@lang('discount_box.fields.expires_at') {{ $discountBox->expires_at?->diffForHumans() }}</small>
                         </p>
-                        <a href="{{ route('frontend.discount-boxes.products.show', ['discountBox' => $discountBox, 'product' => $product]) }}" class="btn btn-sm btn-primary">@lang('product.actions.view_model')</a>
+                        <a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}" class="btn btn-sm btn-primary">@lang('discount_box.actions.view_model')</a>
                     </div>
                 </div>
             @empty
@@ -85,42 +83,3 @@
         });
     </script>
 @endpush
-
-
-{{--@if($discountBox)--}}
-{{--    <div class="d-flex justify-content-between align-items-center">--}}
-{{--        <h4>{{$discountBox->name}} ―</h4>--}}
-{{--        <a href="javascript:void(0);" class="text-muted d-flex justify-content-between align-items-center"><span>@lang('general.actions.view_more')</span><i class="bx bx-chevron-right"></i></a>--}}
-{{--    </div>--}}
-{{--    <div class="row mb-5 custom-height-card">--}}
-{{--        @forelse($discountBox->products as $product)--}}
-{{--            <div class="col-md-3">--}}
-{{--                <div class="card">--}}
-{{--                    @if($product->getFirstMediaUrl('featured_image'))--}}
-{{--                        <img src="{{ $product->getFirstMediaUrl('featured_image', 'thumb') }}" class="rounded  card-img-top" alt="Responsive image">--}}
-{{--                    @else--}}
-{{--                        <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="rounded  card-img-top" alt="Responsive image">--}}
-{{--                    @endif--}}
-{{--                    <div class="card-body">--}}
-{{--                        <h4 class="card-title">{{ $product->name }}</h4>--}}
-{{--                        <p class="card-text">{!! getNWords($product->description, 10) !!} </p>--}}
-{{--                        <p class="d-flex justify-content-between align-items-center">--}}
-{{--                            <span>@lang('discount_box.fields.credits'): {{$discountBox->credits}}</span>--}}
-{{--                            <span>@lang('discount_box.fields.participants'): 0</span>--}}
-{{--                        </p>--}}
-{{--                        <p class="card-text">--}}
-{{--                            <small class="text-muted">@lang('discount_box.fields.expires_at') {{ $discountBox->expires_at?->diffForHumans() }}</small>--}}
-{{--                        </p>--}}
-{{--                        <a href="#" class="btn btn-sm btn-primary">@lang('product.actions.view_model')</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @empty--}}
-{{--            <div class="col-md-12">--}}
-{{--                <div class="alert alert-warning" role="alert">--}}
-{{--                    @lang('discount_box.messages.no_products')--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endforelse--}}
-{{--    </div>--}}
-{{--@endif--}}

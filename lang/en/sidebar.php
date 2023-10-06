@@ -13,6 +13,6 @@ return [
         'products'                  => 'Products',
         'discount_box'              => 'Discount Box',
         'transactions'              => 'Transactions',
-        'product_discount_requests' => 'Product Discount Requests',
+        'discount_requests' => 'Product Discount Requests',
     ],
 ];

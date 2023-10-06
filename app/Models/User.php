@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\RolesEnum;
 use App\Models\QueryBuilders\UserQueryBuilder;
 use Carbon\Carbon;
@@ -106,15 +106,15 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class, 'user_id', 'id');
     }
 
-    public function product_discount_requests(): HasMany
+    public function discount_requests(): HasMany
     {
-        return $this->hasMany(ProductDiscountRequest::class, 'user_id', 'id');
+        return $this->hasMany(DiscountRequest::class, 'user_id', 'id');
     }
 
     public function pending_requests(): HasMany
     {
-        return $this->product_discount_requests()
-            ->where('status', ProductDiscountRequestStatusEnum::PENDING);
+        return $this->discount_requests()
+            ->where('status', DiscountRequestStatusEnum::PENDING);
     }
 
     public function availableBalance(): float

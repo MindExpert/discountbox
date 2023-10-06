@@ -54,11 +54,11 @@
                         </a>
                     </li>
                 @endcan
-                @can('viewAny', App\Models\ProductDiscountRequest::class)
+                @can('viewAny', App\Models\DiscountRequest::class)
                     <li>
                         <a href="{{ route('management.product-discount-requests.index') }}" class="waves-effect">
                             <i class="bx bx-file"></i>
-                            <span>@lang('sidebar.menu.product_discount_requests')</span>
+                            <span>@lang('sidebar.menu.discount_requests')</span>
                         </a>
                     </li>
                 @endcan
@@ -66,7 +66,7 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="bx bx-share-alt"></i>
-                        <span >@lang('Multi Level')</span>
+                        <span>@lang('Multi Level')</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li><a href="javascript: void(0);">@lang('Level_1.1')</a></li>

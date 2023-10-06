@@ -18,9 +18,6 @@ class ProductFactory extends Factory
      */
     public function definition(): array
     {
-        //$status = [StatusEnum::IN_PROGRESS, StatusEnum::AWARDED, StatusEnum::CONCLUDED];
-        $status = [StatusEnum::IN_PROGRESS];
-
         return [
             'user_id'       => 1,
             'serial'        => $this->faker->numerify('PR-######'),
@@ -28,10 +25,6 @@ class ProductFactory extends Factory
             'description'   => $this->faker->paragraphs(5, true),
             'review'        => $this->faker->paragraphs(5, true),
             'url'           => $this->faker->url(),
-            'status'        => $status[rand(0, count($status)-1)],
-            'highlighted'   => $this->faker->boolean(40),
-            'show_on_home'  => $this->faker->boolean(80),
-            'concluded_at'  => $this->faker->dateTimeBetween(now()->subDays(10), now()->addDays(30)),
         ];
     }
 }

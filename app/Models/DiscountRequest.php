@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\DiscountRequestStatusEnum;
 use App\Models\QueryBuilders\ProductDiscountRequestQueryBuilder;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,12 +13,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int          $id
- * @property int          $user_id # The user who submitted the request
- * @property int          $discount_box_id # The user who created the product
- * @property int          $product_id # The user who created the product
- * @property double       $credit
+ * @property int          $user_id          # The user who submitted the request
+ * @property int          $discount_box_id  # The user who created the product
+ * @property double       $percentage       # The percentage user entered
+ * @property double       $credit           # The credits taken for participating in the discount
  * @property string|null  $notes
- * @property ProductDiscountRequestStatusEnum   $status
+ * @property DiscountRequestStatusEnum   $status
  * @property Carbon|null  $approved_at
  * @property string       $label
  * @property Carbon|null  $created_at
@@ -27,34 +27,33 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property User         $user
  * @property DiscountBox  $discount_box
- * @property Product      $product
  * @property Collection|Transaction[] $transactions
  *
  * @mixin ProductDiscountRequestQueryBuilder
  */
-class ProductDiscountRequest extends Model
+class DiscountRequest extends Model
 {
     use SoftDeletes;
 
-    public static string $morph_key = 'product_discount_request';
+    public static string $morph_key = 'discount_request';
 
     protected $guarded = ['id'];
 
     protected $casts = [
         'approved_at' => 'datetime',
         'credit'      => 'double',
-        'status'      => ProductDiscountRequestStatusEnum::class,
+        'status'      => DiscountRequestStatusEnum::class,
     ];
 
     protected static function boot(): void
     {
         parent::boot();
 
-        static::creating(function (ProductDiscountRequest $productDiscountRequest) {
+        static::creating(function (DiscountRequest $productDiscountRequest) {
             //
         });
 
-        static::created(function (ProductDiscountRequest $productDiscountRequest) {
+        static::created(function (DiscountRequest $productDiscountRequest) {
             //
         });
     }
@@ -91,16 +90,16 @@ class ProductDiscountRequest extends Model
 
     public function inPending(): bool
     {
-        return $this->status === ProductDiscountRequestStatusEnum::PENDING;
+        return $this->status === DiscountRequestStatusEnum::PENDING;
     }
 
     public function isApproved(): bool
     {
-        return $this->status === ProductDiscountRequestStatusEnum::APPROVED;
+        return $this->status === DiscountRequestStatusEnum::APPROVED;
     }
 
     public function isRejected(): bool
     {
-        return $this->status === ProductDiscountRequestStatusEnum::REJECTED;
+        return $this->status === DiscountRequestStatusEnum::REJECTED;
     }
 }

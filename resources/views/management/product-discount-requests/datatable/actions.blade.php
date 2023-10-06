@@ -9,7 +9,7 @@
        data-action="{{ route('management.product-discount-requests.approve', ['productDiscountRequest' => $id]) }}"
        data-method="POST"
        data-title="@lang('general.actions.approve')"
-       data-message="@lang('product_discount_request.actions.ask_approve')"
+       data-message="@lang('discount_request.actions.ask_approve')"
        data-is-danger="true"
     >
         <i class="bx bx-check-circle"></i>
@@ -18,7 +18,7 @@
        data-action="{{ route('management.product-discount-requests.reject', ['productDiscountRequest' => $id]) }}"
        data-method="POST"
        data-title="@lang('general.actions.reject')"
-       data-message="@lang('product_discount_request.actions.ask_reject')"
+       data-message="@lang('discount_request.actions.ask_reject')"
        data-is-danger="true"
     >
         <i class="bx bx-error-alt"></i>
@@ -30,7 +30,7 @@
        data-action="{{ route('management.product-discount-requests.destroy', ['productDiscountRequest' => $id]) }}"
        data-method="DELETE"
        data-title="@lang('general.actions.delete')"
-       data-message="@lang('product_discount_request.actions.ask_delete')"
+       data-message="@lang('discount_request.actions.ask_delete')"
        data-is-danger="true"
     >
         <i class="fa fa-trash"></i>

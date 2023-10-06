@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Models\Coupon;
 use App\Models\DiscountBox;
 use App\Models\Product;
-use App\Models\ProductDiscountRequest;
+use App\Models\DiscountRequest;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Policies\CouponPolicy;
@@ -27,7 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Coupon::class                 => CouponPolicy::class,
         DiscountBox::class            => DiscountBoxPolicy::class,
-        ProductDiscountRequest::class => ProductDiscountRequestPolicy::class,
+        DiscountRequest::class => ProductDiscountRequestPolicy::class,
         Product::class                => ProductPolicy::class,
         Transaction::class            => TransactionPolicy::class,
         User::class                   => UserPolicy::class,

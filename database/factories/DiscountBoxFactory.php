@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\StatusEnum;
 use App\Models\DiscountBox;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,6 @@ class DiscountBoxFactory extends Factory
      */
     public function definition(): array
     {
-        //$status = [StatusEnum::IN_PROGRESS, StatusEnum::AWARDED,  StatusEnum::CONCLUDED];
         $status = [StatusEnum::IN_PROGRESS];
 
         $price = $this->faker->randomFloat(2, 5, 50);
@@ -27,11 +27,13 @@ class DiscountBoxFactory extends Factory
 
         return [
             'user_id'       => 1,
+            'product_id'    => Product::query()->inRandomOrder()->first()->id,
             'serial'        => $this->faker->numerify('DB-######'),
             'name'          => $this->faker->catchPhrase(),
             'price'         => $price,
             'discount'      => $discount,
             'total'         => $total,
+            'max_discount_percentage' => $this->faker->randomFloat(2, 0, 90),
             'expires_at'    => $this->faker->dateTimeBetween(now()->addDays(10), now()->addMonths(2)),
             'credits'       => $this->faker->randomNumber(2),
             'status'        => $status[rand(0, count($status)-1)],

@@ -1,7 +1,7 @@
 <?php
 
 use App\Enums\DiscountTypeEnum;
-use App\Enums\ProductDiscountRequestStatusEnum;
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
 use App\Enums\RolesEnum;
 use App\Enums\TransactionTypeEnum;
@@ -42,11 +42,11 @@ return [
         ],
     ],
 
-    ProductDiscountRequestStatusEnum::class => [
+    DiscountRequestStatusEnum::class => [
         'label' => [
-            ProductDiscountRequestStatusEnum::PENDING->value  => 'Pending',
-            ProductDiscountRequestStatusEnum::APPROVED->value => 'Approved',
-            ProductDiscountRequestStatusEnum::REJECTED->value => 'Rejected',
+            DiscountRequestStatusEnum::PENDING->value  => 'Pending',
+            DiscountRequestStatusEnum::APPROVED->value => 'Approved',
+            DiscountRequestStatusEnum::REJECTED->value => 'Rejected',
         ],
     ],
 ];

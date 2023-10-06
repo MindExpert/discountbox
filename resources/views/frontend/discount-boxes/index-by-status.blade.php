@@ -30,15 +30,15 @@
                             @endif
 
                             <div class="p-2">
-                                <h3 class="discountbox-name"><a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}">{{ str_tease($discountBox->name, 15) }}</a></h3>
+                                <h3 class="discountbox-name"><a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}">{{ str_tease($discountBox->name, 15) }}</a></h3>
                                 <span class="discountbox-created_at">{{ $discountBox->created_at?->diffForHumans() }}</span>
                             </div>
 
                             <div class="custom-height-card">
-                                @if($discountBox->getFirstMediaUrl('cover_image'))
-                                    <img src="{{ $discountBox->getFirstMediaUrl('cover_image', 'thumb') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
+                                @if($discountBox->product->getFirstMediaUrl('featured_image'))
+                                    <img src="{{ $discountBox->product->getFirstMediaUrl('featured_image', 'thumb') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                                 @else
-                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img  card-img-top" alt="Responsive image" loading="lazy">
+                                    <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" class="feature-img card-img-top" alt="Responsive image" loading="lazy">
                                 @endif
                             </div>
 
@@ -46,7 +46,7 @@
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
                                         <a href="javascript: void(0);" class="text-muted">
-                                            <i class="bx bxl-product-hunt align-middle text-muted me-1"></i> {{ $discountBox->products_count }} @lang('product.plural')
+                                            <i class="bx bxl-product-hunt align-middle text-muted me-1"></i> @lang('discount_box.fields.credits'): {{$discountBox->credits}}
                                         </a>
                                     </li>
                                     <li class="list-inline-item me-2">
@@ -59,7 +59,7 @@
                                 <p>{!!  getNWords($discountBox->description, 10) !!}</p>
 
                                 <div>
-                                    <a href="{{ route('frontend.discount-boxes.products.index', ['discountBox' => $discountBox]) }}" class="get-started-btn">@lang('general.actions.view_more') <i class="mdi mdi-arrow-right"></i></a>
+                                    <a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}" class="get-started-btn">@lang('general.actions.view_more') <i class="mdi mdi-arrow-right"></i></a>
                                 </div>
                             </div>
                         </div>

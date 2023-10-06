@@ -33,8 +33,7 @@ class DiscountBoxStoreRequest extends FormRequest
                     ->maxItemSizeInKb(2048)
                     ->attribute('cover_image', ['required'])
             ],
-            'products' => ['required', 'array'],
-            'products.*' => [
+            'products' => [
                 'required',
                 'numeric',
                 Rule::exists('products', 'id')->whereNull('deleted_at')
@@ -54,7 +53,6 @@ class DiscountBoxStoreRequest extends FormRequest
             'show_on_home'  => __('discount_box.fields.show_on_home'),
             'cover_image'   => __('discount_box.fields.cover_image'),
             'products'      => __('discount_box.fields.products'),
-            'products.*'    => __('discount_box.fields.products'),
         ];
     }
 }
