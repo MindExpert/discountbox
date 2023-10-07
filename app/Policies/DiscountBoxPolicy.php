@@ -41,6 +41,7 @@ class DiscountBoxPolicy
      */
     public function update(User $auth, DiscountBox $discountBox): bool
     {
+        # TODO: prevent update when product is awarded.
         return ($auth->isAdministrator() || $auth->is($discountBox->user));
     }
 

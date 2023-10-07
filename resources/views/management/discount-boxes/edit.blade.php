@@ -55,21 +55,35 @@
                                 </div>
                             </div>
 
-                            <!-- STATUS -->
+                            <!-- MAX_DISCOUNT_PERCENTAGE -->
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
-                                    <label for="status" class="form-label">@lang('discount_box.fields.status')</label>
-                                    <select class="form-control select2" name="status" id="status"
-                                            data-allow-clear="true"
-                                            data-placeholder="@lang('discount_box.fields.select_status')" style="width: 100%">
-                                        <option value="">@lang('discount_box.fields.select_status')</option>
-                                        @foreach(\App\Enums\StatusEnum::cases() as $type)
-                                            <option value="{{ $type->value }}" @selected($type == $discountBox->status)>{{ $type->label() }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="max_discount_percentage" class="form-label">@lang('discount_box.fields.max_discount_percentage')</label>
+                                    <input type="number"
+                                           class="form-control"
+                                           name="max_discount_percentage"
+                                           id="max_discount_percentage" placeholder="@lang('discount_box.fields.max_discount_percentage')"
+                                           value="{{ $discountBox->max_discount_percentage }}"
+                                    />
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
+
+                            <!-- STATUS -->
+                            {{-- <div class="col-md-6">--}}
+                            {{--     <div class="form-group mb-3">--}}
+                            {{--         <label for="status" class="form-label">@lang('discount_box.fields.status')</label>--}}
+                            {{--         <select class="form-control select2" name="status" id="status"--}}
+                            {{--                 data-allow-clear="true"--}}
+                            {{--                 data-placeholder="@lang('discount_box.fields.select_status')" style="width: 100%">--}}
+                            {{--             <option value="">@lang('discount_box.fields.select_status')</option>--}}
+                            {{--             @foreach(\App\Enums\StatusEnum::cases() as $type)--}}
+                            {{--                 <option value="{{ $type->value }}" @selected($type == $discountBox->status)>{{ $type->label() }}</option>--}}
+                            {{--             @endforeach--}}
+                            {{--         </select>--}}
+                            {{--         <span class="invalid-feedback"></span>--}}
+                            {{--     </div>--}}
+                            {{-- </div>--}}
 
                             <!-- COUPON_ID -->
                             <div class="col-md-6">
@@ -92,11 +106,11 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3">
                                     <label for="expires_at" class="form-label">@lang('discount_box.fields.expires_at')</label>
-                                    <input type="date" class="form-control date"
+                                    <input type="date" class="form-control"
                                            name="expires_at"
                                            id="expires_at"
                                            placeholder="@lang('discount_box.fields.expires_at')"
-                                           value="{{ $discountBox->expires_at ? $discountBox->expires_at->format('Y-m-d') : '' }}"
+                                           value="{{ $discountBox->expires_at?->toDateTimeString() }}"
                                     />
                                     <span class="invalid-feedback"></span>
                                 </div>
@@ -188,7 +202,17 @@
     <script>
         $(document).ready(function () {
             let $couponSelect  = $('#coupon_id'),
-                $productSelect = $('#product_id');
+                $productSelect = $('#product_id'),
+                $expiresAt     = $('#expires_at');
+
+            let endsAtFlatpickr = $expiresAt.flatpickr({
+                altInput: true,
+                altFormat: "d/m/Y H:i",
+                dateFormat: "Y-m-d H:i",
+                enableTime: true,
+                time_24hr: true,
+                //minuteIncrement: 30,
+            });
 
             $couponSelect.select2({
                 placeholder: "@lang('coupon.actions.search')",

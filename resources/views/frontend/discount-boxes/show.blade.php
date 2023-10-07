@@ -71,19 +71,19 @@
                                 <button class="btn btn-secondary" id="js-btn-apply-discount" @disabled(! $discountBox->isAvailable())>@lang('general.actions.apply')</button>
                             </div>
                         @elseif($discountBox->isConcluded())
-                            <div class="alert alert-primary mt-4 mb-4">
-                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.concluded')
+                            <div class="alert alert-warning mt-4 mb-4">
+                                <i class="bx bx-check-double"></i> @lang('discount_box.messages.concluded')
                             </div>
                         @elseif($discountBox->isAwarded() && user()?->isWinner($discountBox))
-                            <div class="alert alert-success mt-4 mb-4">
-                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.winner_user', ['percentage' => optional($winnerUser)->percentage])
+                            <div class="alert alert-primary mt-4 mb-4">
+                                <i class="bx bx-badge-check"></i> @lang('discount_box.messages.winner_user', ['percentage' => optional($winnerUser)->percentage])
                             </div>
                         @elseif($discountBox->isAwarded() && ! user()?->isWinner($discountBox))
                             <div class="alert alert-info mt-4 mb-4">
-                                <i class="bi bi-x-circle"></i> @lang('discount_box.messages.winner_general', ['percentage' => optional($winnerUser)->percentage])
+                                <i class="bx bx-check-shield"></i> @lang('discount_box.messages.winner_general', ['percentage' => optional($winnerUser)->percentage])
                             </div>
                         @else
-                            <div class="alert alert-warning mt-4 mb-4">
+                            <div class="alert alert-danger mt-4 mb-4">
                                 <i class="bi bi-x-circle"></i> @lang('discount_box.messages.not_available')
                             </div>
                         @endif
@@ -93,7 +93,8 @@
                             <li><strong>@lang('product.fields.sales_sites')</strong>: <a href="{{$discountBox->product->url}}">{{ $discountBox->product->url }}</a></li>
                             <li><strong>@lang('product.fields.current_price')</strong>: {{ display_price($discountBox->total) }}</li>
                             <li>@lang('discount_box.fields.validity_info')</li>
-                            <li><strong>@lang('discount_box.fields.validity')</strong>: {{ $discountBox->expires_at?->format('d/m/Y') }}</li>
+                            <li><strong>@lang('discount_box.fields.expires_at')</strong>: {{ $discountBox->expires_at?->format('d/m/Y') }}</li>
+                            <li><strong>@lang('discount_box.fields.participants')</strong>: {{ $discountBox->participants }}</li>
                         </ul>
                     </div>
                 </div>

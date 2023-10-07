@@ -59,6 +59,26 @@
                                     <td class="value">{{ $discountBox->discount }}</td>
                                 </tr>
                                 <tr>
+                                    <th class="label">@lang('discount_box.fields.show_on_home')</th>
+                                    <td class="value">
+                                        @if($discountBox->show_on_home)
+                                            <span class="badge bg-success">@lang('general.yes')</span>
+                                        @else
+                                            <span class="badge bg-danger">@lang('general.no')</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="label">@lang('discount_box.fields.highlighted')</th>
+                                    <td class="value">
+                                        @if($discountBox->highlighted)
+                                            <span class="badge bg-success">@lang('general.yes')</span>
+                                        @else
+                                            <span class="badge bg-danger">@lang('general.no')</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th class="label">@lang('discount_box.fields.max_discount_percentage')</th>
                                     <td class="value">{{ $discountBox->max_discount_percentage }}</td>
                                 </tr>
@@ -72,15 +92,15 @@
                                 </tr>
                                 <tr>
                                     <th class="label">@lang('discount_box.fields.expires_at')</th>
-                                    <td class="value">{{ $discountBox->expires_at?->format('d/m/Y') }}</td>
+                                    <td class="value">{{ $discountBox->expires_at?->format('d/m/Y H:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="label">@lang('discount_box.fields.created_at')</th>
-                                    <td class="value">{{ $discountBox->created_at?->format('d/m/Y H:i:s') }}</td>
+                                    <td class="value">{{ $discountBox->created_at?->format('d/m/Y H:i') }}</td>
                                 </tr>
                                 <tr>
                                     <th class="label">@lang('discount_box.fields.updated_at')</th>
-                                    <td class="value">{{ $discountBox->updated_at?->format('d/m/Y H:i:s') }}</td>
+                                    <td class="value">{{ $discountBox->updated_at?->format('d/m/Y H:i') }}</td>
                                 </tr>
                                 </tbody>
                             </table>

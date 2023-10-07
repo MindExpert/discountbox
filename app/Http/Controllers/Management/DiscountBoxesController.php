@@ -33,7 +33,8 @@ class DiscountBoxesController extends Controller
 
                 $datatableQuery = DiscountBox::query()
                     ->with(['coupon', 'media'])
-                    ->select(['discount_boxes.*']);
+                    ->select(['discount_boxes.*'])
+                    ->withCount('discount_requests');
 
                 return DataTables::eloquent($datatableQuery)
                     ->addColumn('permissions', function (DiscountBox $discountBox) {
@@ -137,23 +138,22 @@ class DiscountBoxesController extends Controller
             DB::beginTransaction();
 
             /** @var Coupon $coupon */
-            $coupon = Coupon::query()
-                ->where('id', $request->input('coupon_id'))
-                ->first();
-
-            if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
-                FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
-                throw new Exception(__('discount_box.responses.coupon_invalid'));
-            }
+            // $coupon = Coupon::query()
+            //     ->where('id', $request->input('coupon_id'))
+            //     ->first();
+            // if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
+            //     FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
+            //     throw new Exception(__('discount_box.responses.coupon_invalid'));
+            // }
 
             $price = $request->input('price');
             $discount = 0;
 
-            if ($coupon->type === DiscountTypeEnum::VALUE) {
-                $discount = $coupon->discount;
-            } else {
-                $discount = ($coupon->discount * $price) / 100;
-            }
+            // if ($coupon->type === DiscountTypeEnum::VALUE) {
+            //     $discount = $coupon->discount;
+            // } else {
+            //     $discount = ($coupon->discount * $price) / 100;
+            // }
 
             $total = (($price >= $discount) ? ($price - $discount) : 0);
 
@@ -162,7 +162,8 @@ class DiscountBoxesController extends Controller
                 'user_id'       => user()->id,
                 'coupon_id'     => $coupon->id,
                 'name'          => $request->input('name'),
-                'status'        => $request->input('status') ?? StatusEnum::IN_PROGRESS->value,
+                //'status'      => $request->input('status') ?? StatusEnum::IN_PROGRESS->value, #IS AUTO CALC FROM STATUS
+                'status'        => StatusEnum::IN_PROGRESS->value,
                 'credits'       => $request->input('credits'),
                 'price'         => $price,
                 'discount'      => $discount, #TODO: To be calculate based on the coupon, if is present
@@ -179,10 +180,6 @@ class DiscountBoxesController extends Controller
                 $discountBox->addFromMediaLibraryRequest($request->input('cover_image'))
                     ->toMediaCollection('cover_image');
             }
-
-            # ADD Products to Discount Box
-            $products = (array) $request->input('products');
-            $discountBox->products()->sync(array_values(array_unique($products)));
 
             DB::commit();
 
@@ -221,30 +218,29 @@ class DiscountBoxesController extends Controller
             DB::beginTransaction();
 
             /** @var Coupon $coupon */
-            $coupon = Coupon::query()
-                ->where('id', $request->input('coupon_id'))
-                ->first();
-
-            if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
-                FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
-                throw new Exception(__('discount_box.responses.coupon_invalid'));
-            }
+            // $coupon = Coupon::query()
+            //     ->where('id', $request->input('coupon_id'))
+            //     ->first();
+            // if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
+            //     FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
+            //     throw new Exception(__('discount_box.responses.coupon_invalid'));
+            // }
 
             $price    = $request->input('price');
             $discount = 0;
 
-            if ($coupon->type === DiscountTypeEnum::VALUE) {
-                $discount = $coupon->discount;
-            } else {
-                $discount = ($coupon->discount * $price) / 100;
-            }
+            // if ($coupon->type === DiscountTypeEnum::VALUE) {
+            //     $discount = $coupon->discount;
+            // } else {
+            //     $discount = ($coupon->discount * $price) / 100;
+            // }
 
             $total = (($price >= $discount) ? ($price - $discount) : 0);
 
             $discountBox->update([
                 'coupon_id'     => $request->input('coupon_id'),
                 'name'          => $request->input('name'),
-                'status'        => $request->input('status'),
+                //'status'        => $request->input('status'),
                 'credits'       => $request->input('credits'),
                 'price'         => $price,
                 'discount'      => $discount, #TODO: To be calculate based on the coupon, if is present

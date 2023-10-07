@@ -17,9 +17,9 @@ class DiscountBoxStoreRequest extends FormRequest
         return [
             'name'            => ['required', 'string', 'max:255'],
             'price'           => ['required', 'numeric', 'gte:0', 'max:9999999'],
-            'status'          => ['nullable', new Enum(StatusEnum::class)],
+            //'status'          => ['nullable', new Enum(StatusEnum::class)],
             'coupon_id'       => [
-                'required',
+                'nullable',
                 'numeric',
                 Rule::exists('coupons', 'id')->whereNull('applied_at')
             ],
