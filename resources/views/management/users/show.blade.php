@@ -51,8 +51,8 @@
                                     <td class="value">{{ $user->id }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="label">@lang('user.fields.full_name')</th>
-                                    <td class="value">{{ $user->full_name }}</td>
+                                    <th class="label">@lang('user.fields.nickname')</th>
+                                    <td class="value">{{ $user->nickname }}</td>
                                 </tr>
                                 <tr>
                                     <th class="label">@lang('user.fields.role')</th>
@@ -65,6 +65,14 @@
                                 <tr>
                                     <th class="label">@lang('user.fields.email')</th>
                                     <td class="value"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
+                                </tr>
+                                <tr>
+                                    <th class="label">@lang('user.credit')</th>
+                                    <td class="value">{{ $user->availableBalance() }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="label">@lang('user.discount_requests')</th>
+                                    <td class="value">{{ $user->discount_requests_count }}</td>
                                 </tr>
                                 {{--<tr>--}}
                                 {{--    <th class="label">@lang('user.fields.locale')</th>--}}

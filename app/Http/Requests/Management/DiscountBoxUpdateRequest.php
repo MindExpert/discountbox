@@ -17,6 +17,7 @@ class DiscountBoxUpdateRequest extends FormRequest
         return [
             'name'            => ['required', 'string', 'max:255'],
             'price'           => ['required', 'numeric', 'gte:0', 'max:9999999'],
+            'expires_at'      => ['required', 'date'],
             //'status'          => ['nullable', new Enum(StatusEnum::class)],
             'coupon_id'       => [
                 'nullable',
@@ -47,6 +48,7 @@ class DiscountBoxUpdateRequest extends FormRequest
         return [
             'name'          => __('discount_box.fields.name'),
             'price'         => __('discount_box.fields.price'),
+            'expires_at'    => __('discount_box.fields.expires_at'),
             'status'        => __('discount_box.fields.status'),
             'coupon_id'     => __('discount_box.fields.coupon_id'),
             'credits'       => __('discount_box.fields.credits'),

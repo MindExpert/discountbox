@@ -113,6 +113,10 @@ class UsersController extends Controller
     {
         $this->authorize('view', $user);
 
+        $user->loadCount([
+            'discount_requests as discount_requests_count',
+        ]);
+
         return view('management.users.show', compact('user'));
     }
 

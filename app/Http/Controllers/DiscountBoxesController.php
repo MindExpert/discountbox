@@ -23,7 +23,9 @@ class DiscountBoxesController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth')->only([
+            'submitRequestDiscount',
+        ]);
     }
 
     /**
@@ -66,7 +68,6 @@ class DiscountBoxesController extends Controller
         $discountBoxes = DiscountBox::query()
             ->with(['media', 'product'])
             ->where('discount_boxes.status', $statuses)
-            ->where('discount_boxes.show_on_home', 'true')
             ->addSelect(['participants' => DiscountRequest::query()
                 ->selectRaw('count(*)')
                 ->whereColumn('discount_requests.discount_box_id', 'discount_boxes.id')

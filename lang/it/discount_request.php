@@ -41,7 +41,7 @@ return [
         'edit_model'          => 'Modifica Richieste di sconto',
         'update_model'        => 'Aggiorna Richieste di sconto',
         'delete_model'        => 'Elimina Richieste di sconto',
-        'ask_approve'         => 'Sei sicuro di voler approvare questa richiesta di sconto?',
+        'ask_approve'         => 'Sei sicuro di voler approvare questa richiesta di sconto? Altre richieste verranno rifiutate.',
         'ask_reject'          => 'Sei sicuro di voler rifiutare questa richiesta di sconto?',
         'ask_delete'          => 'Sei sicuro di voler eliminare la richiesta di sconto?',
     ],

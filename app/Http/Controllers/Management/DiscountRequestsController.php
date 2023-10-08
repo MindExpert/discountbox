@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Management;
 
 use App\Enums\DiscountRequestStatusEnum;
+use App\Enums\StatusEnum;
 use App\Enums\TransactionTypeEnum;
 use App\Http\Controllers\Controller;
 use App\Models\DiscountRequest;
@@ -135,15 +136,31 @@ class DiscountRequestsController extends Controller
         $this->authorize('toggleStatus', $discountRequest);
 
         try {
+            DB::beginTransaction();
+
+            $discountRequest->discount_box->update([
+                'status' => StatusEnum::AWARDED,
+            ]);
 
             $discountRequest->update([
                 'status'      => DiscountRequestStatusEnum::APPROVED,
                 'approved_at' => now(),
             ]);
 
+            // Make all other transactions as rejected
+            DiscountRequest::query()
+                ->where('discount_box_id', $discountRequest->discount_box_id)
+                ->where('id', '!=', $discountRequest->id)
+                ->update([
+                    'status' => DiscountRequestStatusEnum::REJECTED,
+                ]);
+
+            DB::commit();
             FlashNotification::success(__('general.success'), __('discount_request.responses.approved'));
         } catch (Exception $exception) {
             report($exception);
+            DB::rollBack();
+
             FlashNotification::error(__('general.error'), __('discount_request.responses.not_approved'));
         }
 

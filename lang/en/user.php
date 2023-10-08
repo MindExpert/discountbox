@@ -6,6 +6,8 @@ return [
     'profile'   => 'Profile',
     'my_wallet'   => 'My Wallet',
     'details'   => 'Details',
+    'discount_requests' => 'Discount Requests',
+    'credit'    => 'Credit',
     'fields'    => [
         'id'                           => 'ID',
         'role'                         => 'Role',
