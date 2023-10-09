@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\AppFreshCommand;
+use App\Console\Commands\CheckDiscountBoxExpirationDateCommand;
 use App\Console\Commands\DeployCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -12,6 +13,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         AppFreshCommand::class,
         DeployCommand::class,
+        CheckDiscountBoxExpirationDateCommand::class,
     ];
 
     /**
@@ -19,7 +21,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('app:check-discount-box-expiration-date-command')
+            ->everyMinute();
     }
 
     /**
