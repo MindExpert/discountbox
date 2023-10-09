@@ -31,23 +31,24 @@
                 {{--        <li><a href="#">Drop Down 4</a></li>--}}
                 {{--    </ul>--}}
                 {{--</li>--}}
-                @if (Route::has('login'))
-                    @auth
-                        <li>
-                            <a href="javascript:void(0);" class="signup" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">@lang('general.actions.logout')</a>
-                        </li>
-                        @if(auth()->user()->role === \App\Enums\RolesEnum::ADMIN)
-                            <li><a href="{{ route('management.dashboard') }}" class=" getstarted nav-link">Dashboard</a></li>
-                        @else
-                            <li><a href="{{ route('frontend.profile.edit') }}" class="getstarted nav-link">Profile</a></li>
-                        @endif
+                @auth
+                    <li><a class="nav-link credit" href="javascript:void(0)">@lang('user.credit'): {{ $user_credit_balance ?? '' }}</a></li>
+                    <li>
+                        <a href="javascript:void(0);" class="signup" data-bs-toggle="modal" data-bs-target="#partial-logout-modal">@lang('general.actions.logout')</a>
+                    </li>
+                    @if(auth()->user()->role === \App\Enums\RolesEnum::ADMIN)
+                        <li><a href="{{ route('management.dashboard') }}" class=" getstarted nav-link">@lang('sidebar.menu.dashboard')</a></li>
                     @else
+                        <li><a href="{{ route('frontend.profile.edit') }}" class="getstarted nav-link">@lang('user.profile')</a></li>
+                    @endif
+                @else
+                    @if (Route::has('login'))
                         <li><a href="{{ route('login') }}" class="signup">@lang('general.actions.login')</a></li>
-                        @if (Route::has('register'))
-                            <li><a href="{{ route('register') }}" class="getstarted">@lang('general.actions.register')</a></li>
-                        @endif
-                    @endauth
-               @endif
+                    @endif
+                    @if (Route::has('register'))
+                        <li><a href="{{ route('register') }}" class="getstarted">@lang('general.actions.register')</a></li>
+                    @endif
+                @endauth
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->

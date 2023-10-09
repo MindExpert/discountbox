@@ -62,6 +62,15 @@ return [
         'manual'   => 'Manual',
         'expenditure' => 'Expenditure',
     ],
+    'description' => [
+        'login'    => 'Upon your first daily login, you will automatically receive a bonus of :amount credits',
+        'register' => 'By registering, you will receive a bonus of :amount credits',
+        'profile'  => 'Completing your profile will earn you a bonus of :amount credits',
+        'share'    => 'You can share the won auction on social media. For each share, you will receive a bonus of :amount credits',
+        'like'     => 'You can like the won auction. For each like, you will receive a bonus of :amount credits',
+        'manual'   => ':type Manual for :amount credits',
+        'expenditure' => 'Spent for a discount request for an amount of :amount credits',
+    ],
     'responses'              => [
         'created'              => 'Transaction is successfully created!',
         'not_created'          => 'Transaction could not be created!',

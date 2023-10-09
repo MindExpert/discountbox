@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
 use App\Enums\TransactionTypeEnum;
 use App\Http\Requests\ProfileUpdateRequest;
@@ -29,6 +30,18 @@ class ProfileController extends Controller
     public function edit(Request $request)
     {
         $user = auth()->user();
+
+        $user->load([
+            'transactions',
+            'pending_discount_requests' => function ($query) {
+                $query->with('discount_box');
+            },
+            'discount_requests' => function ($query) {
+                $query
+                    ->with('discount_box')
+                    ->where('status', DiscountRequestStatusEnum::APPROVED);
+            },
+        ])->loadCount(['discount_requests']);
 
         return view('frontend.profile', compact('user'));
     }

@@ -8,6 +8,8 @@ return [
     'details'   => 'Details',
     'discount_requests' => 'Discount Requests',
     'credit'    => 'Credit',
+    'my_discount_box_awarded' => 'My Discount Awarded',
+    'my_discount_box_progress' => 'My Discount In Progress',
     'fields'    => [
         'id'                           => 'ID',
         'role'                         => 'Role',

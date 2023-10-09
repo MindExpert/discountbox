@@ -62,6 +62,15 @@ return [
         'manual'   => 'Manuale',
         'expenditure' => 'Spesa',
     ],
+    'description' => [
+        'login'    => 'Al Primo accesso giornaliero, ti sara accreditato in automatico un bonus di :amount crediti',
+        'register' => 'Registrandoti riceverai un bonus di :amount crediti',
+        'profile'  => 'Completando il tuo profilo riceverai un bonus di :amount crediti',
+        'share'    => 'Potrai Condividere l\'asta  aggiudicata sui social. Ad ogni Condivisione ti verra accreditato un bonus di :amount crediti',
+        'like'     => 'Potrai mettere Mi Piace all\'asta  aggiudicata. Ad ogni Mi Piace ti verra accreditato un bonus di :amount crediti',
+        'manual'   => ':type Manuale di :amount crediti',
+        'expenditure' => 'Spesa per richiesta di sconto per un importo di :amount crediti',
+    ],
     'responses'=> [
         'created'              => 'La transazione è stata creata con successo!',
         'not_created'          => 'La transazione non è stata creata!',

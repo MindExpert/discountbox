@@ -44,4 +44,30 @@ enum TransactionTypeEnum: string
         ][$this->value];
     }
 
+    public function icon(): string
+    {
+        return [
+            self::LOGIN->value            => 'bi-box-arrow-in-left',
+            self::PROFILE_COMPLETE->value => 'bi-person-bounding-box',
+            self::SHARE->value            => 'bi-share',
+            self::LIKE->value             => 'bi-star',
+            self::EXPENDITURE->value      => 'bi-currency-exchange',
+            self::MANUAL_CREDIT->value    => 'bi-window-plus',
+            self::MANUAL_DEBIT->value     => 'bi-window-dash',
+        ][$this->value];
+    }
+
+    public function description(?int $value = null): string
+    {
+        return [
+            self::LOGIN->value            => __('transaction.description.login', ['amount' => config('app.bonuses.login')]),
+            self::PROFILE_COMPLETE->value => __('transaction.description.profile', ['amount' => config('app.bonuses.profile')]),
+            self::SHARE->value            => __('transaction.description.share', ['amount' => config('app.bonuses.share')]),
+            self::LIKE->value             => __('transaction.description.like', ['amount' => config('app.bonuses.like')]),
+            self::EXPENDITURE->value      => __('transaction.description.expenditure', ['amount' => $value]),
+            self::MANUAL_CREDIT->value    => __('transaction.description.manual', ['type' => 'CREDIT','amount' => $value]),
+            self::MANUAL_DEBIT->value     => __('transaction.description.manual', ['type' => 'DEBIT','amount' => $value]),
+        ][$this->value];
+    }
+
 }

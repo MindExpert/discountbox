@@ -8,6 +8,8 @@ return [
     'details'       => 'Dettagli',
     'discount_requests' => 'Richieste sconti',
     'credit'    => 'Credito',
+    'my_discount_box_awarded' => 'Miei ScontaBox aggiudicati',
+    'my_discount_box_progress' => 'Miei ScontaBox in corso',
     'fields'    => [
         'id'                           => 'ID',
         'role'                         => 'Ruolo',

@@ -73,11 +73,6 @@ class DiscountRequest extends Model
         return $this->belongsTo(DiscountBox::class, 'discount_box_id', 'id');
     }
 
-    public function product(): BelongsTo
-    {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
-    }
-
     public function transactions(): MorphMany
     {
         return $this->morphMany(Transaction::class, 'transactional', 'transactional_type', 'transactional_id', 'id');

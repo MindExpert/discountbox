@@ -191,7 +191,7 @@ h6 {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0 10px 30px;
+  padding: 10px 0 10px 20px;
   font-family: "Raleway", sans-serif;
   font-size: 15px;
   color: #47536e;
@@ -309,6 +309,18 @@ h6 {
   top: 0;
   left: 100%;
   visibility: visible;
+}
+
+.navbar .nav-link.credit {
+    color: rgba(0, 189, 214, 0.73);
+    border: 1px solid #00BDD6FF;
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.navbar-mobile .nav-link.credit {
+    margin: 15px;
 }
 
 @media (max-width: 1366px) {

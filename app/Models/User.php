@@ -37,6 +37,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null                      $deleted_at
  * @property Collection|Transaction           $transactions
  * @property Collection|DiscountRequest       $discount_requests
+ * @property Collection|DiscountRequest       $pending_discount_requests
  *
  * @mixin UserQueryBuilder
  */
@@ -110,6 +111,12 @@ class User extends Authenticatable
     public function discount_requests(): HasMany
     {
         return $this->hasMany(DiscountRequest::class, 'user_id', 'id');
+    }
+
+    public function pending_discount_requests(): HasMany
+    {
+        return $this->discount_requests()
+            ->where('status', DiscountRequestStatusEnum::PENDING);
     }
 
     public function availableBalance(): float
