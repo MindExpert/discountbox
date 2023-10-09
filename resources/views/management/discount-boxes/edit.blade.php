@@ -70,20 +70,36 @@
                             </div>
 
                             <!-- STATUS -->
-                            {{-- <div class="col-md-6">--}}
-                            {{--     <div class="form-group mb-3">--}}
-                            {{--         <label for="status" class="form-label">@lang('discount_box.fields.status')</label>--}}
-                            {{--         <select class="form-control select2" name="status" id="status"--}}
-                            {{--                 data-allow-clear="true"--}}
-                            {{--                 data-placeholder="@lang('discount_box.fields.select_status')" style="width: 100%">--}}
-                            {{--             <option value="">@lang('discount_box.fields.select_status')</option>--}}
-                            {{--             @foreach(\App\Enums\StatusEnum::cases() as $type)--}}
-                            {{--                 <option value="{{ $type->value }}" @selected($type == $discountBox->status)>{{ $type->label() }}</option>--}}
-                            {{--             @endforeach--}}
-                            {{--         </select>--}}
-                            {{--         <span class="invalid-feedback"></span>--}}
-                            {{--     </div>--}}
-                            {{-- </div>--}}
+                             <div class="col-md-6">
+                                 <div class="form-group mb-3">
+                                     <label for="status" class="form-label">@lang('discount_box.fields.status')</label>
+                                     <select class="form-control select2" name="status" id="status"
+                                             data-allow-clear="true"
+                                             data-placeholder="@lang('discount_box.fields.select_status')" style="width: 100%">
+                                         <option value="">@lang('discount_box.fields.select_status')</option>
+                                         @foreach(\App\Enums\StatusEnum::cases() as $type)
+                                             <option value="{{ $type->value }}" @selected($type == $discountBox->status)>{{ $type->label() }}</option>
+                                         @endforeach
+                                     </select>
+                                     <span class="invalid-feedback"></span>
+                                 </div>
+                             </div>
+
+                            <!-- USER_REQUEST_LIST -->
+                            <div class="col-md-6 d-none" id="user-request-list-wrapper">
+                                <div class="form-group mb-3">
+                                    <label for="winner_user_id" class="form-label">@lang('discount_box.fields.winner_user_id')</label>
+                                    <select class="form-control select2" name="winner_user_id" id="winner_user_id"
+                                            data-allow-clear="true"
+                                            data-placeholder="@lang('discount_box.fields.select_winner_user')" style="width: 100%">
+                                        <option value="">@lang('discount_box.fields.select_winner_user')</option>
+                                        @foreach($discountRequestsUser as $requestUser)
+                                            <option value="{{ $requestUser->user_id }}">{{ "{$requestUser->nickname} - {$requestUser->percentage}%" }}</option>
+                                        @endforeach
+                                    </select>
+                                    <span class="invalid-feedback"></span>
+                                </div>
+                            </div>
 
                             <!-- COUPON_ID -->
                             <div class="col-md-6">
@@ -179,7 +195,6 @@
                                     <span class="invalid-feedback"></span>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="card-footer bg-success bg-opacity-10">
@@ -201,7 +216,8 @@
     <script src="{{ asset('assets/libs/tinymce/tinymce.min.js') }}"></script>
     <script>
         $(document).ready(function () {
-            let $couponSelect  = $('#coupon_id'),
+            let $statusSelect  = $('#status'),
+                $couponSelect  = $('#coupon_id'),
                 $productSelect = $('#product_id'),
                 $expiresAt     = $('#expires_at');
 
@@ -303,6 +319,16 @@
                     height: 240,
                 });
             }
+
+            // On status change, when status selected is "awarded", than show the user request lists to select the winner user
+            $statusSelect.on('change', function () {
+                let $this = $(this);
+                if ($this.val() === "{{ \App\Enums\StatusEnum::AWARDED->value }}") {
+                    $('#user-request-list-wrapper').removeClass('d-none');
+                } else {
+                    $('#user-request-list-wrapper').addClass('d-none');
+                }
+            });
         });
     </script>
 @endsection

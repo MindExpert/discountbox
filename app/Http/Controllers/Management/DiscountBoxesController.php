@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Management;
 
+use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\DiscountTypeEnum;
 use App\Enums\StatusEnum;
 use App\Http\Controllers\Controller;
@@ -9,6 +10,7 @@ use App\Http\Requests\Management\DiscountBoxStoreRequest;
 use App\Http\Requests\Management\DiscountBoxUpdateRequest;
 use App\Models\Coupon;
 use App\Models\DiscountBox;
+use App\Models\DiscountRequest;
 use Illuminate\Database\Eloquent\Builder;
 use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
@@ -207,7 +209,18 @@ class DiscountBoxesController extends Controller
 
         $discountBox->load(['media', 'coupon', 'product']);
 
-        return view('management.discount-boxes.edit', compact('discountBox'));
+        $discountRequestsUser = DiscountRequest::query()
+            ->where('discount_box_id', $discountBox->id)
+            ->selectRaw("
+                users.id as user_id,
+                users.nickname as nickname,
+                discount_requests.percentage as percentage
+            ")
+            ->join('users', 'users.id', '=', 'discount_requests.user_id')
+            ->orderByRaw('discount_requests.percentage ASC')
+            ->get();
+
+        return view('management.discount-boxes.edit', compact('discountBox', 'discountRequestsUser'));
     }
 
     public function update(DiscountBoxUpdateRequest $request, DiscountBox $discountBox): JsonResponse
@@ -240,7 +253,7 @@ class DiscountBoxesController extends Controller
             $discountBox->update([
                 'coupon_id'     => $request->input('coupon_id'),
                 'name'          => $request->input('name'),
-                //'status'        => $request->input('status'),
+                'status'        => $request->input('status'),
                 'credits'       => $request->input('credits'),
                 'price'         => $price,
                 'discount'      => $discount, #TODO: To be calculate based on the coupon, if is present
@@ -255,6 +268,28 @@ class DiscountBoxesController extends Controller
             # SYNC Images to Media Library when UPDATING
             $discountBox->syncFromMediaLibraryRequest($request->input('cover_image'))
                 ->toMediaCollection('cover_image');
+
+            if ($request->input('winner_user_id') !== null  && $discountBox->status === StatusEnum::AWARDED) {
+                // Approve the winner transaction
+                DiscountRequest::query()
+                    ->where('discount_box_id', $discountBox->id)
+                    ->where('user_id', $request->input('winner_user_id'))
+                    ->where('status', DiscountRequestStatusEnum::PENDING)
+                    ->update([
+                        'user_id'     => $request->input('winner_user_id'),
+                        'status'      => DiscountRequestStatusEnum::APPROVED->value,
+                        'approved_at' => now(),
+                    ]);
+
+                // Make all other transactions as rejected
+                DiscountRequest::query()
+                    ->where('discount_box_id', $discountBox->id)
+                    ->where('user_id', '!=', $request->input('winner_user_id'))
+                    ->where('status', DiscountRequestStatusEnum::PENDING)
+                    ->update([
+                        'status' => DiscountRequestStatusEnum::REJECTED->value,
+                    ]);
+            }
 
             DB::commit();
 

@@ -18,7 +18,8 @@ class DiscountBoxUpdateRequest extends FormRequest
             'name'            => ['required', 'string', 'max:255'],
             'price'           => ['required', 'numeric', 'gte:0', 'max:9999999'],
             'expires_at'      => ['required', 'date'],
-            //'status'          => ['nullable', new Enum(StatusEnum::class)],
+            'status'          => ['nullable', new Enum(StatusEnum::class)],
+            'winner_user_id'  => ['nullable', 'numeric', Rule::requiredIf($this->input('status') === StatusEnum::AWARDED->value), Rule::exists('discount_requests', 'user_id')->whereNull('deleted_at')],
             'coupon_id'       => [
                 'nullable',
                 'numeric',
@@ -50,6 +51,7 @@ class DiscountBoxUpdateRequest extends FormRequest
             'price'         => __('discount_box.fields.price'),
             'expires_at'    => __('discount_box.fields.expires_at'),
             'status'        => __('discount_box.fields.status'),
+            'winner_user_id'=> __('discount_box.fields.winner_user_id'),
             'coupon_id'     => __('discount_box.fields.coupon_id'),
             'credits'       => __('discount_box.fields.credits'),
             'highlighted'   => __('discount_box.fields.highlighted'),

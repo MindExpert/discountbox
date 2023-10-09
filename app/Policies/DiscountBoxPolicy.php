@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Enums\StatusEnum;
 use App\Models\DiscountBox;
 use App\Models\User;
 
@@ -42,7 +43,8 @@ class DiscountBoxPolicy
     public function update(User $auth, DiscountBox $discountBox): bool
     {
         # TODO: prevent update when product is awarded.
-        return ($auth->isAdministrator() || $auth->is($discountBox->user));
+        return ($auth->isAdministrator() || $auth->is($discountBox->user))
+            && $discountBox->status !== StatusEnum::AWARDED;
     }
 
     /**
