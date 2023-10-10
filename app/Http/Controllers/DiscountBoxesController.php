@@ -128,6 +128,13 @@ class DiscountBoxesController extends Controller
             ], 422);
         }
 
+        if ($discountBox->status !== StatusEnum::IN_PROGRESS) {
+            return response()->json([
+                'success' => false,
+                'message' => __('discount_request.messages.discount_box_not_in_progress'),
+            ], 422);
+        }
+
         /** @var DiscountRequest $discountRequest */
         $discountRequest = DiscountRequest::query()
             ->create([

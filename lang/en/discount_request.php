@@ -56,4 +56,13 @@ return [
         'rejected'            => 'Discount requests is successfully rejected!',
         'not_rejected'        => 'Discount requests could not be rejected!',
     ],
+    'messages' => [
+        'congrats' => 'Congratulations!',
+        'not_enough_credits' => 'You don\'t have enough credits to request this discount.',
+        'discount_box_not_in_progress' => 'This discount is no longer available.',
+        'already_requested' => 'You have already requested a subscription for this discount.',
+        'request_sent' => 'Your request has been successfully sent.',
+        'not_authenticated' => 'To participate, you need to be logged in. If you don\'t have an account yet, please proceed with registration.',
+        'error_info' => 'An error occurred during the creation of the discount request. Please try again later.',
+    ]
 ];

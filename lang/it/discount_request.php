@@ -56,6 +56,7 @@ return [
     'messages' => [
         'congrats'            => 'Congratulazioni!',
         'not_enough_credits'  => 'Non hai abbastanza crediti per richiedere questo sconto.',
+        'discount_box_not_in_progress' => 'Questo sconto non è più disponibile.',
         'already_requested'   => 'Hai già richiesto un\'iscrizione per questo sconto.',
         'request_sent'        => 'La tua richiesta è stata inviata con successo.',
         'not_authenticated'   => 'Per poter partecipare è necessario essere loggati. Se non hai ancora un account procedi con la registrazione.',
