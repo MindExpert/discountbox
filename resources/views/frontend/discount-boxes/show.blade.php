@@ -133,6 +133,7 @@
             let toastMixin = Swal.mixin({
                 toast: true,
                 position: 'top-right',
+                showCloseButton: true,
                 timer: 3000,
                 showConfirmButton: false,
                 timerProgressBar: true,
@@ -150,8 +151,6 @@
             $applyBtn.on('click', function (e) {
                 e.preventDefault();
                 let userIsAuth = '{{ auth()->check() }}';
-
-                console.log(userIsAuth);
 
                 if(!userIsAuth) {
                     toastMixin.fire({

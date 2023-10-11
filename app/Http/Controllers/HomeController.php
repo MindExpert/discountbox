@@ -21,7 +21,7 @@ class HomeController extends Controller
     {
         /** @var DiscountBox $discountBoxInProgress */
         $discountBoxInProgress = DiscountBox::query()
-            ->where('discount_boxes.show_on_home', 'true')
+            ->where('discount_boxes.show_on_home', true)
             ->where('status', StatusEnum::IN_PROGRESS->value)
             ->withCount('discount_requests')
             ->orderBy('discount_boxes.created_at', 'DESC')
@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         /** @var DiscountBox $discountBoxAwardedAndConcluded */
         $discountBoxAwardedAndConcluded = DiscountBox::query()
-            ->where('discount_boxes.show_on_home', 'true')
+            ->where('discount_boxes.show_on_home', true)
             ->whereIn('status', [StatusEnum::AWARDED->value, StatusEnum::CONCLUDED->value])
             ->withCount('discount_requests')
             ->orderBy('discount_boxes.created_at', 'DESC')
