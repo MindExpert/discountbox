@@ -162,7 +162,7 @@ class DiscountBoxesController extends Controller
             /** @var DiscountBox $discountBox */
             $discountBox = DiscountBox::query()->create([
                 'user_id'       => user()->id,
-                'coupon_id'     => $coupon->id,
+                'coupon_id'     => $coupon?->id,
                 'name'          => $request->input('name'),
                 //'status'      => $request->input('status') ?? StatusEnum::IN_PROGRESS->value, #IS AUTO CALC FROM STATUS
                 'status'        => StatusEnum::IN_PROGRESS->value,
@@ -251,7 +251,7 @@ class DiscountBoxesController extends Controller
             $total = (($price >= $discount) ? ($price - $discount) : 0);
 
             $discountBox->update([
-                'coupon_id'     => $request->input('coupon_id'),
+                'coupon_id'     => $coupon?->id,
                 'name'          => $request->input('name'),
                 'status'        => $request->input('status'),
                 'credits'       => $request->input('credits'),
