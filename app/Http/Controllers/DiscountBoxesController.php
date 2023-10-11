@@ -59,7 +59,7 @@ class DiscountBoxesController extends Controller
      */
     public function indexByStatus(Request $request, StatusEnum $status)
     {
-        $statuses = StatusEnum::IN_PROGRESS->value;
+        $statuses = [StatusEnum::IN_PROGRESS->value];
 
         if ($status === StatusEnum::AWARDED || $status === StatusEnum::CONCLUDED) {
             $statuses = [StatusEnum::AWARDED->value, StatusEnum::CONCLUDED->value];
@@ -67,7 +67,7 @@ class DiscountBoxesController extends Controller
 
         $discountBoxes = DiscountBox::query()
             ->with(['media', 'product'])
-            ->where('discount_boxes.status', $statuses)
+            ->whereIn('discount_boxes.status', $statuses)
             ->addSelect(['participants' => DiscountRequest::query()
                 ->selectRaw('count(*)')
                 ->whereColumn('discount_requests.discount_box_id', 'discount_boxes.id')
