@@ -85,7 +85,7 @@ class User extends Authenticatable
 
     public function getLabelAttribute(): string
     {
-        return $this->nickname;
+        return $this->full_name ?? $this->nickname;
     }
 
     public function preferredLocale()

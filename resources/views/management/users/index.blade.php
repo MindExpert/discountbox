@@ -37,6 +37,7 @@
                             <thead>
                                 <tr role="row"  class="bg-light">
                                     <th scope="col">@lang('user.fields.id')</th>
+                                    <th scope="col">@lang('user.fields.nickname')</th>
                                     <th scope="col">@lang('user.fields.full_name')</th>
                                     <th scope="col">@lang('user.fields.role')</th>
                                     <th scope="col">@lang('user.fields.email')</th>
@@ -45,6 +46,7 @@
                                 </tr>
                                 <tr role="row" style="display: none;">
                                     <th></th>
+                                    <th><input type="text" class="form-control search-input" name="nickname" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                     <th><input type="text" class="form-control search-input" name="full_name" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                     <th><input type="text" class="form-control search-input" name="role" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                     <th><input type="text" class="form-control search-input" name="email" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
@@ -84,6 +86,7 @@
                 deferRender: true,
                 columns: [
                     {data: 'id', name: 'id'},
+                    {data: 'nickname', name: 'nickname'},
                     {data: 'full_name', name: 'full_name'},
                     {data: 'role', name: 'role'},
                     // {data: 'companies', name: 'companies', render: '[<br>].name', orderable: false, defaultContent: '---'},

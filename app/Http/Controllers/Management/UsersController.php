@@ -46,6 +46,9 @@ class UsersController extends Controller
                     ->editColumn('full_name', function (User $user) {
                         return view('management.users.datatable.full_name', compact('user'));
                     })
+                    ->editColumn('nickname', function (User $user) {
+                        return view('management.users.datatable.nickname', compact('user'));
+                    })
                     ->addColumn('role', function (User $user) {
                         return view('management.users.datatable.role', compact('user'));
                     })
