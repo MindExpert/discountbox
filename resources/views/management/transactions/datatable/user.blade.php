@@ -1,5 +1,5 @@
 @can('view', $transaction->user)
-    <a href="{{ route('management.users.show', ['user' => $transaction->user->id]) }}" class="link-blue">{{ $transaction->user?->full_name }}</a>
+    <a href="{{ route('management.users.show', ['user' => $transaction->user->id]) }}" class="link-blue">{{ $transaction->user?->label }}</a>
 @else
-    {{ $transaction->user?->full_name }}
+    {{ $transaction->user?->label }}
 @endcan

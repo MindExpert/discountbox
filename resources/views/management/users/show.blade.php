@@ -6,7 +6,7 @@
 @section('breadcrumbs')
     <li class="breadcrumb-item"><a href="{{ route('management.dashboard') }}">@lang('general.dashboard')</a></li>
     <li class="breadcrumb-item"><a href="{{ route('management.users.index') }}">@lang('user.plural')</a></li>
-    <li class="breadcrumb-item active">{{ $user->full_name }}</li>
+    <li class="breadcrumb-item active">{{ $user->label }}</li>
 @endsection
 
 @section('styles')
