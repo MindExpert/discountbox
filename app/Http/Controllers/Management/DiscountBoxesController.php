@@ -140,9 +140,10 @@ class DiscountBoxesController extends Controller
             DB::beginTransaction();
 
             /** @var Coupon $coupon */
-            // $coupon = Coupon::query()
-            //     ->where('id', $request->input('coupon_id'))
-            //     ->first();
+            $coupon = Coupon::query()
+                ->where('id', $request->input('coupon_id'))
+                ->first();
+
             // if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
             //     FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
             //     throw new Exception(__('discount_box.responses.coupon_invalid'));
@@ -231,9 +232,9 @@ class DiscountBoxesController extends Controller
             DB::beginTransaction();
 
             /** @var Coupon $coupon */
-            // $coupon = Coupon::query()
-            //     ->where('id', $request->input('coupon_id'))
-            //     ->first();
+            $coupon = Coupon::query()
+                ->where('id', $request->input('coupon_id'))
+                ->first();
             // if ($coupon === null || ! $coupon->isValid() || $coupon->hasExpired()) {
             //     FlashNotification::error(__('general.error'), __('discount_box.responses.coupon_invalid'));
             //     throw new Exception(__('discount_box.responses.coupon_invalid'));
