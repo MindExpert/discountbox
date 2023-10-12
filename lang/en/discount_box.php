@@ -16,6 +16,7 @@ return [
         'discount'        => 'Discount',
         'total'           => 'Total',
         'expires_at'      => 'Expires at',
+        'expired'         => 'Expired',
         'status'          => 'Status',
         'winner_user_id'  => 'Winner User',
         'credits'         => 'Credits',

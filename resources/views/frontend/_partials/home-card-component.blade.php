@@ -27,7 +27,14 @@
                             <span>@lang('discount_box.fields.participants'): {{ $discountBox->discount_requests_count }}</span>
                         </p>
                         <p class="card-text">
-                            <small class="text-muted">@lang('discount_box.fields.expires_at') {{ $discountBox->expires_at?->diffForHumans() }}</small>
+                            <small class="text-muted">
+                                @if($discountBox->expires_at != null && $discountBox->expires_at->isFuture())
+                                    @lang('discount_box.fields.expires_at')
+                                @else
+                                    @lang('discount_box.fields.expired')
+                                @endif
+                                {{ $discountBox->expires_at?->diffForHumans() }}
+                            </small>
                         </p>
                         <a href="{{ route('frontend.discount-boxes.show', ['discountBox' => $discountBox]) }}" class="btn btn-sm btn-primary">@lang('discount_box.actions.view_model')</a>
                     </div>
