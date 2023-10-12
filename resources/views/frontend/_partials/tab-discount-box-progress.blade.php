@@ -17,8 +17,8 @@
                     </a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
-                    @if($discountRequest->discount_box->getFirstMediaUrl('cover_image'))
-                        <img src="{{ $discountBox->product->getFirstMediaUrl('cover_image', 'thumb') }}" height="250" class="feature-img" alt="Responsive image" loading="lazy">
+                    @if($discountRequest->discount_box?->product?->getFirstMediaUrl('featured_image'))
+                        <img src="{{ $discountRequest->discount_box?->product?->getFirstMediaUrl('featured_image', 'thumb') }}" height="250" class="feature-img" alt="Responsive image" loading="lazy">
                     @else
                         <img src="{{ asset('frontend/assets/img/placeholderx2.png') }}" height="250" class="feature-img" alt="Responsive image" loading="lazy">
                     @endif
