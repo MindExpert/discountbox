@@ -16,14 +16,14 @@ class ProfileUpdateRequest extends FormRequest
         $currentUser = $this->route('user');
 
         return [
-            'first_name'      => ['required', 'string', 'max:150'],
-            'last_name'       => ['required', 'string', 'max:150'],
             'nickname'        => ['required', 'string', 'max:150', Rule::unique('users', 'nickname')->whereNull('deleted_at')->ignore($currentUser->id)],
             'email'           => ['required', 'email', 'max:255', Rule::unique('users', 'email')->whereNull('deleted_at')->ignore($currentUser->id)],
+            //'first_name'      => ['required', 'string', 'max:150'],
+            //'last_name'       => ['required', 'string', 'max:150'],
             'password'        => ['nullable', 'confirmed', 'min:8'],
-            'mobile'          => ['nullable', 'max:25'],
+            //'mobile'          => ['nullable', 'max:25'],
             //'locale'          => ['required', 'string', "in:{$locales}"],
-            'birth_date'      => ['nullable', 'date', 'before:today', 'after:1900-01-01'],
+            //'birth_date'      => ['nullable', 'date', 'before:today', 'after:1900-01-01'],
         ];
     }
 

@@ -52,13 +52,13 @@ class ProfileController extends Controller
 
         try {
             $user->update([
-                'first_name'      => $request->input('first_name'),
-                'last_name'       => $request->input('last_name'),
+                //'first_name'      => $request->input('first_name'),
+                //'last_name'       => $request->input('last_name'),
                 'nickname'        => $request->input('nickname'),
                 'email'           => $request->input('email'),
-                'mobile'          => $request->input('mobile'),
+                //'mobile'          => $request->input('mobile'),
                 //'locale'          => $request->input('locale'),
-                'birth_date'      => $request->input('birth_date'),
+                //'birth_date'      => $request->input('birth_date'),
             ]);
 
             if ($request->filled('password')) {

@@ -63,5 +63,9 @@ return [
     ],
     'messages' => [
         'no_products'         => 'Nessun prodotto trovato su questo Sconta Box!',
+        'concluded'           => 'ScontaBox Concluso. Stiamo elaborando le richieste, a breve verrà comunicato il vincitore!',
+        //'winner_user'         => 'Complimenti, ti sei aggiudicato lo scontabox: :percentage %, di seguito trovi il codice sconto che ti sei aggiudicato, ricordati di utilizzarlo entro la data di validità sul sito indicato',
+        'winner_user'         => 'COMPLIMENTI!!! Ti sei aggiudicato lo sconto del :percentage %. Il Coupon e le istruzioni ti verranno inviate tramite email entro 24 ore. Se non ricevi l’email contattaci',
+        'winner_general'      => 'ScontaBox concluso, lo sconto del :percentage % è stato aggiudicato da un altro utente!',
     ],
 ];

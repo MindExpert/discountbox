@@ -8,7 +8,7 @@ return [
     'view_offer' => 'Visualizza offerta',
     'fields' => [
         'id'              => 'ID',
-        'user_id'         => 'Utente',
+        'user_id'         => 'Utente Partecipante',
         'discount_box_id' => 'Scontabox',
         'percentage'      => 'Percentuale',
         'approved_at'     => 'Approvato il',

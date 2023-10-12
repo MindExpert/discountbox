@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Queue\InteractsWithQueue;
 // events to Handle
+use Illuminate\Support\Carbon;
 use App\Events\Auth\{
     UserLoggedIn,
     UserLoggedOut,
@@ -39,7 +40,7 @@ class AuthEventListener
         $lastLogin  = $event->user->last_login_at;
 
         # Add credits if user has not logged the first time and has not logged in for 24 hours
-        if($lastLogin == null || $lastLogin->diffInHours(now()) >= 24){
+        if($lastLogin == null || ! $lastLogin->isSameDay(Carbon::today())) {
             $event->user->transactions()->create([
                 'credit' => config('app.bonuses.login'),
                 'type'   => TransactionTypeEnum::LOGIN,

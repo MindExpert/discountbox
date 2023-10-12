@@ -7,7 +7,8 @@ return [
     'my_wallet'   => 'My Wallet',
     'details'   => 'Details',
     'discount_requests' => 'Discount Requests',
-    'credit'    => 'Credit',
+    'credit'         => 'Credit',
+    'actual_credit'  => 'Actual Credits',
     'my_discount_box_awarded' => 'My Discount Awarded',
     'my_discount_box_progress' => 'My Discount In Progress',
     'fields'    => [

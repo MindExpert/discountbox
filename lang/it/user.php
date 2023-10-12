@@ -7,7 +7,8 @@ return [
     'my_wallet'     => 'Mio portafoglio',
     'details'       => 'Dettagli',
     'discount_requests' => 'Richieste sconti',
-    'credit'    => 'Credito',
+    'credit'         => 'Credito',
+    'actual_credit'  => 'Crediti attuali',
     'my_discount_box_awarded' => 'Miei ScontaBox aggiudicati',
     'my_discount_box_progress' => 'Miei ScontaBox in corso',
     'fields'    => [

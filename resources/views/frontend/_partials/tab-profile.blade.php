@@ -4,29 +4,6 @@
             <form class="ajax-form" method="POST" action="{{ route('frontend.profile.update', ['user' => $user]) }}" role="form">
                 @csrf
                 @method('PUT')
-                <!-- NAME -->
-                <div class="form-group">
-                    <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>
-                    <input type="text" class="form-control"
-                           name="first_name"
-                           id="first_name"
-                           placeholder="@lang('user.fields.first_name')"
-                           value="{{ $user->first_name }}"
-                    />
-                    <span class="invalid-feedback"></span>
-                </div>
-
-                <!-- LAST_NAME -->
-                <div class="form-group mt-3">
-                    <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>
-                    <input type="text" class="form-control"
-                           name="last_name"
-                           id="last_name"
-                           placeholder="@lang('user.fields.last_name')"
-                           value="{{ $user->last_name }}"
-                    />
-                    <span class="invalid-feedback"></span>
-                </div>
 
                 <!-- NICKNAME -->
                 <div class="form-group mt-3">
@@ -52,30 +29,51 @@
                     <span class="invalid-feedback"></span>
                 </div>
 
-                <!-- MOBILE -->
-                <div class="form-group mt-3">
-                    <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>
-                    <input type="tel" class="form-control"
-                           name="mobile"
-                           id="mobile"
-                           placeholder="@lang('user.fields.mobile')"
-                           value="{{ $user->mobile }}"
-                    />
-                    <span class="invalid-feedback"></span>
-                </div>
-
-                <!-- DATE_OF_BIRTH -->
-                <div class="form-group mt-3">
-                    <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>
-                    <input type="date"
-                           class="form-control date"
-                           name="birth_date"
-                           id="birth_date"
-                           placeholder="@lang('user.fields.birth_date')"
-                           value="{{ $user->birth_date?->toDateString() }}"
-                    />
-                    <span class="invalid-feedback"></span>
-                </div>
+                {{--<!-- NAME -->--}}
+                {{--<div class="form-group">--}}
+                {{--    <label for="first_name" class="form-label">@lang('user.fields.first_name')</label>--}}
+                {{--    <input type="text" class="form-control"--}}
+                {{--           name="first_name"--}}
+                {{--           id="first_name"--}}
+                {{--           placeholder="@lang('user.fields.first_name')"--}}
+                {{--           value="{{ $user->first_name }}"--}}
+                {{--    />--}}
+                {{--    <span class="invalid-feedback"></span>--}}
+                {{--</div>--}}
+                {{--<!-- LAST_NAME -->--}}
+                {{--<div class="form-group mt-3">--}}
+                {{--    <label for="last_name" class="form-label">@lang('user.fields.last_name')</label>--}}
+                {{--    <input type="text" class="form-control"--}}
+                {{--           name="last_name"--}}
+                {{--           id="last_name"--}}
+                {{--           placeholder="@lang('user.fields.last_name')"--}}
+                {{--           value="{{ $user->last_name }}"--}}
+                {{--    />--}}
+                {{--    <span class="invalid-feedback"></span>--}}
+                {{--</div>--}}
+                {{--<!-- MOBILE -->--}}
+                {{--<div class="form-group mt-3">--}}
+                {{--    <label for="mobile" class="form-label">@lang('user.fields.mobile')</label>--}}
+                {{--    <input type="tel" class="form-control"--}}
+                {{--           name="mobile"--}}
+                {{--           id="mobile"--}}
+                {{--           placeholder="@lang('user.fields.mobile')"--}}
+                {{--           value="{{ $user->mobile }}"--}}
+                {{--    />--}}
+                {{--    <span class="invalid-feedback"></span>--}}
+                {{--</div>--}}
+                {{--<!-- DATE_OF_BIRTH -->--}}
+                {{--<div class="form-group mt-3">--}}
+                {{--    <label for="birth_date" class="form-label">@lang('user.fields.birth_date')</label>--}}
+                {{--    <input type="date"--}}
+                {{--           class="form-control date"--}}
+                {{--           name="birth_date"--}}
+                {{--           id="birth_date"--}}
+                {{--           placeholder="@lang('user.fields.birth_date')"--}}
+                {{--           value="{{ $user->birth_date?->toDateString() }}"--}}
+                {{--    />--}}
+                {{--    <span class="invalid-feedback"></span>--}}
+                {{--</div>--}}
 
                 <div class="border-bottom border-2 border-light mt-4 mb-2"></div>
 

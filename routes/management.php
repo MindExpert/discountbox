@@ -224,6 +224,14 @@ Route::prefix('/discount-requests')
             ->uses([DiscountRequestsController::class, 'show'])
             ->name('show');
 
+        Route::get('/{discountRequest}/edit')
+            ->uses([DiscountRequestsController::class, 'edit'])
+            ->name('edit');
+
+        Route::put('/{discountRequest}')
+            ->uses([DiscountRequestsController::class, 'update'])
+            ->name('update');
+
         Route::post('/{discountRequest}/approve')
             ->uses([DiscountRequestsController::class, 'approve'])
             ->name('approve');

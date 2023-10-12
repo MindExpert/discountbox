@@ -3,6 +3,9 @@
 ])
 <div class="tab-pane" id="credits-tab">
     <div class="col-lg-12 content">
+        <div class="section-title">
+            <h4>@lang('user.actual_credit'): {{ $credits->sum('credit') }}</h4>
+        </div>
         @foreach($credits as $credit)
             <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="bi {{$credit->type->icon()}} text-{{$credit->type->color()}}"></i></div>
