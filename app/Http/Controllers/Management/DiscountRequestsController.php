@@ -6,7 +6,11 @@ use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\StatusEnum;
 use App\Enums\TransactionTypeEnum;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Management\DiscountRequestStoreRequest;
+use App\Models\DiscountBox;
 use App\Models\DiscountRequest;
+use App\Models\Transaction;
+use App\Support\ActionJsonResponse;
 use App\Support\EmptyDatatable;
 use App\Support\FlashNotification;
 use Exception;
@@ -122,6 +126,64 @@ class DiscountRequestsController extends Controller
                 $request->get('id')
             )->get()->append(['label'])
         );
+    }
+
+    public function create(): View
+    {
+        $this->authorize('create', DiscountRequest::class);
+
+        return view('management.discount-requests.create');
+    }
+
+    public function store(DiscountRequestStoreRequest $request)
+    {
+        $this->authorize('create', DiscountRequest::class);
+
+        try {
+            DB::beginTransaction();
+
+            /** @var DiscountBox $discountBox */
+            $discountBox = DiscountBox::query()->findOrFail($request->get('discount_box_id'));
+
+            /** @var DiscountRequest $discountRequest */
+            $discountRequest = DiscountRequest::query()
+                ->create([
+                    'user_id'         => $request->get('user_id'),
+                    'discount_box_id' => $discountBox->id,
+                    'credit'          => $discountBox->credits,
+                    'percentage'      => $request->input('percentage'),
+                    'status'          => DiscountRequestStatusEnum::PENDING,
+                ]);
+
+            Transaction::create([
+                'user_id' => $discountRequest->user_id,
+                'credit'  => 0,
+                'debit'   => $discountRequest->credit,
+                'type'    => TransactionTypeEnum::EXPENDITURE,
+                'name'    => json_encode([
+                    'lang'   => 'transaction.event.expenditure',
+                    'params' => []
+                ]),
+                'notes' => json_encode([
+                    'lang'   => 'transaction.names.expenditure_for_request',
+                    'params' => [
+                        'product' => $discountRequest->discount_box->name,
+                    ]
+                ]),
+                'transactional_type' => DiscountRequest::$morph_key,
+                'transactional_id'   => $discountRequest->id,
+            ]);
+
+            DB::commit();
+            FlashNotification::success(__('general.success'), __('discount_request.responses.created'));
+            return ActionJsonResponse::make(true, route('management.discount-requests.show', ['discountRequest' => $discountRequest->id]))->response();
+        } catch (Exception $exception) {
+            report($exception);
+            DB::rollBack();
+
+            FlashNotification::error(__('general.error'), __('discount_request.responses.not_created'));
+            return ActionJsonResponse::make(false, route('management.discount-requests.index'))->response();
+        }
     }
 
     public function show(DiscountRequest $discountRequest): View

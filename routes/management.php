@@ -220,6 +220,14 @@ Route::prefix('/discount-requests')
             ->name('search')
             ->middleware(['expects_json']);
 
+        Route::get('/create')
+            ->uses([DiscountRequestsController::class, 'create'])
+            ->name('create');
+
+        Route::post('/')
+            ->uses([DiscountRequestsController::class, 'store'])
+            ->name('store');
+
         Route::get('/{discountRequest}')
             ->uses([DiscountRequestsController::class, 'show'])
             ->name('show');

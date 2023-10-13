@@ -91,7 +91,7 @@ class DiscountBoxesController extends Controller
             DiscountBox::search(
                 $request->get('keyword'),
                 $request->get('id')
-            )->get()->append(['label'])
+            )->get()->append(['label', 'thumbnail'])
         );
     }
 

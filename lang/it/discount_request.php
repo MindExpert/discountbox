@@ -19,6 +19,7 @@ return [
         'updated_at'      => 'Aggiornato il',
         'deleted_at'      => 'Eliminato il',
         'select_user'     => 'Seleziona utente',
+        'user_info'       => 'Seleziona un utente per il quale vuoi creare una richiesta di sconto.',
         'select_discount_box' => 'Seleziona Scontabox',
         'select_product'    => 'Seleziona prodotto',
         'participation_fee' => 'Quota di partecipazione',
@@ -61,5 +62,11 @@ return [
         'request_sent'        => 'La tua richiesta è stata inviata con successo.',
         'not_authenticated'   => 'Per poter partecipare è necessario essere loggati. Se non hai ancora un account procedi con la registrazione.',
         'error_info'          => 'Si è verificato un errore durante la creazione della richiesta di sconto. Riprova più tardi.',
+        'invalid_percentage' => 'La percentuale inserita non è valida.',
+    ],
+    'validation' => [
+        'already_requested'            => 'Hai già richiesto un\'iscrizione per questo sconto.',
+        'discount_box_not_in_progress' => 'Questo sconto non è più disponibile.',
+        'user_not_enough_credits'      => 'L\'utente non ha abbastanza crediti per richiedere questo sconto.',
     ]
 ];

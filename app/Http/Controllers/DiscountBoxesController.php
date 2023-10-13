@@ -135,6 +135,13 @@ class DiscountBoxesController extends Controller
             ], 422);
         }
 
+        if ($request->input('percentage') > 100 || $request->input('percentage') < 0) {
+            return response()->json([
+                'success' => false,
+                'message' => __('discount_request.messages.invalid_percentage'),
+            ], 422);
+        }
+
         /** @var DiscountRequest $discountRequest */
         $discountRequest = DiscountRequest::query()
             ->create([

@@ -8,7 +8,9 @@ class DiscountBoxQueryBuilder extends Builder
 {
     public function search(?string $keyword = null, int|array|null $id = null): DiscountBoxQueryBuilder
     {
-        $query = $this->orderBy('name');
+        $query = $this
+            ->with('media')
+            ->orderBy('name');
 
         if (! empty($id)) {
             if (is_array($id)) {

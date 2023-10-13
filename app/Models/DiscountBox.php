@@ -148,6 +148,15 @@ class DiscountBox extends Model implements HasMedia
         return $this->serial;
     }
 
+    public function getThumbnailAttribute(): string
+    {
+        if ($this->relationLoaded('media') && $this->getFirstMedia('cover_image')) {
+            return $this->getFirstMediaUrl('cover_image', 'preview');
+        }
+
+        return asset('frontend/assets/img/placeholderx2.png');
+    }
+
     public function inProgress(): bool
     {
         return $this->status === StatusEnum::IN_PROGRESS;

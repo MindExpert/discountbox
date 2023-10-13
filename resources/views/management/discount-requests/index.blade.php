@@ -26,6 +26,11 @@
                            class="btn btn-outline-success tippy-btn mr-1" title="@lang('general.filter')">
                             <i class="fa fa-filter"></i> @lang('general.actions.filter')
                         </a>
+                        @can('create', \App\Models\DiscountRequest::class)
+                            <a href="{{route('management.discount-requests.create')}}" class="btn btn-outline-primary tippy-btn" title="@lang('discount_request.actions.create')">
+                                <i class="fa fa-plus"></i> @lang('discount_request.actions.create')
+                            </a>
+                        @endcan
                     </div>
                 </div>
                 <div class="card-body">

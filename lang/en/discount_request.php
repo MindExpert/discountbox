@@ -19,6 +19,7 @@ return [
         'updated_at'      => 'Updated at',
         'deleted_at'      => 'Deleted at',
         'select_user'     => 'Select User',
+        'user_info'       => 'Select a user for which you want to create a discount request.',
         'select_discount_box' => 'Select Discount Box',
         'participation_fee' => 'Participation fee',
         'sales_sites'       => 'Sales site',
@@ -57,12 +58,18 @@ return [
         'not_rejected'        => 'Discount requests could not be rejected!',
     ],
     'messages' => [
-        'congrats' => 'Congratulations!',
-        'not_enough_credits' => 'You don\'t have enough credits to request this discount.',
+        'congrats'                     => 'Congratulations!',
+        'not_enough_credits'           => 'You don\'t have enough credits to request this discount.',
         'discount_box_not_in_progress' => 'This discount is no longer available.',
-        'already_requested' => 'You have already requested a subscription for this discount.',
-        'request_sent' => 'Your request has been successfully sent.',
-        'not_authenticated' => 'To participate, you need to be logged in. If you don\'t have an account yet, please proceed with registration.',
-        'error_info' => 'An error occurred during the creation of the discount request. Please try again later.',
+        'already_requested'            => 'You have already requested a subscription for this discount.',
+        'request_sent'                 => 'Your request has been successfully sent.',
+        'not_authenticated'  => 'To participate, you need to be logged in. If you don\'t have an account yet, please proceed with registration.',
+        'error_info'         => 'An error occurred during the creation of the discount request. Please try again later.',
+        'invalid_percentage' => 'Invalid percentage value!',
+    ],
+    'validation' => [
+        'already_requested'            => 'User have already a request a subscription for this discount box.',
+        'discount_box_not_in_progress' => 'This discount boxis no longer available.',
+        'user_not_enough_credits'      => 'User does not have enough credits to be subscribed for this discount box',
     ]
 ];
