@@ -16,7 +16,7 @@ return [
         'discount'        => 'Sconto',
         'total'           => 'Totale',
         'expires_at'      => 'Scade',
-        'expired'         => 'Caduto',
+        'expired'         => 'Scaduto',
         'status'          => 'Stato',
         'winner_user_id'  => 'Utente vincitore',
         'credits'         => 'Crediti',
