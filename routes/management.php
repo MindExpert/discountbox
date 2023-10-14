@@ -158,6 +158,10 @@ Route::prefix('/discount-boxes')
             ->uses([DiscountBoxesController::class, 'image'])
             ->name('image');
 
+        Route::get('/partial-edit')
+            ->uses([DiscountBoxesController::class, 'partialEdit'])
+            ->name('partial-edit');
+
         Route::post('/')
             ->uses([DiscountBoxesController::class, 'store'])
             ->name('store');
@@ -173,6 +177,10 @@ Route::prefix('/discount-boxes')
         Route::put('/{discountBox}')
             ->uses([DiscountBoxesController::class, 'update'])
             ->name('update');
+
+        Route::put('/{discountBox}/update-partial')
+            ->uses([DiscountBoxesController::class, 'updatePartial'])
+            ->name('update-partial');
 
         Route::delete('/{discountBox}')
             ->uses([DiscountBoxesController::class, 'destroy'])

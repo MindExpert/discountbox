@@ -42,11 +42,13 @@ class DiscountBoxesController extends Controller
                     ->addColumn('permissions', function (DiscountBox $discountBox) {
                         $view   = user()->can('view', $discountBox);
                         $update = user()->can('update', $discountBox);
+                        $updatePartial = user()->can('updatePartial', $discountBox);
                         $delete = user()->can('delete', $discountBox);
 
                         return [
                             'view'   => $view,
                             'update' => $update,
+                            'update_partial' => $updatePartial,
                             'delete' => $delete,
                         ];
                     })
@@ -277,7 +279,6 @@ class DiscountBoxesController extends Controller
                     ->where('user_id', $request->input('winner_user_id'))
                     ->where('status', DiscountRequestStatusEnum::PENDING)
                     ->update([
-                        'user_id'     => $request->input('winner_user_id'),
                         'status'      => DiscountRequestStatusEnum::APPROVED->value,
                         'approved_at' => now(),
                     ]);
@@ -289,6 +290,7 @@ class DiscountBoxesController extends Controller
                     ->where('status', DiscountRequestStatusEnum::PENDING)
                     ->update([
                         'status' => DiscountRequestStatusEnum::REJECTED->value,
+                        'approved_at' => null,
                     ]);
             }
 
@@ -321,5 +323,82 @@ class DiscountBoxesController extends Controller
         }
 
         return redirect()->route('management.discount-boxes.index');
+    }
+
+    /**
+     * Dynamic modal with the list of locations, to edit on Item
+     * @param Request $request
+     *
+     * @return JsonResponse
+     *
+     * @throws AuthorizationException
+     */
+    public function partialEdit(Request $request): JsonResponse
+    {
+        /** @var DiscountBox|null $discountBox */
+        $discountBox = DiscountBox::query()
+            ->with('discount_requests:id,discount_box_id,user_id')
+            ->where('id', $request->input('model_id'))
+            ->firstOrFail();
+
+        $discountRequestsUser = DiscountRequest::query()
+            ->where('discount_box_id', $discountBox->id)
+            ->selectRaw("
+                users.id as user_id,
+                users.nickname as nickname,
+                discount_requests.percentage as percentage
+            ")
+            ->join('users', 'users.id', '=', 'discount_requests.user_id')
+            ->orderByRaw('discount_requests.percentage ASC')
+            ->get();
+
+        $redirectTo = $request->get('redirect_to');
+
+        $modalDetails = view('management.discount-boxes._partials.edit-discount-box-modal', compact('discountBox', 'discountRequestsUser', 'redirectTo'))->render();
+
+        return response()->json([
+            'data' => [
+                'discount_box_id' => $discountBox->id,
+                'details'      => $modalDetails,
+            ],
+        ]);
+    }
+
+    public function updatePartial(Request $request, DiscountBox $discountBox): JsonResponse
+    {
+        $this->authorize('updatePartial', $discountBox);
+
+        try {
+            // Change the winner
+            DiscountRequest::query()
+                ->where('discount_box_id', $discountBox->id)
+                ->where('user_id', $request->input('winner_user_id'))
+                ->whereNull('approved_at')
+                ->update([
+                    'status'      => DiscountRequestStatusEnum::APPROVED->value,
+                    'approved_at' => now(),
+                ]);
+
+            // Make all other transactions as rejected
+            DiscountRequest::query()
+                ->where('discount_box_id', $discountBox->id)
+                ->where('user_id', '!=', $request->input('winner_user_id'))
+                ->update([
+                    'status'      => DiscountRequestStatusEnum::REJECTED->value,
+                    'approved_at' => null,
+                ]);
+
+            FlashNotification::success(__('general.success'), __('discount_box.responses.updated'));
+
+            if ($request->get('redirect_to')) {
+                return ActionJsonResponse::make(true, $request->get('redirect_to'))->response();
+            }
+            return ActionJsonResponse::make(true, route('management.discount-boxes.index'))->response();
+        } catch (Exception $exception) {
+            report($exception);
+
+            FlashNotification::error(__('general.error'), __('discount_box.responses.not_updated'));
+            return ActionJsonResponse::make(false)->response();
+        }
     }
 }

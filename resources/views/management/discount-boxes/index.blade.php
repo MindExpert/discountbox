@@ -79,6 +79,7 @@
             </div>
         </div>
     </div>
+    @include('management.discount-boxes._partials.edit-discount-box-script')
 @endsection
 
 @section('scripts')

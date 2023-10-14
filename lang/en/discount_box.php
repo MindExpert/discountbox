@@ -51,6 +51,7 @@ return [
         'view_model'          => 'View Discount Box',
         'edit_model'          => 'Edit Discount Box',
         'update_model'        => 'Update Discount Box',
+        'update_winner'       => 'Update Winner Box',
         'delete_model'        => 'Delete Discount Box',
         'ask_delete'          => 'Are you sure you want to delete this Discount Box?',
     ],

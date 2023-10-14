@@ -47,6 +47,11 @@ class DiscountBoxPolicy
             && $discountBox->status !== StatusEnum::AWARDED;
     }
 
+    public function updatePartial(User $auth, DiscountBox $discountBox): bool
+    {
+        return $auth->isAdministrator() && $discountBox->status === StatusEnum::AWARDED;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */

@@ -47,6 +47,7 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
  * @property Coupon|null          $coupon
  * @property Product              $product
  * @property Collection|Transaction[] $transactions
+ * @property Collection|DiscountRequest[] $discount_requests
  *
  * @mixin DiscountBoxQueryBuilder
  */

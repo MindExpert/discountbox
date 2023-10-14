@@ -50,6 +50,7 @@ return [
         'view_model'          => 'Vedi Sconto Box',
         'edit_model'          => 'Modifica Sconto Box',
         'update_model'        => 'Aggiorna Sconto Box',
+        'update_winner'       => 'Aggiorna Sconto Box vincitore',
         'delete_model'        => 'Elimina Sconto Box',
         'ask_delete'          => 'Sei sicuro di voler eliminare questo Sconta Box?',
     ],
