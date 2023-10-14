@@ -1,5 +1,5 @@
 @extends('_layouts.auth', [
-    'title' => __('Register'),
+    'title' => __('auth.register'),
 ])
 
 @section('content')
@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title text-primary mb-0">{{ __('Register') }}</h6>
+                                    <h6 class="card-title text-primary mb-0">{{ __('auth.register') }}</h6>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <ul class="list-inline card-toolbar-menu d-flex align-items-center mb-0">
@@ -115,13 +115,13 @@
 
                                     <!-- PASSWORD -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="password">{{ __('Password') }}</label>
+                                        <label class="form-label" for="password">{{ __('auth.login.password') }}</label>
                                         <input id="password"
                                                type="password"
                                                name="password"
                                                class="form-control pe-5 password-input @error('password') is-invalid @enderror"
                                                autocomplete="new-password"
-                                               placeholder="@lang('Enter your password')"
+                                               placeholder="@lang('auth.login.password_label')"
                                                required
                                         />
                                         @error('password')
@@ -131,19 +131,19 @@
 
                                     <!-- PASSWORD CONFIRM -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="password-confirm">{{ __('Confirm Password') }}</label>
+                                        <label class="form-label" for="password-confirm">{{ __('auth.confirm_password') }}</label>
                                         <input id="password-confirm"
                                                type="password"
                                                class="form-control pe-5 password-input"
                                                name="password_confirmation"
                                                autocomplete="new-password"
-                                               placeholder="@lang('Confirm your password')"
+                                               placeholder="@lang('auth.confirm_password')"
                                                required
                                         />
                                     </div>
 
                                     <div class="mt-4">
-                                        <button class="btn btn-success w-100" type="submit">{{ __('Register') }}</button>
+                                        <button class="btn btn-success w-100" type="submit">{{ __('auth.register') }}</button>
                                     </div>
                                 </form>
 
@@ -174,7 +174,7 @@
                             </div>
 
                             <div class="mt-5 text-center">
-                                <p class="mb-0">Already Have an account? <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-underline"> Sign In</a> </p>
+                                <p class="mb-0">@lang('auth.login.sign_in_message') <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-underline"> @lang('auth.login.sign_in')</a> </p>
                             </div>
                         </div>
                     </div>

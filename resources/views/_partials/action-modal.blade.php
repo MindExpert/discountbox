@@ -13,7 +13,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">@lang('general.close')</button>
                 <form action="javascript:void(0);" id="action-form-modal" method="POST">
                     <div id="action-form-inputs"></div>
                     <button type="submit" class="btn btn-danger" id="action-form-button">

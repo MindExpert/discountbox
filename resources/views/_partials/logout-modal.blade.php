@@ -4,7 +4,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h5 class="modal-title" id="logoutModalLabel">@lang('Log Out')</h5>
+                <h5 class="modal-title" id="logoutModalLabel">@lang('general.actions.logout')</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -13,9 +13,9 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">@lang('general.close')</button>
                 <a class="btn btn-primary waves-effect waves-light" href="javascript:void(0)" onclick="event.preventDefault();document.getElementById('partial-logout-form').submit();">
-                    @lang('Log out?')
+                    @lang('general.actions.logout')
                 </a>
                 <form id="partial-logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf

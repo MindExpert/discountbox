@@ -1,5 +1,5 @@
 @extends('_layouts.auth', [
-    'title' => 'Login',
+    'title' => __('auth.login.sign_in'),
 ])
 
 @section('content')
@@ -11,7 +11,7 @@
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title text-primary mb-0">{{ __('Login') }}</h6>
+                                    <h6 class="card-title text-primary mb-0">{{ __('auth.login.title') }}</h6>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <ul class="list-inline card-toolbar-menu d-flex align-items-center mb-0">
@@ -29,14 +29,14 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                        <label for="email" class="form-label">{{ __('auth.login.email') }}</label>
                                         <input id="email" type="email"
                                                class="form-control @error('email') is-invalid @enderror"
                                                name="email"
                                                value="{{ old('email') }}"
                                                required
                                                autocomplete="email"
-                                               placeholder="@lang('Enter your email address')"
+                                               placeholder="@lang('auth.login.email_label')"
                                                autofocus
                                         />
                                         @error('email')
@@ -47,14 +47,14 @@
                                     <div class="mb-3">
                                         @if (Route::has('password.request'))
                                             <div class="float-end">
-                                                <a href="{{ route('password.request') }}" class="text-muted">{{ __('Forgot Your Password?') }}</a>
+                                                <a href="{{ route('password.request') }}" class="text-muted">{{ __('auth.forgot_password.title') }}</a>
                                             </div>
                                         @endif
-                                        <label class="form-label" for="password">{{ __('Password') }}</label>
+                                        <label class="form-label" for="password">{{ __('auth.login.password') }}</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
                                             <input id="password" type="password"
                                                    name="password"
-                                                   placeholder="@lang('Enter your password')"
+                                                   placeholder="@lang('auth.login.password_label')"
                                                    class="form-control @error('password') is-invalid @enderror"
                                                    autocomplete="current-password"
                                                    required
@@ -68,11 +68,11 @@
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" name="remember"
                                                id="auth-remember-check" {{ old('remember') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="auth-remember-check">{{ __('Remember Me') }}</label>
+                                        <label class="form-check-label" for="auth-remember-check">{{ __('auth.login.remember') }}</label>
                                     </div>
 
                                     <div class="mt-4">
-                                        <button class="btn btn-success w-100" type="submit">Sign In</button>
+                                        <button class="btn btn-success w-100" type="submit">@lang('auth.login.sign_in')</button>
                                     </div>
                                 </form>
 
@@ -100,7 +100,7 @@
                             </div>
 
                             <div class="mt-4 text-center">
-                                <p class="mb-0">Don't have an account ? <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline"> Signup</a> </p>
+                                <p class="mb-0">@lang('auth.login.sign_up_message') <a href="{{ route('register') }}" class="fw-semibold text-primary text-decoration-underline"> @lang('auth.login.sign_up')</a> </p>
                             </div>
                         </div>
                     </div>

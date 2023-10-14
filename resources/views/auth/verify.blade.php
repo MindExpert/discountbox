@@ -1,5 +1,5 @@
 @extends('_layouts.auth', [
-    'title' => __('Verify Your Email Address'),
+    'title' => __('auth.verify_email.title'),
 ])
 
 @section('content')
@@ -8,21 +8,21 @@
             <div class="row justify-content-center">
                 <div class="col-md-8 col-lg-6 col-xl-5">
                     <div class="card overflow-hidden">
-                        <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+                        <div class="card-header">{{ __('auth.verify_email.title') }}</div>
 
                         <div class="card-body p-lg-5 p-4">
                             @if (session('resent'))
                                 <div class="alert alert-success" role="alert">
-                                    {{ __('A fresh verification link has been sent to your email address.') }}
+                                    {{ __('auth.verify_email.msg_1') }}
                                 </div>
                             @endif
 
-                            {{ __('Before proceeding, please check your email for a verification link.') }}
-                            {{ __('If you did not receive the email') }},
+                            {{ __('auth.verify_email.msg_2') }}
+                            {{ __('auth.verify_email.msg_3') }},
                             <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
                                 @csrf
                                 <button type="submit" class="btn btn-link p-0 m-0 align-baseline">
-                                    {{ __('click here to request another') }}
+                                    {{ __('auth.verify_email.request_another') }}
                                 </button>
                             </form>
                         </div>

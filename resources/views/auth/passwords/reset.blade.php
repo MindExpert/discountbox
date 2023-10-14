@@ -1,5 +1,5 @@
 @extends('_layouts.auth', [
-    'title' => __('Reset Password'),
+    'title' => __('auth.auth.reset_password.title'),
 ])
 
 @section('content')
@@ -11,13 +11,13 @@
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title text-primary mb-0">{{ __('Reset Password') }}</h6>
+                                    <h6 class="card-title text-primary mb-0">{{ __('auth.reset_password.title') }}</h6>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <ul class="list-inline card-toolbar-menu d-flex align-items-center mb-0">
                                         <li class="list-inline-item">
                                             <a href="{{ url('/') }}" class="align-middle">
-                                                <i class="mdi mdi-home align-middle"></i> Home
+                                                <i class="mdi mdi-home align-middle"></i> @lang('sidebar.menu.home')
                                             </a>
                                         </li>
                                     </ul>
@@ -32,14 +32,14 @@
                                 <input type="hidden" name="token" value="{{ $token }}">
 
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">{{ __('Email Address') }}</label>
+                                    <label for="email" class="form-label">{{ __('auth.reset_password.email') }}</label>
                                     <input id="email" type="email"
                                            class="form-control @error('email') is-invalid @enderror"
                                            name="email"
                                            value="{{ $email ?? old('email') }}"
                                            required
                                            autocomplete="email"
-                                           placeholder="@lang('Enter your email address')"
+                                           placeholder="@lang('auth.login.email_label')"
                                            autofocus
                                     />
                                     @error('email')
@@ -48,12 +48,12 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">{{ __('Password') }}</label>
+                                    <label for="password" class="form-label">{{ __('auth.reset_password.password') }}</label>
                                     <input id="password"
                                            type="password"
                                            class="form-control @error('password') is-invalid @enderror"
                                            name="password"
-                                           placeholder="@lang('Enter your password')"
+                                           placeholder="@lang('auth.login.password_label')"
                                            autocomplete="new-password"
                                            required
                                     />
@@ -63,13 +63,13 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label for="password-confirm" class="form-label">{{ __('Confirm Password') }}</label>
+                                    <label for="password-confirm" class="form-label">{{ __('auth.confirm_password') }}</label>
                                         <input id="password-confirm"
                                                type="password"
                                                class="form-control"
                                                name="password_confirmation"
                                                autocomplete="new-password"
-                                               placeholder="@lang('Confirm your password')"
+                                               placeholder="@lang('auth.confirm_password')"
                                                required
                                         />
                                 </div>
@@ -77,7 +77,7 @@
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Reset Password') }}
+                                            {{ __('auth.reset_password.reset_password_btn') }}
                                         </button>
                                     </div>
                                 </div>

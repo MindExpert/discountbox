@@ -6,18 +6,18 @@
     <div class="account-pages my-4 pt-sm-5">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-5">
+                <div class="col-md-8 col-lg-8 col-xl-8">
                     <div class="card overflow-hidden">
                         <div class="card-header">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title text-primary mb-0">{{ __('Reset Password') }}</h6>
+                                    <h6 class="card-title text-primary mb-0">{{ __('auth.reset_password.title') }}</h6>
                                 </div>
                                 <div class="flex-shrink-0">
                                     <ul class="list-inline card-toolbar-menu d-flex align-items-center mb-0">
                                         <li class="list-inline-item">
                                             <a href="{{ url()->previous() }}" class="align-middle fs-12">
-                                                <i class="mdi mdi-backburger align-middle"></i> Back
+                                                <i class="mdi mdi-backburger align-middle"></i> @lang('general.actions.back')
                                             </a>
                                         </li>
                                     </ul>
@@ -37,7 +37,7 @@
 
                                 <div class="row mb-3">
                                     <label for="email"
-                                           class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                           class="col-md-4 col-form-label text-md-end">{{ __('auth.reset_password.email') }}</label>
 
                                     <div class="col-md-6">
                                         <input id="email" type="email"
@@ -55,7 +55,7 @@
                                 <div class="row mb-0">
                                     <div class="col-md-6 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
-                                            {{ __('Send Password Reset Link') }}
+                                            {{ __('auth.reset_password.send_password_reset_link') }}
                                         </button>
                                     </div>
                                 </div>
