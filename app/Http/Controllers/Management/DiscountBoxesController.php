@@ -33,9 +33,16 @@ class DiscountBoxesController extends Controller
         if ($request->ajax() || $request->wantsJson()) {
             try {
 
-                $datatableQuery = DiscountBox::query()
-                    ->with(['coupon', 'media'])
+                $datatableQuery = DiscountBox::withWinnerRequest()
+                    ->with(['coupon', 'media', 'winning_request'])
                     ->select(['discount_boxes.*'])
+                    ->addSelect([
+                        'current_winner_id' => DiscountRequest::query()
+                            ->selectRaw('user_id')
+                            ->whereColumn('discount_box_id', 'discount_boxes.id')
+                            ->where('status', DiscountRequestStatusEnum::APPROVED->value)
+                            ->limit(1),
+                    ])
                     ->withCount('discount_requests');
 
                 return DataTables::eloquent($datatableQuery)
@@ -352,9 +359,10 @@ class DiscountBoxesController extends Controller
             ->orderByRaw('discount_requests.percentage ASC')
             ->get();
 
-        $redirectTo = $request->get('redirect_to');
+        $redirectTo      = $request->get('redirect_to');
+        $currentWinnerId = $request->get('current_winner_id');
 
-        $modalDetails = view('management.discount-boxes._partials.edit-discount-box-modal', compact('discountBox', 'discountRequestsUser', 'redirectTo'))->render();
+        $modalDetails = view('management.discount-boxes._partials.edit-discount-box-modal', compact('discountBox', 'discountRequestsUser', 'currentWinnerId', 'redirectTo'))->render();
 
         return response()->json([
             'data' => [

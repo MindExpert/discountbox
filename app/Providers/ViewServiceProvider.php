@@ -40,6 +40,8 @@ class ViewServiceProvider extends ServiceProvider
          */
         View::composer([
             '_partials.frontend.navigation',
+            'frontend.profile',
+            'frontend.discount-boxes.show',
         ], UserCreditBalanceComposer::class);
     }
 }

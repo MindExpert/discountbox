@@ -43,7 +43,7 @@ class DiscountBoxesController extends Controller
             ->when($request->has('status'), function ($query) use ($request) {
                 $query->where('discount_boxes.status', $request->input('status'));
             })
-            ->with(['media'])
+            ->with(['product.media'])
             ->where('discount_boxes.show_on_home', true)
             ->orderBy('discount_boxes.created_at', 'DESC')
             ->paginate(12, ['*'], 'discount_boxes_page')
@@ -66,7 +66,7 @@ class DiscountBoxesController extends Controller
         }
 
         $discountBoxes = DiscountBox::query()
-            ->with(['media', 'product'])
+            ->with(['media', 'product.media'])
             ->whereIn('discount_boxes.status', $statuses)
             ->addSelect(['participants' => DiscountRequest::query()
                 ->selectRaw('count(*)')
@@ -86,17 +86,15 @@ class DiscountBoxesController extends Controller
      */
     public function show(DiscountBox $discountBox)
     {
-        $discountBox->load('media', 'product', 'coupon')
+        $discountBox->load('media', 'product.media', 'coupon' )
             ->loadCount('discount_requests as participants');
 
         $winnerUser = $discountBox->discount_requests()
-            ->with('user')
+            ->with('user.transactions')
             ->where('status', DiscountRequestStatusEnum::APPROVED)
             ->first() ?? null;
 
-        $userAvailableCredit = auth()->user()?->availableBalance();
-
-        return view('frontend.discount-boxes.show', compact('discountBox', 'userAvailableCredit', 'winnerUser'));
+        return view('frontend.discount-boxes.show', compact('discountBox', 'winnerUser'));
     }
 
     /**

@@ -32,13 +32,20 @@ class ProfileController extends Controller
         $user = auth()->user();
 
         $user->load([
-            'transactions',
             'pending_discount_requests' => function ($query) {
-                $query->with('discount_box');
+                $query->with([
+                        'discount_box' => function ($query) {
+                            $query->with('product.media');
+                        },
+                    ]);
             },
             'discount_requests' => function ($query) {
                 $query
-                    ->with('discount_box')
+                    ->with([
+                        'discount_box' => function ($query) {
+                            $query->with('product.media');
+                        },
+                    ])
                     ->where('status', DiscountRequestStatusEnum::APPROVED);
             },
         ])->loadCount(['discount_requests']);

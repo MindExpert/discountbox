@@ -144,6 +144,16 @@ class DiscountBox extends Model implements HasMedia
         return $this->hasMany(DiscountRequest::class, 'discount_box_id', 'id');
     }
 
+    /**
+     * Grab only one winning request model
+     *
+     * @return BelongsTo<DiscountRequest>
+     */
+    public function winning_request(): BelongsTo
+    {
+        return $this->belongsTo(DiscountRequest::class, 'winning_request_id', 'id');
+    }
+
     public function getLabelAttribute(): string
     {
         return $this->serial;

@@ -66,7 +66,19 @@
                                 <th><input type="text" class="form-control search-input" name="discount" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="total" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="credit" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
-                                <th><input type="text" class="form-control search-input" name="status" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
+                                <th>
+                                    <select class="form-control search-input select2" name="status" id="status"
+                                            style="width: 100% !important;"
+                                            aria-label="@lang('discount_box.fields.status')"
+                                            data-placeholder="@lang('discount_box.fields.status')"
+                                            data-allow-clear="true"
+                                    >
+                                        <option value=""></option>
+                                        @foreach(\App\Enums\StatusEnum::cases() as $type)
+                                            <option value="{{ $type->value }}">{{ $type->label() }}</option>
+                                        @endforeach
+                                    </select>
+                                </th>
                                 <th><input type="text" class="form-control search-input" name="highlighted" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th><input type="text" class="form-control search-input" name="show_on_home" placeholder="@lang('general.actions.search')" aria-label="@lang('general.actions.search')"></th>
                                 <th></th>

@@ -20,7 +20,7 @@
                                         data-placeholder="@lang('discount_box.fields.select_winner_user')" style="width: 100%">
                                     <option value="">@lang('discount_box.fields.select_winner_user')</option>
                                     @foreach($discountRequestsUser as $requestUser)
-                                        <option value="{{ $requestUser->user_id }}">{{ "{$requestUser->nickname} - {$requestUser->percentage}%" }}</option>
+                                        <option value="{{ $requestUser->user_id }}" @selected($currentWinnerId == $requestUser->user_id)>{{ "{$requestUser->nickname} - {$requestUser->percentage}%" }}</option>
                                     @endforeach
                                 </select>
                                 <span class="invalid-feedback"></span>

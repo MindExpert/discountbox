@@ -11,6 +11,7 @@
 @if(isset($permissions['update_partial']) && $permissions['update_partial'])
     <a href="javascript:void(0)"
        data-model-id="{{$id}}"
+       data-current-winner-id="{{$current_winner_id}}"
        class="btn btn-outline-info btn-sm dt-tippy-btn js-init-dynamic-modal-edit-discount-box"
        title="@lang('discount_box.actions.update_winner')"
     >

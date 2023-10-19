@@ -62,9 +62,9 @@
                                     <th class="label">@lang('discount_box.fields.show_on_home')</th>
                                     <td class="value">
                                         @if($discountBox->show_on_home)
-                                            <span class="badge bg-success">@lang('general.yes')</span>
+                                            <span class="badge bg-success fs-6">@lang('general.yes')</span>
                                         @else
-                                            <span class="badge bg-danger">@lang('general.no')</span>
+                                            <span class="badge bg-danger fs-6">@lang('general.no')</span>
                                         @endif
                                     </td>
                                 </tr>
@@ -72,9 +72,9 @@
                                     <th class="label">@lang('discount_box.fields.highlighted')</th>
                                     <td class="value">
                                         @if($discountBox->highlighted)
-                                            <span class="badge bg-success">@lang('general.yes')</span>
+                                            <span class="badge bg-success fs-6">@lang('general.yes')</span>
                                         @else
-                                            <span class="badge bg-danger">@lang('general.no')</span>
+                                            <span class="badge bg-danger fs-6">@lang('general.no')</span>
                                         @endif
                                     </td>
                                 </tr>

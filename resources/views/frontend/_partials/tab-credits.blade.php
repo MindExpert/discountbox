@@ -4,7 +4,7 @@
 <div class="tab-pane" id="credits-tab">
     <div class="col-lg-12 content">
         <div class="section-title">
-            <h4>@lang('user.actual_credit'): {{ user()?->availableBalance() }}</h4>
+            <h4>@lang('user.actual_credit'): {{ $user_credit_balance ?? '' }}</h4>
         </div>
         @foreach($credits as $credit)
             <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">

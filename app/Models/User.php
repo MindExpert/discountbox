@@ -121,6 +121,12 @@ class User extends Authenticatable
 
     public function availableBalance(): float
     {
+        if ($this->relationLoaded('transactions')) {
+            return (
+                $this->transactions->sum('credit') - $this->transactions->sum('debit')
+            );
+        }
+
         return (
             $this->transactions()->sum('credit') - $this->transactions()->sum('debit')
         );

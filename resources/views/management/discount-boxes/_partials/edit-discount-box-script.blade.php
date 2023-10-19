@@ -16,14 +16,20 @@
                 let $this = $(this);
                 if (!$this.attr('disabled')) {
                     $this.attr('disabled', true);
+
                     setTimeout(() => $this.attr('disabled', false), 1000);
-                    viewModal($(this).data('model-id'));
+
+                    viewModal(
+                        $(this).data('model-id'),
+                        $(this).data('current-winner-id')
+                    );
                 }
             });
+
             //dynamic-modal-edit-discount-box
-            function viewModal(modelId) {
+            function viewModal(modelId, currentWinnerId) {
                 $.ajax({
-                    url: '{{ route('management.discount-boxes.partial-edit', ['redirect_to' => $redirectTo]) }}',
+                    url: '{!! route('management.discount-boxes.partial-edit', ['redirect_to' => $redirectTo, 'current_winner_id' => '__current_winner_id']) !!}'.replace('__current_winner_id', currentWinnerId),
                     type: 'GET',
                     data: {
                         model_id: modelId,
