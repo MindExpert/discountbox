@@ -2,6 +2,23 @@
     'credits' => $credits ?? []
 ])
 <div class="tab-pane" id="credits-tab">
+    <div class="card">
+        <div class="card-body">
+            <h6 class="card-title">@lang('user.fields.invitation_code'): {{ user()?->invitation_code }}</h6>
+            <form id="invitation-code-form">
+                <div class="row mb-2">
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="invitation_email" id="invitation_email" placeholder="{{ __('user.messages.invite_friend') }}">
+                    </div>
+                    <button type="button" id="submit-invitation" class="col-sm-3 btn btn-primary">@lang('general.actions.send')</button>
+                </div>
+                    <small class="text-muted">
+                        <em>{{ __('user.messages.code_helper') }}</em>
+                    </small>
+            </form>
+        </div>
+        <!-- end card body -->
+    </div>
     <div class="col-lg-12 content">
         <div class="section-title">
             <h4>@lang('user.actual_credit'): {{ $user_credit_balance ?? '' }}</h4>
@@ -19,3 +36,46 @@
         @endforeach
     </div>
 </div>
+
+@push('partial-scripts')
+    <script>
+        $(document).ready(function () {
+            $('#submit-invitation').click(function (e) {
+                e.preventDefault();
+                let $this = $(this);
+
+                $this.attr('disabled', true);
+
+                let invitationEmail = $('#invitation_email').val();
+
+                if (invitationEmail) {
+                    $.ajax({
+                        url: '{{ route('frontend.invitation.send') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            invitation_email: invitationEmail
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                $('#invitation_email').val('');
+                                toastr.success(response.message);
+                            } else {
+                                toastr.error(response.message);
+                            }
+
+                            $this.attr('disabled', false)
+                        },
+                        error: function (response) {
+                            toastr.error(response.responseJSON.message, response.statusText);
+                            $this.attr('disabled', false)
+                        }
+                    });
+                } else {
+                    $this.attr('disabled', false)
+                    toastr.error('{{ __('user.messages.email_required') }}');
+                }
+            });
+        });
+    </script>
+@endpush

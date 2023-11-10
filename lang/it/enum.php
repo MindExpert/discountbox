@@ -36,6 +36,7 @@ return [
             TransactionTypeEnum::PROFILE_COMPLETE->value => 'Profilo completato',
             TransactionTypeEnum::LIKE->value             => 'Mi piace',
             TransactionTypeEnum::SHARE->value            => 'Condividi',
+            TransactionTypeEnum::INVITE->value           => 'Invita',
             TransactionTypeEnum::EXPENDITURE->value      => 'Spesa',
             TransactionTypeEnum::MANUAL_CREDIT->value    => 'Crediti manuali',
             TransactionTypeEnum::MANUAL_DEBIT->value     => 'Debiti manuali',

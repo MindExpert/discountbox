@@ -2,6 +2,7 @@
 
 use App\Enums\StatusEnum;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InvitationController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\PrivateStorageController;
 use App\Http\Controllers\DiscountBoxesController;
@@ -53,6 +54,9 @@ Route::prefix('/')
         Route::get('partners')
             ->uses([HomeController::class, 'partners'])
             ->name('partners');
+
+        /** INVITATION Controller*/
+        Route::post('/invitation/send', InvitationController::class)->name('invitation.send');
 
         Route::prefix('discount-boxes')
             ->as('discount-boxes.')

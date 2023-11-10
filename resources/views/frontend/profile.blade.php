@@ -19,7 +19,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-5 mt-2 order-2 order-lg-1">
+                <div class="col-lg-5 mt-2 order-1 order-lg-1">
                     <ul class="nav nav-tabs flex-column">
                         <!-- PROFILE -->
                         <li class="nav-item">
@@ -47,7 +47,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="col-lg-7 order-1 order-lg-2">
+                <div class="col-lg-7 order-2 order-lg-2">
                     <div class="tab-content">
                         <!-- PROFILE -->
                         @include('frontend._partials.tab-profile')

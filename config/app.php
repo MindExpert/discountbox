@@ -121,10 +121,11 @@ return [
     |
     */
     'bonuses' => [
-        'login'   => 10,
-        'share'   => 20,
-        'like'    => 5,
-        'profile' => 20,
+        'like'     => 5,
+        'login'    => 10,
+        'profile'  => 20,
+        'invite'   => 20,
+        'share'    => 20,
         'register' => 50,
     ],
 

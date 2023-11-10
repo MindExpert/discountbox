@@ -74,6 +74,10 @@
                                     <th class="label">@lang('user.discount_requests')</th>
                                     <td class="value">{{ $user->discount_requests_count }}</td>
                                 </tr>
+                                <tr>
+                                    <th class="label">@lang('user.fields.locale')</th>
+                                    <td class="value">{{ $user->invitation_code ?? '---' }}</td>
+                                </tr>
                                 {{--<tr>--}}
                                 {{--    <th class="label">@lang('user.fields.locale')</th>--}}
                                 {{--    <td class="value">@lang("general.locales.{$user->locale}")</td>--}}

@@ -6,16 +6,19 @@ namespace App\Models;
 use App\Enums\DiscountRequestStatusEnum;
 use App\Enums\RolesEnum;
 use App\Models\QueryBuilders\UserQueryBuilder;
+use App\Support\SerialGenerator;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property int                              $id
+ * @property int|null                         $inviter_id
  * @property string                           $nickname
  * @property string                           $first_name
  * @property string                           $last_name
@@ -31,6 +34,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property Carbon|null                      $last_login_at
  * @property string                           $label
  * @property string                           $locale
+ * @property string                           $invitation_code
  * @property string|null                      $remember_token
  * @property Carbon|null                      $created_at
  * @property Carbon|null                      $updated_at
@@ -68,6 +72,10 @@ class User extends Authenticatable
     protected static function boot(): void
     {
         parent::boot();
+
+        static::creating(function (User $user) {
+            $user->invitation_code = SerialGenerator::uniqueRandom(8, 'invitation_code', 'users');
+        });
 
         static::saving(function (User $user) {
             if (($user->isDirty('first_name') && $user->first_name !== null)

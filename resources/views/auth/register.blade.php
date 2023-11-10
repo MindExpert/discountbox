@@ -142,6 +142,20 @@
                                         />
                                     </div>
 
+                                    <!-- INVITATION_CODE -->
+                                    <div class="mb-3">
+                                        <label for="invitation_code" class="form-label">@lang('user.fields.invitation_code')</label>
+                                        <input id="invitation_code" type="text"
+                                               class="form-control @error('invitation_code') is-invalid @enderror"
+                                               name="invitation_code"
+                                               value="{{ old('invitation_code', request()->get('invitation_code')) }}"
+                                               placeholder="@lang('user.fields.invitation_code')"
+                                        />
+                                        @error('invitation_code')
+                                        <span class="invalid-feedback" role="alert">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
                                     <div class="mt-4">
                                         <button class="btn btn-success w-100" type="submit">{{ __('auth.register') }}</button>
                                     </div>

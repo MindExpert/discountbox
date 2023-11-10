@@ -29,6 +29,7 @@ return [
         'password_confirmation'        => 'Conferma Password',
         'remember_token'               => 'Remember Token',
         'locale'                       => 'Locale',
+        'invitation_code'              => 'Codice Amico',
         'email_verified'               => 'Email Verificata',
         'status'                       => 'Stato',
         'active'                       => 'Attivo',
@@ -78,5 +79,14 @@ return [
         'not_banned'          => "L'utente non può essere bannato!",
         'unbanned'            => "L'utente è stato sbloccato con successo!",
         'not_unbanned'        => "L'utente non può essere sbloccato!",
+        'invitation_sent'     => 'Invito inviato con successo!',
+        'invitation_not_sent' => 'Invito non inviato!',
+    ],
+    'messages' => [
+        'invitation_code'       => 'Puoi utilizzare questo codice per invitare i tuoi amici e ottenere 20 crediti sul tuo account.',
+        'code_helper'           => 'Aggiungi l\'e-mail dell\'amico per inviare il tuo codice di invito.',
+        'enter_invitation_code' => 'Inserisci il codice di invito',
+        'invite_friend'         => 'Inserisci l\'e-mail',
+        'email_required'        => 'Email richiesta',
     ],
 ];

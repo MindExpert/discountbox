@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Enums\RolesEnum;
+use App\Enums\TransactionTypeEnum;
+use App\Events\Auth\UserLoggedIn;
 use App\Events\Auth\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -13,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -64,7 +67,7 @@ class RegisterController extends Controller
             //'mobile'     => ['nullable', 'string', 'max:191'],
             'email'      => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'   => ['required', 'string', 'min:8', 'confirmed'],
-            'country_id' => ['nullable', 'numeric'],
+            'invitation_code' => ['nullable', 'string', 'exists:users,invitation_code'],
         ]);
     }
 
@@ -76,7 +79,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'nickname'    => $data['nickname'],
             //'first_name'  => $data['first_name'],
             //'last_name'   => $data['last_name'],
@@ -86,6 +89,45 @@ class RegisterController extends Controller
             'password'    => Hash::make($data['password']),
             'role'        => RolesEnum::USER,
         ]);
+
+        if (isset($data['invitation_code']) && $data['invitation_code'] != null) {
+            $inviter = User::where('invitation_code', $data['invitation_code'])->first();
+
+            if ($inviter) {
+                $user->inviter_id = $inviter->id;
+                $user->save();
+
+                $inviter->transactions()->create([
+                    'credit' => config('app.bonuses.invite'),
+                    'type'   => TransactionTypeEnum::INVITE,
+                    'name'   => json_encode([
+                        'lang'   => 'transaction.names.credit',
+                        'params' => ['actionable' => __('transaction.event.invite')]
+                    ]),
+                    'notes'  => json_encode([
+                        'lang'   => 'transaction.names.login_bonus',
+                        'params' => []
+                    ]),
+                ]);
+                // $inviter->notify(new UserInvited($user));
+            }
+
+            $user->transactions()->create([
+                'credit' => config('app.bonuses.invite'),
+                'type'   => TransactionTypeEnum::INVITE,
+                'name'   => json_encode([
+                    'lang'   => 'transaction.names.credit',
+                    'params' => ['actionable' => __('transaction.event.login')]
+                ]),
+                'notes'  => json_encode([
+                    'lang'   => 'transaction.names.login_bonus',
+                    'params' => []
+                ]),
+            ]);
+
+        }
+
+        return $user;
     }
 
     protected function registered(Request $request, $user)
@@ -104,6 +146,8 @@ class RegisterController extends Controller
 
         // Log the user in after registration
         auth()->login($user);
+
+        event(new UserLoggedIn($user));
 
         return redirect()->to($this->redirectTo());
     }
