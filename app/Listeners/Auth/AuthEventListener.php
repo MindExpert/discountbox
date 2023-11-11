@@ -8,15 +8,14 @@ use Illuminate\Events\Dispatcher;
 use Illuminate\Queue\InteractsWithQueue;
 // events to Handle
 use Illuminate\Support\Carbon;
-use App\Events\Auth\{
+use App\Events\Auth\{UserInvited,
     UserLoggedIn,
     UserLoggedOut,
     UserRegistered,
     UserProviderRegistered,
     UserResendConfirmationLink,
     UserVerified,
-    UserDeactivated
-};
+    UserDeactivated};
 
 class AuthEventListener
 {
@@ -80,6 +79,19 @@ class AuthEventListener
     public function handleUserRegistered($event): void
     {
         logger('handleUserRegistered');
+
+        $event->user->transactions()->create([
+            'credit' => config('app.bonuses.register'),
+            'type'   => TransactionTypeEnum::REGISTER,
+            'name'   => json_encode([
+                'lang'   => 'transaction.names.credit',
+                'params' => ['actionable' => __('transaction.event.register')]
+            ]),
+            'notes'  => json_encode([
+                'lang'   => 'transaction.names.register_bonus',
+                'params' => []
+            ]),
+        ]);
     }
 
     /**
@@ -115,6 +127,27 @@ class AuthEventListener
     }
 
     /**
+     * Handle user verified events.
+     */
+    public function handleUserInvite($event): void
+    {
+        logger('handleUserInvite');
+
+        $event->user->transactions()->create([
+            'credit' => config('app.bonuses.invite'),
+            'type'   => TransactionTypeEnum::INVITE,
+            'name'   => json_encode([
+                'lang'   => 'transaction.names.credit',
+                'params' => ['actionable' => __('transaction.event.invite')]
+            ]),
+            'notes'  => json_encode([
+                'lang'   => 'transaction.names.invite_bonus',
+                'params' => []
+            ]),
+        ]);
+    }
+
+    /**
      * Register the listeners for the subscriber.
      *
      * @param Dispatcher $events
@@ -145,6 +178,11 @@ class AuthEventListener
         $events->listen(
             UserVerified::class,
             'App\Listeners\Auth\AuthEventListener@handleUserVerified'
+        );
+
+        $events->listen(
+            UserInvited::class,
+            'App\Listeners\Auth\AuthEventListener@handleUserInvite'
         );
 
         $events->listen(

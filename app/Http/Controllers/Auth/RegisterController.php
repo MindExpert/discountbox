@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\RolesEnum;
 use App\Enums\TransactionTypeEnum;
+use App\Events\Auth\UserInvited;
 use App\Events\Auth\UserLoggedIn;
 use App\Events\Auth\UserRegistered;
 use App\Http\Controllers\Controller;
@@ -97,34 +98,12 @@ class RegisterController extends Controller
                 $user->inviter_id = $inviter->id;
                 $user->save();
 
-                $inviter->transactions()->create([
-                    'credit' => config('app.bonuses.invite'),
-                    'type'   => TransactionTypeEnum::INVITE,
-                    'name'   => json_encode([
-                        'lang'   => 'transaction.names.credit',
-                        'params' => ['actionable' => __('transaction.event.invite')]
-                    ]),
-                    'notes'  => json_encode([
-                        'lang'   => 'transaction.names.login_bonus',
-                        'params' => []
-                    ]),
-                ]);
-                // $inviter->notify(new UserInvited($user));
+                // Award Inviter bonus
+                event(new UserInvited($inviter));
             }
 
-            $user->transactions()->create([
-                'credit' => config('app.bonuses.invite'),
-                'type'   => TransactionTypeEnum::INVITE,
-                'name'   => json_encode([
-                    'lang'   => 'transaction.names.credit',
-                    'params' => ['actionable' => __('transaction.event.login')]
-                ]),
-                'notes'  => json_encode([
-                    'lang'   => 'transaction.names.login_bonus',
-                    'params' => []
-                ]),
-            ]);
-
+            // Award user who was invited bonus
+            event(new UserInvited($user));
         }
 
         return $user;
@@ -142,12 +121,11 @@ class RegisterController extends Controller
             FlashNotification::info(__('auth.welcome'), __('auth.good_evening', ['name' => auth()->user()->nickname]));
         }
 
+        // Fire event
         event(new UserRegistered($user));
 
         // Log the user in after registration
         auth()->login($user);
-
-        event(new UserLoggedIn($user));
 
         return redirect()->to($this->redirectTo());
     }

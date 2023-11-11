@@ -14,6 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('inviter_id')->nullable()->comment('The user who invited this user');
             $table->string('nickname')->unique();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
@@ -28,7 +29,6 @@ return new class extends Migration
             $table->ipAddress('last_login_ip')->nullable();
             $table->timestamp('last_login_at')->nullable();
             $table->string('locale')->nullable()->default(config('app.locale'));
-            $table->foreignId('inviter_id')->nullable()->comment('The user who invited this user');
             $table->string('invitation_code')->nullable();
             $table->rememberToken();
             $table->timestamps();

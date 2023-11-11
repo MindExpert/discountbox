@@ -8,6 +8,7 @@ enum TransactionTypeEnum: string
     case SHARE            = 'share';
     case LIKE             = 'like';
     case INVITE           = 'invite';
+    case REGISTER         = 'register';
     case PROFILE_COMPLETE = 'profile';
     case EXPENDITURE      = 'expenditure';
     case MANUAL_CREDIT    = 'manual_credit';
@@ -39,6 +40,7 @@ enum TransactionTypeEnum: string
             self::SHARE->value            => 'danger',
             self::LIKE->value             => 'warning',
             self::INVITE->value           => 'success',
+            self::REGISTER->value         => 'info',
             self::PROFILE_COMPLETE->value => 'info',
             self::EXPENDITURE->value      => 'secondary',
             self::MANUAL_CREDIT->value    => 'success',
@@ -52,7 +54,8 @@ enum TransactionTypeEnum: string
             self::LOGIN->value            => 'bi-box-arrow-in-left',
             self::SHARE->value            => 'bi-share',
             self::LIKE->value             => 'bi-star',
-            self::INVITE->value           => 'bi-person-plus',
+            self::INVITE->value           => 'bi-person-fill-up',
+            self::REGISTER->value         => 'bi-person-plus',
             self::PROFILE_COMPLETE->value => 'bi-person-bounding-box',
             self::EXPENDITURE->value      => 'bi-currency-exchange',
             self::MANUAL_CREDIT->value    => 'bi-window-plus',
@@ -67,6 +70,7 @@ enum TransactionTypeEnum: string
             self::SHARE->value            => __('transaction.description.share', ['amount' => config('app.bonuses.share')]),
             self::LIKE->value             => __('transaction.description.like', ['amount' => config('app.bonuses.like')]),
             self::INVITE->value           => __('transaction.description.invite', ['amount' => config('app.bonuses.invite')]),
+            self::REGISTER->value         => __('transaction.description.register', ['amount' => config('app.bonuses.register')]),
             self::PROFILE_COMPLETE->value => __('transaction.description.profile', ['amount' => config('app.bonuses.profile')]),
             self::EXPENDITURE->value      => __('transaction.description.expenditure', ['amount' => $value]),
             self::MANUAL_CREDIT->value    => __('transaction.description.manual', ['type' => 'CREDIT','amount' => $value]),

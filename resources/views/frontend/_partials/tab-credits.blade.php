@@ -10,7 +10,10 @@
                     <div class="col-sm-9">
                         <input type="text" class="form-control" name="invitation_email" id="invitation_email" placeholder="{{ __('user.messages.invite_friend') }}">
                     </div>
-                    <button type="button" id="submit-invitation" class="col-sm-3 btn btn-primary">@lang('general.actions.send')</button>
+                    <button class="col-sm-3 btn btn-primary" type="button"  id="submit-invitation">
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none"></span>
+                        @lang('general.actions.send')
+                    </button>
                 </div>
                     <small class="text-muted">
                         <em>{{ __('user.messages.code_helper') }}</em>
@@ -26,7 +29,7 @@
         @foreach($credits as $credit)
             <div class="icon-box aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
                 <div class="icon"><i class="bi {{$credit->type->icon()}} text-{{$credit->type->color()}}"></i></div>
-                <h6 class="title" style="margin-left: 60px"><a href="">{{ $credit->name }}</a></h6>
+                <h6 class="title" style="margin-left: 60px"><a href="javascript:void(0);">{{ $credit->name }}</a></h6>
                 <p class="description">
                     {{ "$credit->notes" }} @if($credit->credit > 0) {{ $credit->credit }} @else {{ $credit->debit }} @endif <br/>
                     @lang('transaction.fields.type'): {{ $credit->type->label() }} <br>
@@ -45,6 +48,8 @@
                 let $this = $(this);
 
                 $this.attr('disabled', true);
+                // show spinner
+                $this.find('.spinner-border').show();
 
                 let invitationEmail = $('#invitation_email').val();
 
@@ -64,15 +69,18 @@
                                 toastr.error(response.message);
                             }
 
-                            $this.attr('disabled', false)
+                            $this.attr('disabled', false);
+                            $this.find('.spinner-border').hide();
                         },
                         error: function (response) {
                             toastr.error(response.responseJSON.message, response.statusText);
-                            $this.attr('disabled', false)
+                            $this.attr('disabled', false);
+                            $this.find('.spinner-border').hide();
                         }
                     });
                 } else {
-                    $this.attr('disabled', false)
+                    $this.attr('disabled', false);
+                    $this.find('.spinner-border').hide();
                     toastr.error('{{ __('user.messages.email_required') }}');
                 }
             });

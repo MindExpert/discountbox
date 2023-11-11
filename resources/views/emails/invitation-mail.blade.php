@@ -5,7 +5,7 @@
 
     Please click the button below to register your account, and use the code sent  below:
 
-    Code: # {{ $data['invitation_code'] ?? '' }}
+    Code: {{ $data['invitation_code'] ?? '' }}
 
     If you have any questions, please contact us.
 

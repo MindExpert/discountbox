@@ -15,14 +15,13 @@ class InvitationController
              $email = $request->input('invitation_email');
 
              $data = [
-                  'invitation_code'  => auth()->user()->invitation_code,
+                  'invitation_code'  => auth()->user()?->invitation_code,
                   'invitation_email' => $email,
-                  'inviter_name'     => auth()->user()->label,
-                  'registration_url' => route('register', ['invitation_code' => auth()->user()->invitation_code]),
+                  'inviter_name'     => auth()->user()?->label,
+                  'registration_url' => route('register', ['invitation_code' => auth()->user()?->invitation_code]),
              ];
 
              Mail::to($email)->send(new InvitationMail($data));
-
 
              return response()->json([
                  'success' => true,

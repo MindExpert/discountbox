@@ -37,6 +37,7 @@ return [
             TransactionTypeEnum::LIKE->value             => 'Like',
             TransactionTypeEnum::SHARE->value            => 'Share',
             TransactionTypeEnum::INVITE->value           => 'Invite',
+            TransactionTypeEnum::REGISTER->value         => 'Register',
             TransactionTypeEnum::EXPENDITURE->value      => 'Expenditure',
             TransactionTypeEnum::MANUAL_CREDIT->value    => 'Manual Credit',
             TransactionTypeEnum::MANUAL_DEBIT->value     => 'Manual Debit',

@@ -80,7 +80,7 @@ return [
         'unbanned'            => "L'utente è stato sbloccato con successo!",
         'not_unbanned'        => "L'utente non può essere sbloccato!",
         'invitation_sent'     => 'Invito inviato con successo!',
-        'invitation_not_sent' => 'Invito non inviato!',
+        'invitation_not_sent' => 'Invito non inviato! Riprova più tardi o contatta l\'amministratore.',
     ],
     'messages' => [
         'invitation_code'       => 'Puoi utilizzare questo codice per invitare i tuoi amici e ottenere 20 crediti sul tuo account.',

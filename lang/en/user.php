@@ -80,7 +80,7 @@ return [
         'unbanned'            => 'User is successfully unbanned!',
         'not_unbanned'        => 'User could not be unbanned!',
         'invitation_sent'     => 'Invitation is successfully sent!',
-        'invitation_not_sent' => 'Invitation could not be sent!',
+        'invitation_not_sent' => 'Invitation could not be sent! Please try again later or contact support.',
     ],
     'messages' => [
         'invitation_code'       => 'You can use this code to invite your friends and get 20 credits on your account.',
